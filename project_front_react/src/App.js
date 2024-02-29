@@ -1,15 +1,28 @@
 import { BrowserRouter } from "react-router-dom";
+import { useEffect, useState } from "react";
 import "./App.css";
-import Header from "./components/Header";
-import Router from "./Router/Router";
-import React from "react";
+import Navbar from "./components/Navbar";
+import Spinner from "./components/Spinner";
+import Home from "./pages/Home";
+import Footer from "./components/Footer";
 
 function App() {
+  const [loading, setLoading] = useState(true);
+  useEffect(() => {
+    setTimeout(() => {
+      setLoading(false);
+    }, 500);
+  }, []);
+
   return (
-    <BrowserRouter>
-      <Header />
-      <Router />
-    </BrowserRouter>
+    <>
+      {loading ? <Spinner /> : null}
+      <BrowserRouter>
+        <Navbar />
+        <Home />
+        <Footer />
+      </BrowserRouter>
+    </>
   );
 }
 
