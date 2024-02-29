@@ -11,7 +11,7 @@ export default function Testimonial() {
             </h6>
             <h1 className="mb-5">Our Students Say!</h1>
           </div>
-          <div className="owl-carousel testimonial-carousel position-relative">
+          <div className="carousel testimonial-carousel position-relative">
             <div className="testimonial-item text-center">
               <img
                 className="border rounded-circle p-2 mx-auto mb-3"
@@ -44,7 +44,7 @@ export default function Testimonial() {
                 </p>
               </div>
             </div>
-            <div className="testimonial-item text-center">
+            {/* <div className="testimonial-item text-center">
               <img
                 className="border rounded-circle p-2 mx-auto mb-3"
                 src={image}
@@ -75,7 +75,7 @@ export default function Testimonial() {
                   diam amet diam et eos. Clita erat ipsum et lorem et sit.
                 </p>
               </div>
-            </div>
+            </div> */}
           </div>
         </div>
       </div>

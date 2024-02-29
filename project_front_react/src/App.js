@@ -1,10 +1,8 @@
 import { BrowserRouter } from "react-router-dom";
 import { useEffect, useState } from "react";
 import "./App.css";
-import Navbar from "./components/Navbar";
 import Spinner from "./components/Spinner";
-import Home from "./pages/Home";
-import Footer from "./components/Footer";
+import Router from "./Router/Router";
 
 function App() {
   const [loading, setLoading] = useState(true);
@@ -18,9 +16,7 @@ function App() {
     <>
       {loading ? <Spinner /> : null}
       <BrowserRouter>
-        <Navbar />
-        <Home />
-        <Footer />
+        <Router />
       </BrowserRouter>
     </>
   );

@@ -1,4 +1,5 @@
 import { Link } from "react-router-dom";
+
 export default function Navbar() {
   return (
     <>
@@ -56,7 +57,7 @@ export default function Navbar() {
             </Link>
           </div>
           <Link
-            to="/"
+            to="/login"
             className="btn btn-primary py-4 px-lg-5 d-none d-lg-block"
           >
             Join Now<i className="fa fa-arrow-right ms-3"></i>
