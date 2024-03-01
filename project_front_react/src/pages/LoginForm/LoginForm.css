@@ -20,7 +20,7 @@
   background: transparent;
   border: 2px solid rgba(255, 255, 255, 0.2);
   backdrop-filter: blur(30px);
-  color: white;
+  color: black;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
   border-radius: 10px;
   padding: 30px 40px;
@@ -49,7 +49,7 @@
   padding: 20px 45px 20px 20px;
 }
 .input-box input::placeholder {
-  color: #fff;
+  color: black;
 }
 .input-box .icon {
   position: absolute;
@@ -100,4 +100,20 @@
 }
 .register-link p a:hover {
   text-decoration: underline;
+}
+.top-left-button {
+  position: absolute;
+  top: 20px;
+  left: 20px;
+}
+
+.to-home-button {
+  background-color:skyblue;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  padding: 10px 20px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
 }

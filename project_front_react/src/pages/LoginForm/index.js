@@ -30,7 +30,16 @@ export default function LoginForm() {
             </p>
           </div>
         </form>
+       
       </div>
+      <div className="top-left-button">
+     
+      <Link to="/"> 
+        <button type="submit" className="to-home-button">To Home</button>
+      </Link>
     </div>
+
+    </div>
+    
   );
 }

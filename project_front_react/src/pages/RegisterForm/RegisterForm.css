@@ -20,7 +20,7 @@
   background: transparent;
   border: 2px solid rgba(255, 255, 255, 0.2);
   backdrop-filter: blur(30px);
-  color: white;
+  color: black;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
   border-radius: 10px;
   padding: 30px 40px;
@@ -42,14 +42,14 @@
   background: transparent;
 
   font-size: 16px;
-  color: #fff;
+  color:#FFF;
   outline: none;
   border: 2px solid rgba(255, 255, 255, 0.2);
   border-radius: 40px;
   padding: 20px 45px 20px 20px;
 }
 .input-box input::placeholder {
-  color: #fff;
+  color: black;
 }
 .input-box .icon {
   position: absolute;
@@ -101,3 +101,87 @@
 .register-link p a:hover {
   text-decoration: underline;
 }
+.submit-container{
+  display: flex;
+  gap: 30px;
+  
+ 
+}
+.submit{
+  display: flex;
+  justify-content: center;
+  align-items:  center;
+  width:220px;
+  height:  29px;
+  color: #333;
+  background-color: #fff;
+  border-radius: 50px;
+  font-size: 16px;
+  font-weight: 700;
+  cursor: pointer;
+}
+.gray{
+  background-color:skyblue;
+ 
+}
+/* Styles for the select dropdown */
+.select-dropdown {
+  width: 100%;
+  padding: 10px;
+  border: 2px solid rgba(255, 255, 255, 0.2);
+  border-radius: 40px;
+ 
+  appearance:none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  color:black;
+  cursor: pointer;
+ background: transparent;
+}
+
+/* Styling the arrow icon */
+.select-dropdown::after {
+  content: '\25BC'; /* Unicode character for a down arrow */
+  position: absolute;
+  top: 50%;
+  right: 10px;
+  transform: translateY(-50%);
+  pointer-events: none;
+}
+
+/* Styles for the options */
+.select-option {
+  padding: 10px;
+  background-color: blanchedalmond;
+}
+.input-box .file{
+  width: 100%;
+  padding: 10px;
+  border: 2px solid rgba(255, 255, 255, 0.2);
+  border-radius: 50px;
+ 
+  appearance:none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  color:black;
+  cursor: pointer;
+ background: transparent;
+}
+.top-left-button {
+  position: absolute;
+  top: 20px;
+  left: 20px;
+}
+
+.to-home-button {
+  background-color:skyblue;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  padding: 10px 20px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+/* Styles for the selected option */
