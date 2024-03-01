@@ -10,20 +10,23 @@
   justify-content: center;
   align-items: center;
   min-height: 100vh;
-  background: url("../../assets/log8.jpg");
-  background-size: cover;
-  background-position: center;
+  background: url("../../assets/logo2.png");
+  background-size:cover;
+   background-position: center; 
 }
 
 .wrapper {
   width: 420px;
   background: transparent;
-  border: 2px solid rgba(255, 255, 255, 0.2);
+  border:2px solid rgba(255, 255, 255, 0.2);
   backdrop-filter: blur(30px);
   color: black;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
   border-radius: 10px;
   padding: 30px 40px;
+  margin-top: 50px;
+  margin-bottom: 50px;
+  
 }
 .wrapper h1 {
   font-size: 36px;
@@ -44,7 +47,7 @@
   font-size: 16px;
   color:#FFF;
   outline: none;
-  border: 2px solid rgba(255, 255, 255, 0.2);
+  border: 4px solid rgba(255, 255, 255, 0.2);
   border-radius: 40px;
   padding: 20px 45px 20px 20px;
 }
@@ -121,14 +124,14 @@
   cursor: pointer;
 }
 .gray{
-  background-color:skyblue;
+  background-color:#D0D0D0;
  
 }
 /* Styles for the select dropdown */
 .select-dropdown {
   width: 100%;
   padding: 10px;
-  border: 2px solid rgba(255, 255, 255, 0.2);
+  border: 4px solid rgba(255, 255, 255, 0.2);
   border-radius: 40px;
  
   appearance:none;
@@ -157,15 +160,16 @@
 .input-box .file{
   width: 100%;
   padding: 10px;
-  border: 2px solid rgba(255, 255, 255, 0.2);
+  border: 4px solid rgba(255, 255, 255, 0.2);
   border-radius: 50px;
- 
   appearance:none;
   -webkit-appearance: none;
   -moz-appearance: none;
   color:black;
+  bottom: 50%;
   cursor: pointer;
  background: transparent;
+ align-items: center;
 }
 .top-left-button {
   position: absolute;
@@ -174,8 +178,8 @@
 }
 
 .to-home-button {
-  background-color:skyblue;
-  color: #fff;
+  background-color:#fff;
+  color: skyblue;
   border: none;
   border-radius: 5px;
   padding: 10px 20px;
