@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-
+import { BiUserCircle } from "react-icons/bi";
 export default function Navbar() {
   return (
     <>
@@ -56,6 +56,9 @@ export default function Navbar() {
               Contact
             </Link>
           </div>
+          <Link to="/admin" className="btn btn-primary py-4">
+            <BiUserCircle className="fs-3" />
+          </Link>
           <Link
             to="/login"
             className="btn btn-primary py-4 px-lg-5 d-none d-lg-block"
