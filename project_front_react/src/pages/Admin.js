@@ -7,6 +7,7 @@ import Dashboard from "../components/Admin/Dashboard/Dashboard";
 import TeacherList from "../components/Admin/Teacher/TeacherList";
 import StudentList from "../components/Admin/Student/StudentList";
 import CourseList from "../components/Admin/Courses/CourseList";
+import Tables from "../components/Admin/Payment/Tables";
 export default function Admin() {
   const { adminPanel } = useContext(AdminContext);
 
@@ -15,20 +16,15 @@ export default function Admin() {
       case 0:
         return <Dashboard />;
       case 1:
-        return <Dashboard />;
-      case 2:
         return <TeacherList />;
-      case 3:
+      case 2:
         return <StudentList />;
-      case 4:
+      case 3:
         return <CourseList />;
-      case 5:
-        return <h1>5</h1>;
-      case 6:
-        return <h1>6</h1>;
-
+      case 4:
+        return <Tables />;
       default:
-        return <h1>0</h1>;
+        return <Dashboard />;
     }
   }
 

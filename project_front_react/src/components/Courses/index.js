@@ -29,10 +29,21 @@ export default function Courses() {
       price: "$190.00",
       num_of_rating: 3,
       num_of_student_rating: 123,
-      title: "Python Course for Beginners",
+      title:
+        "Python Course for Beginners Python Course for BeginnersPython Course for BeginnersPython Course for BeginnersPython Course for BeginnersPython Course for Beginners",
       instructor: "Yossif",
       hours: 15,
       students: 25,
+    },
+    {
+      image: "",
+      price: "$180.00",
+      num_of_rating: 1,
+      num_of_student_rating: 10,
+      title: "Backend Course for Beginners",
+      instructor: "Ali",
+      hours: 12.5,
+      students: 30,
     },
     {
       image: "",
@@ -60,15 +71,18 @@ export default function Courses() {
           <div className="row g-4 justify-content-center">
             {listCourses.map((item, index) => (
               <>
-                <div
-                  className="col-lg-4 col-md-6 wow fadeInUp"
-                  data-wow-delay="0.5s"
-                  style={{ maxHeight: "500px" }}
-                >
-                  <div className="course-item bg-light">
-                    <div className="position-relative overflow-hidden">
+                <div className="col-lg-3 col-md-6">
+                  <div
+                    className="course-item bg-light"
+                    style={{ borderRadius: "5%" }}
+                  >
+                    {/* Course Image */}
+                    <div
+                      className="position-relative overflow-hidden"
+                      style={{ borderRadius: "5%" }}
+                    >
                       <img className="img-fluid" src={image} alt="" />
-                      <div className="w-100 d-flex justify-content-center position-absolute bottom-0 start-0 mb-4">
+                      <div className="w-100 d-flex justify-content-center position-absolute bottom-0 start-0 mb-2">
                         <Link
                           to="/"
                           className="flex-shrink-0 btn btn-sm btn-primary px-3 border-end"
@@ -85,16 +99,29 @@ export default function Courses() {
                         </Link>
                       </div>
                     </div>
-                    <div className="text-center p-4 pb-0">
-                      <h3 className="mb-0">{item.price}</h3>
+                    {/* Course Title */}
+                    <div className="text-center">
+                      {/* Price */}
+                      <h5 className="m-1">{item.price}</h5>
+                      {/* Rating */}
                       <div className="mb-3">
                         {rating(item.num_of_rating)}
                         <small>({item.num_of_student_rating})</small>
                       </div>
-                      <h5 className="mb-4">{item.title}</h5>
+                      {/* Title */}
+                      <h5
+                        className="m-2"
+                        style={{ height: "50px", overflow: "hidden" }}
+                      >
+                        {item.title}
+                      </h5>
                     </div>
-                    <div className="d-flex border-top">
-                      <small className="flex-fill text-center border-end py-2">
+                    {/* Info */}
+                    <div className="d-flex border-top py-1">
+                      <small
+                        className="text-center border-end p-2"
+                        style={{ overflow: "hidden" }}
+                      >
                         <i className="fa fa-user-tie text-primary me-2"></i>
                         {item.instructor}
                       </small>

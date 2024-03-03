@@ -1,20 +1,34 @@
 import React from "react";
-// import { Link } from "react-router-dom";
-import image from "../../../assets/img/course-1.jpg";
-import Button from "react-bootstrap/Button";
-import Card from "react-bootstrap/Card";
-const CourseItem = ({ data }) => {
+const CourseItem = ({ data, onSelect }) => {
   return (
     <>
-      <Card border="primary" style={{ borderRadius: "10px" }}>
-        <Card.Img variant="top" src={image} style={{ borderRadius: "10px" }} />
-        <Card.Body>
-          <Card.Title>{data.title}</Card.Title>
-          <Button className="text-center" variant="primary">
-            Show
-          </Button>
-        </Card.Body>
-      </Card>
+      <div
+        className="col-5"
+        style={{
+          background: "#dde6ed",
+          borderRadius: "5%",
+          height: "250px",
+          overflow: "hidden",
+        }}
+      >
+        <img
+          src={data.image}
+          width={"100%"}
+          style={{ borderRadius: "5%" }}
+          alt=""
+        />
+        <h5 className="m-3 overflow-hidden">{data.title}</h5>
+        <button
+          type="button"
+          class="btn btn-info "
+          style={{ borderRadius: "5px" }}
+          onClick={() => {
+            onSelect(data);
+          }}
+        >
+          Show
+        </button>
+      </div>
     </>
   );
 };
