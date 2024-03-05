@@ -20,7 +20,7 @@ const CourseItem = ({ data, onSelect }) => {
         <h5 className="m-3 overflow-hidden">{data.title}</h5>
         <button
           type="button"
-          class="btn btn-info "
+          className="btn btn-info "
           style={{ borderRadius: "5px" }}
           onClick={() => {
             onSelect(data);

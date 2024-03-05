@@ -256,7 +256,7 @@ const Tables = () => {
         {/* Table */}
         <Row>
           <div className="col">
-            <Card className="shadow">
+            <Card className="shadow" style={{ borderRadius: "10px" }}>
               <CardHeader className="border-5">
                 <h3>Payment Table</h3>
               </CardHeader>

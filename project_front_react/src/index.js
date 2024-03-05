@@ -5,10 +5,11 @@ import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 
 import "./assets/css/bootstrap.min.css";
-import "./assets/css/style.css";
 import "./assets/lib/animate/animate.min.css";
 import "./assets/lib/owlcarousel/assets/owl.carousel.min.css";
 import "./assets/lib/animate/animate.min.css";
+import "./assets/css/style.css";
+import "./assets/css/theme.min.css";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(

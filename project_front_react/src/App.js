@@ -4,6 +4,7 @@ import "./App.css";
 import Spinner from "./components/Spinner";
 import Router from "./Router/Router";
 import AdminContext from "./context/AdminContext";
+import React from "react";
 function App() {
   const [loading, setLoading] = useState(true);
   useEffect(() => {
@@ -18,6 +19,7 @@ function App() {
   return (
     <>
       {loading ? <Spinner /> : null}
+
       <AdminContext.Provider value={{ adminPanel, setAdminPanel }}>
         <BrowserRouter>
           <Router />

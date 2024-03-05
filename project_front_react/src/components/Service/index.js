@@ -27,9 +27,10 @@ export default function Service() {
     },
   ]);
 
-  const serviceItem = (item) => {
+  const serviceItem = (item, index) => {
     return (
       <div
+        key={index}
         className="col-lg-3 col-sm-6 wow h-25"
         data-wow-delay="0.1s"
         style={{ maxHeight: "250px" }}
@@ -59,7 +60,7 @@ export default function Service() {
       <div className="container-xxl py-5">
         <div className="container">
           <div className="row g-4">
-            {list.map((item, i) => serviceItem(item))}
+            {list.map((item, index) => serviceItem(item, index))}
           </div>
         </div>
       </div>

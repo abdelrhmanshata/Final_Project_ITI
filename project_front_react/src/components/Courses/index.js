@@ -6,15 +6,16 @@ export default function Courses() {
     const items = [];
     for (let i = 0; i < 5; i++) {
       if (i < numRating) {
-        items.push(<small className="fa fa-star text-primary"></small>);
+        items.push(<small key={i} className="fa fa-star text-primary"></small>);
       } else {
-        items.push(<small className="fa fa-star"></small>);
+        items.push(<small key={i} className="fa fa-star"></small>);
       }
     }
     return <>{items}</>;
   };
   const listCourses = [
     {
+      id: "1",
       image: "",
       price: "$150.00",
       num_of_rating: 5,
@@ -25,6 +26,7 @@ export default function Courses() {
       students: 50,
     },
     {
+      id: "2",
       image: "",
       price: "$190.00",
       num_of_rating: 3,
@@ -36,6 +38,7 @@ export default function Courses() {
       students: 25,
     },
     {
+      id: "3",
       image: "",
       price: "$180.00",
       num_of_rating: 1,
@@ -46,6 +49,7 @@ export default function Courses() {
       students: 30,
     },
     {
+      id: "4",
       image: "",
       price: "$180.00",
       num_of_rating: 1,
@@ -62,16 +66,16 @@ export default function Courses() {
       {/* <!-- Courses Start --> */}
       <div className="container-xxl py-5">
         <div className="container">
-          <div className="text-center wow fadeInUp" data-wow-delay="0.1s">
+          <div className="text-center fadeInUp" data-wow-delay="0.1s">
             <h6 className="section-title bg-white text-center text-primary px-3">
               Courses
             </h6>
             <h1 className="mb-5">Popular Courses</h1>
           </div>
           <div className="row g-4 justify-content-center">
-            {listCourses.map((item, index) => (
+            {listCourses.map((item) => (
               <>
-                <div className="col-lg-3 col-md-6">
+                <div key={item.id} className="col-lg-3 col-md-6">
                   <div
                     className="course-item bg-light"
                     style={{ borderRadius: "5%" }}
