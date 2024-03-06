@@ -11,37 +11,42 @@ font-family: "Poppins", sans-serif;
   background-size:cover;
 }
 .profile-button {
-    background: rgb(99, 39, 120);
+    background:#06BBCC;
     box-shadow: none;
     border: none
 }
 
 .profile-button:hover {
-    background: #682773
+    background:rgb(24, 90, 116);
 }
 
-.profile-button:focus {
-    background: #682773;
+/* .profile-button:focus {
+    background: rgb(24, 90, 116);
+    box-shadow: none
+} */
+.profile-button:active {
+    background: rgb(109, 112, 114);
     box-shadow: none
 }
-.profile-button:active {
-    background: #682773;
-    box-shadow: none
+.home-page-container {
+    position: relative;
+    min-height: 50vh; 
+}
+
+.add-course-button {
+    position: absolute;
+    bottom: 20px; 
+    right: 20px; 
 }
 
 .back:hover {
-    color: #682773;
+    color: skyblue;
     cursor: pointer
 }
 
 
 
-.add-experience:hover {
-    background: #BA68C8;
-    color: #fff;
-    cursor: pointer;
-    border: solid 1px #BA68C8
-} 
+
  .profile-settings {
     background-color: #f9f9f9;
     border-radius: 10px;
@@ -82,8 +87,9 @@ font-family: "Poppins", sans-serif;
   
   }
 .tabs{
-    background-color: skyblue;
+    background-color: #06BBCC;
     padding-bottom:5px ;
     padding-top:5px ;
+    color: white;
   
 }

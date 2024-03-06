@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
-import image from "../../assets/img/team-1.jpg";
+import image1 from "../../assets/img/team-1.jpg";
+import image3 from "../../assets/img/team-3.jpg";
 export default function Team() {
   return (
     <>
@@ -19,7 +20,7 @@ export default function Team() {
             >
               <div className="team-item bg-light">
                 <div className="overflow-hidden">
-                  <img className="img-fluid" src={image} alt="" />
+                  <img className="img-fluid" src={image1} alt="" />
                 </div>
                 <div
                   className="position-relative d-flex justify-content-center"
@@ -49,7 +50,7 @@ export default function Team() {
             >
               <div className="team-item bg-light">
                 <div className="overflow-hidden">
-                  <img className="img-fluid" src={image} alt="" />
+                  <img className="img-fluid" src={image3} alt="" />
                 </div>
                 <div
                   className="position-relative d-flex justify-content-center"
@@ -79,7 +80,7 @@ export default function Team() {
             >
               <div className="team-item bg-light">
                 <div className="overflow-hidden">
-                  <img className="img-fluid" src={image} alt="" />
+                  <img className="img-fluid" src={image1} alt="" />
                 </div>
                 <div
                   className="position-relative d-flex justify-content-center"
@@ -109,7 +110,7 @@ export default function Team() {
             >
               <div className="team-item bg-light">
                 <div className="overflow-hidden">
-                  <img className="img-fluid" src={image} alt="" />
+                  <img className="img-fluid" src={image3} alt="" />
                 </div>
                 <div
                   className="position-relative d-flex justify-content-center"

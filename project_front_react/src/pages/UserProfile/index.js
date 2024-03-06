@@ -1,7 +1,11 @@
 import React, { useState } from 'react';
-import { Tabs, Tab } from '@material-ui/core';
+import { Link } from "react-router-dom";
+
 import './UserProfile.css';
 import { FaEdit } from 'react-icons/fa'
+import { Tab, Tabs } from '@mui/material';
+import Navbar from 'components/Navbar';
+import Footer from 'components/Footer';
 
 export default function ProfileUser() {
     const [name, setName] = useState("Student");
@@ -9,6 +13,7 @@ export default function ProfileUser() {
     const [avatar, setAvatar] = useState("https://st3.depositphotos.com/15648834/17930/v/600/depositphotos_179308454-stock-illustration-unknown-person-silhouette-glasses-profile.jpg");
     const [isEditingName, setIsEditingName] = useState(false);
     const [isEditingEmail, setIsEditingEmail] = useState(false);
+    const [action, setAction] = useState("Student");
 
     const handleNameChange = (e) => {
         setName(e.target.value);
@@ -37,8 +42,10 @@ export default function ProfileUser() {
     const handleTabChange = (event, newValue) => {
         setSelectedTab(newValue);
     };
-
+    
     return (
+       <>
+       <Navbar />
       <div className='BBody' >
       
         <div className="container rounded bg-white mt-5 mb-5 ">
@@ -96,40 +103,151 @@ export default function ProfileUser() {
                             <h4 className="text-right">Profile Settings</h4>
                         </div>
                         <div className="row mt-2">
-                            <div className="col-md-6"><label className="labels">Name</label><input type="text" className="form-control" placeholder="first name" /></div>
-                            <div className="col-md-6"><label className="labels">Surname</label><input type="text" className="form-control" placeholder="surname" /></div>
+                 <div className="col-md-6"><label className="labels">Name</label><input type="text" className="form-control" placeholder="Name" /></div>
+                <div className="col-md-6"><label className="labels">Email</label><input type="text" className="form-control" placeholder="Email" /></div>
+                </div>
+                 <div className="row mt-3">
+               <div className="col-md-12"><label className="labels">Password</label><input type="password" className="form-control" placeholder="Password" /></div>
+               <div className="col-md-12"><label className="labels">Phone Number</label><input type="text" className="form-control" placeholder="Phone Number" /></div>
+               <div className="col-md-12"><label className="labels">Address</label><input type="text" className="form-control" placeholder="Address" /></div>
+               {action === 'Teacher' && (
+                    < div className=" row mt-3">
+                       <div className="col-md-12"><label className="labels">identification card</label><input type="number" className="form-control" placeholder="ID card" /></div>
+                       
+                        <div className="col-md-12">
+                            <label className="labels">Grade Level</label>
+                            <select className="form-control bg-white">
+                                <option value="Choose grade level">Choose Grade Level</option>
+                                <option value="primary">primary</option>
+                                <option value="preperatory">preperatory</option>
+                                <option value="secondary">secondary</option>
+                         
+                            </select>
+                            
+                         
+                           
                         </div>
-                        <div className="row mt-3">
-                            <div className="col-md-12"><label className="labels">Mobile Number</label><input type="text" className="form-control" placeholder="enter phone number" /></div>
-                            <div className="col-md-12"><label className="labels">Address Line 1</label><input type="text" className="form-control" placeholder="enter address line 1" /></div>
-                            <div className="col-md-12"><label className="labels">Address Line 2</label><input type="text" className="form-control" placeholder="enter address line 2" /></div>
-                            <div className="col-md-12"><label className="labels">Postcode</label><input type="text" className="form-control" placeholder="enter address line 2" /></div>
-                            <div className="col-md-12"><label className="labels">State</label><input type="text" className="form-control" placeholder="enter address line 2" /></div>
-                            <div className="col-md-12"><label className="labels">Area</label><input type="text" className="form-control" placeholder="enter address line 2" /></div>
-                            <div className="col-md-12"><label className="labels">Email ID</label><input type="text" className="form-control" placeholder="enter email id" /></div>
-                            <div className="col-md-12"><label className="labels">Education</label><input type="text" className="form-control" placeholder="education" /></div>
+                        <div className="col-md-12">
+                               <label className="labels">Image</label>
+                             <input type="file" className="form-control bg-white" />
+                             </div>
+                    </div>
+                )}
+                {action !== 'Teacher' && (
+                    < div className=" row mt-2">
+                        <div className="col-md-12">
+                            <label className="labels">Grade Level</label>
+                            <select className="form-control bg-white">
+                                <option value="Choose Educational Stage">Choose Educational stage</option>
+                                <option value="primary">primary</option>
+                                <option value="preperatory">preperatory</option>
+                                <option value="secondary">secondary</option>
+                            
+                            </select>
                         </div>
+                        <div className="col-md-12">
+                            <label className="labels">Classroom</label>
+                            <select className="form-control bg-white">
+                                <option value="Choose ClassRoom">Choose class Room</option>
+                                <option value="First">First</option>
+                                <option value="Secound">Secound</option>
+                                <option value="Third">Third</option>
+                                
+                            </select>
+                        </div>
+                        
+                    </div>
+                )}
+               </div>
+                        <div className="mt-5 text-center"><button className="btn btn-primary profile-button" type="button">Save Profile</button></div>
                     </div>
                 </div>
                 )}
+                
                 {selectedTab === 1 && (
             <div className="col-md-8 border-right">
             <div className="p-5 py-8">
                 <div className="d-flex justify-content-between align-items-center mb-3">
                     <h4 className="text-right">Courses</h4>
-                </div>
-                <div className="row mt-2">
-                    <div className="col-md-6">CourseName</div>
+             </div>
+                
+                    <div className="row mt-3 "> <div className="row g-4 justify-content-center">
+        <div className="col-6 wow fadeInUp" data-wow-delay="0.1s">
+          <div className="course-item bg-light">
+            <div className="position-relative overflow-hidden">
+              <img
+                className="img-fluid"
+                src={require("../../assets/img/course-1.jpg")}
+                alt=""
+              />
+              <div className="w-100 d-flex justify-content-center position-absolute bottom-0 start-0 mb-4">
+                <Link
+                  to="/"
+                  className="flex-shrink-0 btn btn-sm btn-primary px-3 border-end"
+                  style={{ borderRadius: "30px 0 0 30px" }}
+                >
+                  Read More
+                </Link>
+                <Link
+                  to="/"
+                  className="flex-shrink-0 btn btn-sm btn-primary px-3"
+                  style={{ borderRadius: "0 30px 30px 0" }}
+                >
+                  Join Now
+                </Link>
+              </div>
+            </div>
+            <div className="text-center p-4 pb-0">
+              <h3 className="mb-0">$149.00</h3>
+              <div className="mb-3">
+                <small className="fa fa-star text-primary"></small>
+                <small className="fa fa-star text-primary"></small>
+                <small className="fa fa-star text-primary"></small>
+                <small className="fa fa-star text-primary"></small>
+                <small className="fa fa-star text-primary"></small>
+                <small>(123)</small>
+              </div>
+              <h5 className="mb-4">
+                Web Design & Development Course for Beginners
+              </h5>
+            </div>
+            <div className="d-flex border-top">
+              <small className="flex-fill text-center border-end py-2">
+                <i className="fa fa-user-tie text-primary me-2"></i>John Doe
+              </small>
+              <small className="flex-fill text-center border-end py-2">
+                <i className="fa fa-clock text-primary me-2"></i>1.49 Hrs
+              </small>
+              <small className="flex-fill text-center py-2">
+                <i className="fa fa-user text-primary me-2"></i>30 Students
+              </small>
+        
+          </div>
+        </div>
+      </div>
+      </div>
+      
+
+                    
                    
                 </div>
+               
                 </div>
+                {action === 'Teacher' && (
+                <div className="home-page-container">
+      
+            <Link to="/add-course" className="btn btn-primary mt-3 add-course-button">Add Course</Link>
+        </div>
+                )}
                 </div>
-                    
+                   
                 )}
              
             </div>
         </div>
         </div>
+        <Footer />
+        </> 
       
     );
 }
