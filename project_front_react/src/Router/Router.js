@@ -9,6 +9,7 @@ const Admin = React.lazy(() => import("../pages/Admin"));
 const UserProfile = React.lazy(() => import("../pages/UserProfile/index"));
 const Courses = React.lazy(() => import("../pages/Courses/index"));
 
+
 const Teachers = React.lazy(() => import("../pages/Teachers/index"));
 const NotFound = React.lazy(() => import("../pages/NotFound"));
 export default function Router() {
@@ -28,6 +29,7 @@ export default function Router() {
           <Route path="/admin" element={<Admin />} />
         ) : (
           <Route path="/profile" element={<UserProfile />} />
+        
         )}
         {/* Auth */}
         <Route path="/login" element={<LoginForm />} />

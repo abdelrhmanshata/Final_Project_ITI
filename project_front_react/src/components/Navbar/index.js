@@ -1,3 +1,5 @@
+
+
 import { Link, useNavigate } from "react-router-dom";
 import { BiUserCircle } from "react-icons/bi";
 import { useEffect, useState } from "react";
@@ -89,7 +91,7 @@ export default function Navbar({ active }) {
               Teachers
             </Link>
             <Link
-              to="/course/1"
+              to="/ssss"
               className={
                 active === "About"
                   ? "nav-item nav-link active"
@@ -98,48 +100,37 @@ export default function Navbar({ active }) {
             >
               About
             </Link>
+            {/* <div className="nav-item dropdown">
+              <Link
+                to="/"
+                className="nav-link dropdown-toggle"
+                data-bs-toggle="dropdown"
+              >
+                Pages
+              </Link>
+              <div className="dropdown-menu fade-down m-0">
+                <Link to="/" className="dropdown-item">
+                  Our Team
+                </Link>
+                <Link to="/" className="dropdown-item">
+                  Testimonial
+                </Link>
+                <Link to="/77" className="dropdown-item">
+                  404 Page
+                </Link>
+              </div>
+            </div> */}
           </div>
           {isUserAuth ? (
-            <>
-              <Button
-                className="text-primary"
-                id="demo-positioned-button"
-                aria-controls={open ? "demo-positioned-menu" : undefined}
-                aria-haspopup="true"
-                aria-expanded={open ? "true" : undefined}
-                onClick={handleClick}
-              >
-                {isAdmin ? (
-                  <MdAdminPanelSettings className="fs-3" />
-                ) : (
-                  <BiUserCircle className="fs-3" />
-                )}
-              </Button>
-              <Menu
-                id="demo-positioned-menu"
-                aria-labelledby="demo-positioned-button"
-                anchorEl={anchorEl}
-                open={open}
-                onClose={handleClose}
-                anchorOrigin={{
-                  vertical: "top",
-                  horizontal: "left",
-                }}
-                transformOrigin={{
-                  vertical: "top",
-                  horizontal: "left",
-                }}
-              >
-                <MenuItem
-                  onClick={() => {
-                    isAdmin ? navigate(`/admin`) : navigate(`/profile`);
-                  }}
-                >
-                  Profile
-                </MenuItem>
-                <MenuItem onClick={logout}>Logout</MenuItem>
-              </Menu>
-            </>
+            isAdmin ? (
+              <Link to="/admin" className="btn btn-primary py-4">
+                <MdAdminPanelSettings className="fs-3" />
+              </Link>
+            ) : (
+              <Link to="/profile" className="btn btn-primary py-4">
+                <BiUserCircle className="fs-3" />
+              </Link>
+            )
           ) : (
             <Link
               to="/login"
@@ -153,4 +144,5 @@ export default function Navbar({ active }) {
       {/* <!-- Navbar End --> */}
     </>
   );
-}
+
+          }

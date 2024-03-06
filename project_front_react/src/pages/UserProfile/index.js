@@ -68,11 +68,11 @@ export default function ProfileUser() {
                             <img className="rounded-circle mt-20" width="150px" src={avatar} alt="User Avatar" />
                             <FaEdit
                                 style={{ position: 'absolute', bottom: '0', right: '0', cursor: 'pointer', backgroundColor: 'LightGray', borderRadius: '50%', padding: '5px', width:'30px', height:'30px'}}
-                                onClick={handleEditIconClick} // Call handleEditIconClick when the edit icon is clicked
+                                onClick={handleEditIconClick} 
                             />
                             <input
                                 type="file"
-                                id="avatarInput" // Add an id to the input element
+                                id="avatarInput"
                                 style={{ display: 'none' }}
                                 onChange={handleAvatarChange}
                                 accept="image/*"

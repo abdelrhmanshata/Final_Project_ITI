@@ -4,8 +4,10 @@ import { useEffect, useState } from "react";
 import "./App.css";
 import Spinner from "./components/Spinner";
 import Router from "./Router/Router";
-import AdminContext from "./context/AdminContext";
+
 import React from "react";
+import AdminContext from "./context/AdminContext";
+
 function App() {
   const [loading, setLoading] = useState(true);
   useEffect(() => {
@@ -17,7 +19,7 @@ function App() {
     activeItem: 0,
   });
 
-
+ 
   return (
     <>
       {loading ? <Spinner /> : null}
@@ -27,6 +29,7 @@ function App() {
           <Router />
         </BrowserRouter>
       </AdminContext.Provider>
+
     </>
   );
 }
