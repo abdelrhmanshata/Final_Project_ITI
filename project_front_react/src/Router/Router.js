@@ -8,6 +8,7 @@ const Home = React.lazy(() => import("../pages/Home"));
 const Admin = React.lazy(() => import("../pages/Admin"));
 const Profile = React.lazy(() => import("../pages/Profile"));
 const Courses = React.lazy(() => import("../pages/Courses/index"));
+const SingleCourse = React.lazy(() => import("../pages/SingleCourse/index"));
 const Teachers = React.lazy(() => import("../pages/Teachers/index"));
 const NotFound = React.lazy(() => import("../pages/NotFound"));
 export default function Router() {
@@ -16,6 +17,7 @@ export default function Router() {
     if (localStorage.getItem("User_ID") !== null) {
       if (localStorage.getItem("isAdmin") !== null) {
         setIsAdmin(localStorage.getItem("isAdmin") === "true");
+        // console.log(localStorage.getItem("isAdmin") === "true");
       }
     }
   }, []);
@@ -33,6 +35,7 @@ export default function Router() {
         <Route path="/register" element={<RegisterForm />} />
 
         <Route path="/courses" element={<Courses />} />
+        <Route path="/course/:id" element={<SingleCourse />} />
         <Route path="/teachers" element={<Teachers />} />
 
         <Route path="*" element={<NotFound />} />
