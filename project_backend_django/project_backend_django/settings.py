@@ -40,6 +40,8 @@ INSTALLED_APPS = [
     'rest_framework',
     'corsheaders',
     'user_authentication_app',
+    'student',
+    'django_filters',
 ]
 
 MIDDLEWARE = [
@@ -82,7 +84,7 @@ DATABASES = {
         'ENGINE': 'django.db.backends.postgresql',
         'NAME': 'e-learningtest',
         'USER': 'postgres',
-        'PASSWORD': '19991999',
+        'PASSWORD': 'password',
         'HOST': 'localhost',
         'PORT': '5432',
     }
@@ -131,7 +133,7 @@ STATIC_URL = 'static/'
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 
-AUTH_USER_MODEL='user_authentication_app.User'
+AUTH_USER_MODEL = 'user_authentication_app.User'
 
 CORS_ORIGIN_ALLOW_ALL = True
 CORS_ALLOW_CREDENTIALS = True
