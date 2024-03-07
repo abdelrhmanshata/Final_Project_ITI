@@ -1,8 +1,10 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { BiUserCircle } from "react-icons/bi";
 import { useEffect, useState } from "react";
 import { MdAdminPanelSettings } from "react-icons/md";
+import { Button, Menu, MenuItem } from "@mui/material";
 export default function Navbar({ active }) {
+  const navigate = useNavigate();
   const [isUserAuth, setIsUserAuth] = useState(false);
   const [isAdmin, setIsAdmin] = useState(false);
   useEffect(() => {
@@ -16,6 +18,23 @@ export default function Navbar({ active }) {
       }
     }
   }, []);
+
+  const [anchorEl, setAnchorEl] = useState(null);
+  const open = Boolean(anchorEl);
+  const handleClick = (event) => {
+    setAnchorEl(event.currentTarget);
+  };
+  const handleClose = () => {
+    setAnchorEl(null);
+  };
+
+  const logout = () => {
+    localStorage.setItem("User_ID", "");
+    localStorage.setItem("isAdmin", "");
+    localStorage.setItem("User_JWT", "");
+    localStorage.setItem("User_Type", "");
+    window.location.reload();
+  };
 
   return (
     <>
@@ -70,7 +89,7 @@ export default function Navbar({ active }) {
               Teachers
             </Link>
             <Link
-              to="/ssss"
+              to="/course/1"
               className={
                 active === "About"
                   ? "nav-item nav-link active"
@@ -79,37 +98,48 @@ export default function Navbar({ active }) {
             >
               About
             </Link>
-            {/* <div className="nav-item dropdown">
-              <Link
-                to="/"
-                className="nav-link dropdown-toggle"
-                data-bs-toggle="dropdown"
-              >
-                Pages
-              </Link>
-              <div className="dropdown-menu fade-down m-0">
-                <Link to="/" className="dropdown-item">
-                  Our Team
-                </Link>
-                <Link to="/" className="dropdown-item">
-                  Testimonial
-                </Link>
-                <Link to="/77" className="dropdown-item">
-                  404 Page
-                </Link>
-              </div>
-            </div> */}
           </div>
           {isUserAuth ? (
-            isAdmin ? (
-              <Link to="/admin" className="btn btn-primary py-4">
-                <MdAdminPanelSettings className="fs-3" />
-              </Link>
-            ) : (
-              <Link to="/profile" className="btn btn-primary py-4">
-                <BiUserCircle className="fs-3" />
-              </Link>
-            )
+            <>
+              <Button
+                className="text-primary"
+                id="demo-positioned-button"
+                aria-controls={open ? "demo-positioned-menu" : undefined}
+                aria-haspopup="true"
+                aria-expanded={open ? "true" : undefined}
+                onClick={handleClick}
+              >
+                {isAdmin ? (
+                  <MdAdminPanelSettings className="fs-3" />
+                ) : (
+                  <BiUserCircle className="fs-3" />
+                )}
+              </Button>
+              <Menu
+                id="demo-positioned-menu"
+                aria-labelledby="demo-positioned-button"
+                anchorEl={anchorEl}
+                open={open}
+                onClose={handleClose}
+                anchorOrigin={{
+                  vertical: "top",
+                  horizontal: "left",
+                }}
+                transformOrigin={{
+                  vertical: "top",
+                  horizontal: "left",
+                }}
+              >
+                <MenuItem
+                  onClick={() => {
+                    isAdmin ? navigate(`/admin`) : navigate(`/profile`);
+                  }}
+                >
+                  Profile
+                </MenuItem>
+                <MenuItem onClick={logout}>Logout</MenuItem>
+              </Menu>
+            </>
           ) : (
             <Link
               to="/login"
