@@ -13,7 +13,7 @@ export default function ProfileUser() {
   const [avatar, setAvatar] = useState(require("../../assets/img/team-1.jpg"));
   const [isEditingName, setIsEditingName] = useState(false);
   const [isEditingEmail, setIsEditingEmail] = useState(false);
-  const [action, setAction] = useState("Student");
+  const [action] = useState("Student");
 
   const handleNameChange = (e) => {
     setName(e.target.value);
