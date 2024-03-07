@@ -6,7 +6,7 @@ const LoginForm = React.lazy(() => import("../pages/LoginForm/index"));
 const RegisterForm = React.lazy(() => import("../pages/RegisterForm/index"));
 const Home = React.lazy(() => import("../pages/Home"));
 const Admin = React.lazy(() => import("../pages/Admin"));
-const Profile = React.lazy(() => import("../pages/Profile"));
+const UserProfile = React.lazy(() => import("../pages/UserProfile/index"));
 const Courses = React.lazy(() => import("../pages/Courses/index"));
 const SingleCourse = React.lazy(() => import("../pages/SingleCourse/index"));
 const Teachers = React.lazy(() => import("../pages/Teachers/index"));
@@ -28,7 +28,8 @@ export default function Router() {
         {isAdmin ? (
           <Route path="/admin" element={<Admin />} />
         ) : (
-          <Route path="/profile" element={<Profile />} />
+          <Route path="/profile" element={<UserProfile />} />
+        
         )}
         {/* Auth */}
         <Route path="/login" element={<LoginForm />} />
@@ -36,6 +37,7 @@ export default function Router() {
 
         <Route path="/courses" element={<Courses />} />
         <Route path="/course/:id" element={<SingleCourse />} />
+  
         <Route path="/teachers" element={<Teachers />} />
 
         <Route path="*" element={<NotFound />} />
