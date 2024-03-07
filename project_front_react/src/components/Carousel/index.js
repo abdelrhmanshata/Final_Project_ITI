@@ -41,7 +41,7 @@ export default function CarouselSlider() {
           >
             <Image
               src={carousel_1}
-              class="img-fluid"
+              className="img-fluid"
               style={{ height: "80vh", width: "100vw" }}
               alt="..."
             />

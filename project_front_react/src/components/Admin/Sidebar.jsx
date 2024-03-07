@@ -4,7 +4,6 @@ import {
   BiChalkboard,
   BiCreditCard,
   BiGroup,
-  BiHelpCircle,
   BiHome,
   BiSolidGrid,
 } from "react-icons/bi";
@@ -39,10 +38,18 @@ export default function Sidebar() {
           </Link>
           <Link
             to="/"
-            className={isActive === 1 ? "item active--item" : "item"}
+            className="item"
           >
             <BiHome className="icon" />
             Home
+          </Link>
+          <Link
+            to=""
+            className={isActive === 1 ? "item active--item" : "item"}
+            onClick={() => setItemActive(1)}
+          >
+            <BiGroup className="icon" />
+            Teachers
           </Link>
           <Link
             to=""
@@ -50,39 +57,23 @@ export default function Sidebar() {
             onClick={() => setItemActive(2)}
           >
             <BiGroup className="icon" />
-            Teachers
+            Students
           </Link>
           <Link
             to=""
             className={isActive === 3 ? "item active--item" : "item"}
             onClick={() => setItemActive(3)}
           >
-            <BiGroup className="icon" />
-            Students
+            <BiChalkboard className="icon" />
+            Courses
           </Link>
           <Link
             to=""
             className={isActive === 4 ? "item active--item" : "item"}
             onClick={() => setItemActive(4)}
           >
-            <BiChalkboard className="icon" />
-            Courses
-          </Link>
-          <Link
-            to=""
-            className={isActive === 5 ? "item active--item" : "item"}
-            onClick={() => setItemActive(5)}
-          >
             <BiCreditCard className="icon" />
             Payment
-          </Link>
-          <Link
-            to=""
-            className={isActive === 6 ? "item active--item" : "item"}
-            onClick={() => setItemActive(6)}
-          >
-            <BiHelpCircle className="icon" />
-            Help
           </Link>
         </div>
       </div>

@@ -29,7 +29,8 @@ class UserSerializer(serializers.ModelSerializer):
         if usertype == 'teacher' and identificationcard is None:
             raise serializers.ValidationError("A teacher must provide an identification card.")
 
-        if identificationcard is not None and len(identificationcard) != 14:
+        if  usertype == 'teacher' and  identificationcard is not None and len(identificationcard) != 14:
+
             raise serializers.ValidationError("Identification card must be exactly 14 digits long.")
 
         return data

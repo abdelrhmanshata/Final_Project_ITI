@@ -6,15 +6,16 @@ export default function Courses() {
     const items = [];
     for (let i = 0; i < 5; i++) {
       if (i < numRating) {
-        items.push(<small className="fa fa-star text-primary"></small>);
+        items.push(<small key={i} className="fa fa-star text-primary"></small>);
       } else {
-        items.push(<small className="fa fa-star"></small>);
+        items.push(<small key={i} className="fa fa-star"></small>);
       }
     }
     return <>{items}</>;
   };
   const listCourses = [
     {
+      id: "1",
       image: "",
       price: "$150.00",
       num_of_rating: 5,
@@ -25,16 +26,30 @@ export default function Courses() {
       students: 50,
     },
     {
+      id: "2",
       image: "",
       price: "$190.00",
       num_of_rating: 3,
       num_of_student_rating: 123,
-      title: "Python Course for Beginners",
+      title:
+        "Python Course for Beginners Python Course for BeginnersPython Course for BeginnersPython Course for BeginnersPython Course for BeginnersPython Course for Beginners",
       instructor: "Yossif",
       hours: 15,
       students: 25,
     },
     {
+      id: "3",
+      image: "",
+      price: "$180.00",
+      num_of_rating: 1,
+      num_of_student_rating: 10,
+      title: "Backend Course for Beginners",
+      instructor: "Ali",
+      hours: 12.5,
+      students: 30,
+    },
+    {
+      id: "4",
       image: "",
       price: "$180.00",
       num_of_rating: 1,
@@ -51,24 +66,27 @@ export default function Courses() {
       {/* <!-- Courses Start --> */}
       <div className="container-xxl py-5">
         <div className="container">
-          <div className="text-center wow fadeInUp" data-wow-delay="0.1s">
+          <div className="text-center fadeInUp" data-wow-delay="0.1s">
             <h6 className="section-title bg-white text-center text-primary px-3">
               Courses
             </h6>
             <h1 className="mb-5">Popular Courses</h1>
           </div>
           <div className="row g-4 justify-content-center">
-            {listCourses.map((item, index) => (
+            {listCourses.map((item) => (
               <>
-                <div
-                  className="col-lg-4 col-md-6 wow fadeInUp"
-                  data-wow-delay="0.5s"
-                  style={{ maxHeight: "500px" }}
-                >
-                  <div className="course-item bg-light">
-                    <div className="position-relative overflow-hidden">
+                <div key={item.id} className="col-lg-3 col-md-6">
+                  <div
+                    className="course-item bg-light"
+                    style={{ borderRadius: "5%" }}
+                  >
+                    {/* Course Image */}
+                    <div
+                      className="position-relative overflow-hidden"
+                      style={{ borderRadius: "5%" }}
+                    >
                       <img className="img-fluid" src={image} alt="" />
-                      <div className="w-100 d-flex justify-content-center position-absolute bottom-0 start-0 mb-4">
+                      <div className="w-100 d-flex justify-content-center position-absolute bottom-0 start-0 mb-2">
                         <Link
                           to="/"
                           className="flex-shrink-0 btn btn-sm btn-primary px-3 border-end"
@@ -85,16 +103,29 @@ export default function Courses() {
                         </Link>
                       </div>
                     </div>
-                    <div className="text-center p-4 pb-0">
-                      <h3 className="mb-0">{item.price}</h3>
+                    {/* Course Title */}
+                    <div className="text-center">
+                      {/* Price */}
+                      <h5 className="m-1">{item.price}</h5>
+                      {/* Rating */}
                       <div className="mb-3">
                         {rating(item.num_of_rating)}
                         <small>({item.num_of_student_rating})</small>
                       </div>
-                      <h5 className="mb-4">{item.title}</h5>
+                      {/* Title */}
+                      <h5
+                        className="m-2"
+                        style={{ height: "50px", overflow: "hidden" }}
+                      >
+                        {item.title}
+                      </h5>
                     </div>
-                    <div className="d-flex border-top">
-                      <small className="flex-fill text-center border-end py-2">
+                    {/* Info */}
+                    <div className="d-flex border-top py-1">
+                      <small
+                        className="text-center border-end p-2"
+                        style={{ overflow: "hidden" }}
+                      >
                         <i className="fa fa-user-tie text-primary me-2"></i>
                         {item.instructor}
                       </small>

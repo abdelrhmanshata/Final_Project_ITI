@@ -2,96 +2,264 @@ import React, { useState } from "react";
 import "./RegisterForm.css";
 import { GiTeacher } from "react-icons/gi";
 import { CiImageOn } from "react-icons/ci";
-import { PiStudent,PiIdentificationCard  } from "react-icons/pi";
+import { PiStudent, PiIdentificationCard } from "react-icons/pi";
 
-import { FaUser, FaLock,FaRegAddressCard,FaMailBulk, FaPhone,FaRestroom    } from "react-icons/fa";
+import {
+  FaUser,
+  FaLock,
+  FaRegAddressCard,
+  FaMailBulk,
+  FaPhone,
+  FaRestroom,
+} from "react-icons/fa";
 import { Link } from "react-router-dom";
+import { axiosInstance } from "api/config";
+
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+
 export default function RegisterForm() {
-  const [action,setAction] =useState("Student");
+  const [action, setAction] = useState("Student");
+  const [formData, setFormData] = useState({
+    name: "",
+    email: "",
+    password: "",
+    phonenumber: "",
+    classroom: "",
+    gradelevels: "",
+    address: "",
+    identificationcard: "",
+    educationstage: "",
+    usertype: "student",
+    image: null,
+  });
+
+  const [confirmPassword, setConfirmPassword] = useState("");
+  const [loading, setLoading] = useState(false);
+
+  //
+
+  const handleChange = (e) => {
+    setFormData({ ...formData, [e.target.name]: e.target.value });
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    if (formData.password === confirmPassword) {
+      try {
+        const response = await axiosInstance.post("user/register", formData, {
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
+        });
+        // Handle success (e.g., show success message to the user)
+        if (response.status === 201) {
+          notify("User registered successfully");
+          setLoading(false);
+        }
+      } catch (error) {
+        // Handle error (e.g., display error message to the user)
+        error.response.data.email.forEach((error) => {
+          notify(error);
+        });
+        setLoading(false);
+      }
+    } else {
+      notify("Password Not Matching");
+      setLoading(false);
+    }
+  };
+
+  const handleImageChange = (e) => {
+    const file = e.target.files[0];
+    setFormData({ ...formData, image: file });
+  };
+
+  const notify = (Message) => toast(Message);
+
   return (
     <div className="body">
+      <ToastContainer />
       <div className="wrapper">
-        <form action="">
+        <form onSubmit={handleSubmit}>
           <h1>{action}</h1>
           <div className="submit-container">
-          <div className={action==="Student"?"submit":"submit gray"} onClick={()=>{setAction("Teacher")}} > < GiTeacher />Teacher </div>
-          <div className={action==="Teacher"?"submit":"submit gray"} onClick={()=>{setAction("Student")}}> <PiStudent />Student </div>
-
+            <div
+              className={action === "Student" ? "submit" : "submit gray"}
+              onClick={() => {
+                setAction("Teacher");
+                setFormData({ ...formData, usertype: "teacher" });
+              }}
+            >
+              <GiTeacher />
+              Teacher
+            </div>
+            <div
+              className={action === "Teacher" ? "submit" : "submit gray"}
+              onClick={() => {
+                setAction("Student");
+                setFormData({ ...formData, usertype: "student" });
+              }}
+            >
+              {" "}
+              <PiStudent />
+              Student{" "}
+            </div>
           </div>
           <div className="input-box">
-            <input type="text" placeholder="Name" required />
+            <input
+              type="text"
+              placeholder="Name"
+              required
+              name="name"
+              onChange={handleChange}
+            />
             <FaUser className="icon" />
           </div>
           <div className="input-box">
-            <input type="email" placeholder="Email" required />
-            < FaMailBulk  className="icon" />
+            <input
+              type="email"
+              placeholder="Email"
+              required
+              name="email"
+              onChange={handleChange}
+            />
+            <FaMailBulk className="icon" />
           </div>
           <div className="input-box">
-            <input type="password" placeholder="Password" required />
+            <input
+              type="password"
+              placeholder="Password"
+              required
+              name="password"
+              onChange={handleChange}
+            />
             <FaLock className="icon" />
           </div>
           <div className="input-box">
-            <input type="password" placeholder=" Confirm Password" required />
+            <input
+              type="password"
+              placeholder=" Confirm Password"
+              required
+              name="confirm_password"
+              onChange={(e) => {
+                setConfirmPassword(e.target.value);
+              }}
+            />
             <FaLock className="icon" />
           </div>
           <div className="input-box">
-            <input type="number" placeholder="Phone Number" required />
-            < FaPhone className="icon" />
+            <input
+              type="tel"
+              placeholder="Phone Number"
+              required
+              name="phonenumber"
+              onChange={handleChange}
+            />
+            <FaPhone className="icon" />
           </div>
           <div className="input-box">
-            <input type="text" placeholder=" Addresss" required />
+            <input
+              type="text"
+              placeholder="Addresss"
+              required
+              name="address"
+              onChange={handleChange}
+            />
             <FaRegAddressCard className="icon" />
           </div>
-          {action==="Teacher"?<div></div>:    <div>
-          <div className="input-box">
-    
-        <select name="educationStage" className="select-dropdown" required>
-          <option value=""> Choose Educational Stage</option>
-          <option value="Primary">Primary</option>
-          <option value="Preparatory">Preparatory</option>
-          <option value="Secondary">Secondary</option>
-        </select>
-        <div className="select-arrow"><PiStudent className="icon" /></div>
-     
-    </div>
-    <div className="input-box">
-    
-    <select name="Class Room"  className="select-dropdown" required>
-      <option value=""> Choose ClassRoom</option>
-      <option value="First">First</option>
-      <option value="Secound">Secound</option>
-      <option value="Third">Third</option>
-    </select>
-    <div className="select-arrow"><FaRestroom className="icon" /></div>
- 
-</div>
-  </div>}
-  {action==="Student"?<div></div>:    
-  <div>
-  <div className="input-box">
-            <input type="number" placeholder="Identification Card" required />
-            < PiIdentificationCard className="icon" />
-          </div>
-          <div className="input-box" >
-            <input type="file"   className="file" placeholder="Image"accept="image/*" required />
-            <  CiImageOn className="icon" />
-          </div>
-  <div className="input-box">
-    
-    <select name="gradlevel" className="select-dropdown" required>
-      <option value=""> Choose Grade Level</option>
-      <option value="Primary">Primary</option>
-      <option value="Preparatory">Preparatory</option>
-      <option value="Secondary">Secondary</option>
-    </select>
-    <div className="select-arrow"><GiTeacher className="icon" /></div>
- 
-</div>
-</div>
-}
-
-          <button type="submit">Register</button>
-          <div className="register-link">
+          {action === "Teacher" ? (
+            <div>
+              <div className="input-box">
+                <input
+                  type="text"
+                  placeholder="Identification Card"
+                  required
+                  name="identificationcard"
+                  onChange={handleChange}
+                />
+                <PiIdentificationCard className="icon" />
+              </div>
+              <div className="input-box">
+                <div className="input-group">
+                  <input
+                    type="file"
+                    id="inputGroupFile04"
+                    aria-describedby="inputGroupFileAddon04"
+                    aria-label="Upload"
+                    className="file form-control"
+                    placeholder="Image"
+                    accept="image/*"
+                    required
+                    name="image"
+                    onChange={handleImageChange}
+                  />
+                </div>
+                <CiImageOn className="icon" />
+              </div>
+              <div className="input-box">
+                <select
+                  name="gradelevels"
+                  className="select-dropdown"
+                  required
+                  onChange={handleChange}
+                >
+                  <option value=""> Choose Grade Level</option>
+                  <option value="Primary">Primary</option>
+                  <option value="Preparatory">Preparatory</option>
+                  <option value="Secondary">Secondary</option>
+                </select>
+                <div className="select-arrow">
+                  <GiTeacher className="icon" />
+                </div>
+              </div>
+            </div>
+          ) : (
+            <div>
+              <div className="input-box">
+                <select
+                  name="educationstage"
+                  className="select-dropdown"
+                  required
+                  onChange={handleChange}
+                >
+                  <option value=""> Choose Educational Stage</option>
+                  <option value="Primary">Primary</option>
+                  <option value="Preparatory">Preparatory</option>
+                  <option value="Secondary">Secondary</option>
+                </select>
+                <div className="select-arrow">
+                  <PiStudent className="icon" />
+                </div>
+              </div>
+              <div className="input-box">
+                <select
+                  name="classroom"
+                  className="select-dropdown"
+                  required
+                  onChange={handleChange}
+                >
+                  <option value=""> Choose ClassRoom</option>
+                  <option value="First">First</option>
+                  <option value="Secound">Secound</option>
+                  <option value="Third">Third</option>
+                </select>
+                <div className="select-arrow">
+                  <FaRestroom className="icon" />
+                </div>
+              </div>
+            </div>
+          )}
+          {loading ? (
+            <div className="d-flex m-2 justify-content-center">
+              <div class="spinner-border text-primary" role="status">
+                <span class="visually-hidden"></span>
+              </div>
+            </div>
+          ) : (
+            <button type="submit">Register</button>
+          )}
+          <div className="register-link mt-2">
             <p>
               Already Create an Account?<Link to="/login">Login</Link>
             </p>
@@ -99,12 +267,12 @@ export default function RegisterForm() {
         </form>
       </div>
       <div className="top-left-button">
-     
-      <Link to="/"> 
-        <button type="submit" className="to-home-button">To Home</button>
-      </Link>
-    </div>
-
+        <Link to="/">
+          <button type="submit" className="to-home-button">
+            To Home
+          </button>
+        </Link>
+      </div>
     </div>
   );
 }
