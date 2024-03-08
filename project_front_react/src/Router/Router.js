@@ -7,6 +7,7 @@ const RegisterForm = React.lazy(() => import("../pages/RegisterForm/index"));
 const Home = React.lazy(() => import("../pages/Home"));
 const Admin = React.lazy(() => import("../pages/Admin"));
 const UserProfile = React.lazy(() => import("../pages/UserProfile/index"));
+const Addcourse = React.lazy(() => import("../pages/Addcourse/index"));
 const Courses = React.lazy(() => import("../pages/Courses/index"));
 const SingleCourse = React.lazy(() => import("../pages/SingleCourse/index"));
 const LessonSingle = React.lazy(() => import("../pages/SingleCourse/Lesson/LessonSingle"));
@@ -29,7 +30,11 @@ export default function Router() {
         {isAdmin ? (
           <Route path="/admin" element={<Admin />} />
         ) : (
+          <>
           <Route path="/profile" element={<UserProfile />} />
+          <Route path="/Addcourse" element={<Addcourse />} />
+        </>
+        
         
         )}
         {/* Auth */}

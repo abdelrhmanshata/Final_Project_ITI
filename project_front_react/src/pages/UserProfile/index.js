@@ -8,12 +8,12 @@ import Navbar from "components/Navbar";
 import Footer from "components/Footer";
 
 export default function ProfileUser() {
-  const [name, setName] = useState("Student");
-  const [email, setEmail] = useState("sarayasserma@mail.com.my");
-  const [avatar, setAvatar] = useState(require("../../assets/img/team-1.jpg"));
-  const [isEditingName, setIsEditingName] = useState(false);
-  const [isEditingEmail, setIsEditingEmail] = useState(false);
-  const [action] = useState("Student");
+    const [name, setName] = useState("Student");
+    const [email, setEmail] = useState("sarayasserma@mail.com.my");
+    const [avatar, setAvatar] = useState("https://st3.depositphotos.com/15648834/17930/v/600/depositphotos_179308454-stock-illustration-unknown-person-silhouette-glasses-profile.jpg");
+    const [isEditingName, setIsEditingName] = useState(false);
+    const [isEditingEmail, setIsEditingEmail] = useState(false);
+    const [action, setAction] = useState("Teacher");
 
   const handleNameChange = (e) => {
     setName(e.target.value);
@@ -308,7 +308,7 @@ export default function ProfileUser() {
                 {action === "Teacher" && (
                   <div className="home-page-container">
                     <Link
-                      to="/add-course"
+                      to="/Addcourse"
                       className="btn btn-primary mt-3 add-course-button"
                     >
                       Add Course
@@ -320,7 +320,14 @@ export default function ProfileUser() {
           </div>
         </div>
       </div>
-      <Footer />
-    </>
-  );
+     
+
+                    
+                   
+              
+     
+        <Footer />
+    </> 
+      
+    );
 }
