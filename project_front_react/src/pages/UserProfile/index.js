@@ -51,7 +51,7 @@ export default function ProfileUser() {
             value={selectedTab}
             onChange={handleTabChange}
             indicatorColor="primary"
-            textColor="black"
+            textColor="primary"
             className="tabs"
             centered
           >

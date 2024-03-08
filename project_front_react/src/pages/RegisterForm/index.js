@@ -12,13 +12,15 @@ import {
   FaPhone,
   FaRestroom,
 } from "react-icons/fa";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { axiosInstance } from "api/config";
 
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
 export default function RegisterForm() {
+  const navigate = useNavigate();
+
   const [action, setAction] = useState("Student");
   const [formData, setFormData] = useState({
     name: "",
@@ -56,6 +58,7 @@ export default function RegisterForm() {
         if (response.status === 201) {
           notify("User registered successfully");
           setLoading(false);
+          navigate(`/login`);
         }
       } catch (error) {
         // Handle error (e.g., display error message to the user)

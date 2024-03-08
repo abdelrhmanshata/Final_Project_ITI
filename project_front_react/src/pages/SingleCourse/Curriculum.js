@@ -169,6 +169,80 @@ export default function Curriculum() {
           </List>
         </AccordionDetails>
       </Accordion>
+      {/*  */}
+      <Accordion>
+        <AccordionSummary
+          expandIcon={<ExpandMoreIcon />}
+          aria-controls="panel1-content"
+          id="panel1-header"
+        >
+          Section3
+        </AccordionSummary>
+        <AccordionDetails>
+          <List dense={dense}>
+            <ListItem
+              secondaryAction={
+                <IconButton edge="end" aria-label="delete">
+                  <BiSolidRightArrow />
+                </IconButton>
+              }
+            >
+              <ListItemAvatar>
+                <BiFile size={24} />
+              </ListItemAvatar>
+              <ListItemText
+                primary="Introduction to the course"
+                secondary={secondary ? "Secondary text" : null}
+              />
+            </ListItem>
+            <ListItem
+              secondaryAction={
+                <IconButton edge="end" aria-label="delete">
+                  <BiLockAlt />
+                </IconButton>
+              }
+            >
+              <ListItemAvatar>
+                <BiMoviePlay size={24} />
+              </ListItemAvatar>
+              <ListItemText
+                primary="Structure of the course"
+                secondary={secondary ? "Secondary text" : null}
+              />
+            </ListItem>
+            <ListItem
+              secondaryAction={
+                <IconButton edge="end" aria-label="delete">
+                  <BiLockAlt />
+                </IconButton>
+              }
+            >
+              <ListItemAvatar>
+                <BiMoviePlay size={24} />
+              </ListItemAvatar>
+              <ListItemText
+                primary="Structure of the course"
+                secondary={secondary ? "Secondary text" : null}
+              />
+            </ListItem>
+            <ListItem
+              secondaryAction={
+                <IconButton edge="end" aria-label="delete">
+                  <BiLockAlt />
+                </IconButton>
+              }
+            >
+              <ListItemAvatar>
+                <BiMoviePlay size={24} />
+              </ListItemAvatar>
+              <ListItemText
+                primary="Structure of the course"
+                secondary={secondary ? "Secondary text" : null}
+              />
+            </ListItem>
+          </List>
+        </AccordionDetails>
+      </Accordion>
     </div>
   );
 }
