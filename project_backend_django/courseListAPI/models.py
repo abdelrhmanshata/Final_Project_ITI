@@ -43,8 +43,6 @@ class Video(models.Model):
     videoDescription=models.CharField(max_length=300)
     videoLink=models.CharField(max_length=50)
 
-
-
 # class PaymentMethod(models.Model):
 #     #id Automatic Field
 #     courseID=models.ForeignKey(Course, on_delete=models.CASCADE)

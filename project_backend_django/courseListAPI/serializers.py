@@ -1,6 +1,8 @@
 from rest_framework import serializers
 from courseListAPI.models import *
 
+# Course
+
 class CourseSerializer(serializers.Serializer):
     courseName=serializers.CharField(max_length=50)
     courseDescription=serializers.CharField(max_length=300)
@@ -14,7 +16,7 @@ class CourseAddSerializer(serializers.ModelSerializer):
         model=Course
         fields='__all__'
 
-
+# Video
 
 class VideoSerializer(serializers.Serializer):
     #id Automatic Field
@@ -34,7 +36,7 @@ class VideoGetSerializer(serializers.Serializer):
     videoDescription=serializers.CharField(max_length=300)
     videoLink=serializers.CharField(max_length=50)
 
-
+# Section
 
 class SectionSerializer(serializers.Serializer):
     #id Automatic Field
@@ -50,7 +52,7 @@ class SectionGetSerializer(serializers.Serializer):
     #id Automatic Field
     sectionName=serializers.CharField(max_length=50)
 
-
+# Question
 
 class QuestionSerializer(serializers.Serializer):
     #id Automatic Field
@@ -69,3 +71,22 @@ class QuestionGetSerializer(serializers.Serializer):
     questionHead=serializers.CharField(max_length=50)
     questionAnswer=serializers.CharField(max_length=50)
     questionImage=serializers.ImageField()
+
+# Answer
+    
+class AnswerSerializer(serializers.Serializer):
+    #id Automatic Field
+    questionID=serializers.IntegerField()
+    answerText=serializers.CharField(max_length=50)
+    isAnswer=serializers.BooleanField()
+
+class AnswerAddSerializer(serializers.ModelSerializer):
+    class Meta:
+        model=Answer
+        fields='__all__'
+
+class AnswerGetSerializer(serializers.Serializer):
+    #id Automatic Field
+    questionID=serializers.IntegerField()
+    answerText=serializers.CharField(max_length=50)
+    isAnswer=serializers.BooleanField()

@@ -196,3 +196,22 @@ def deleteAQuestion(request, courseID, questionID):
     except Section.DoesNotExist:
         return Response({'message':"Not Found."})
     
+# Answers
+    
+@api_view(['POST'])
+def addAnAnswer(request):
+    obj=AnswerAddSerializer(data=request.data)
+    print(obj)
+    if (obj.is_valid()):
+        obj.save()
+        return Response({'message':"Answer added."})
+    return Response({'message':"Answer not added. Data might be invalid."})
+
+@api_view(['GET'])
+def getAllAnswers(request, questionID):
+    data=Answer.objects.filter(questionID=questionID)
+    print(data)
+    if (data):
+        datajson=AnswerGetSerializer(data,many=True).data
+        return Response({'message':datajson})
+    return Response({'message':"Video Not Found."})
