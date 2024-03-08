@@ -1,11 +1,9 @@
+import React from "react";
+import "./App.css";
 import { BrowserRouter } from "react-router-dom";
 import { useEffect, useState } from "react";
-
-import "./App.css";
 import Spinner from "./components/Spinner";
 import Router from "./Router/Router";
-
-import React from "react";
 import AdminContext from "./context/AdminContext";
 
 function App() {
@@ -19,7 +17,7 @@ function App() {
     activeItem: 0,
   });
 
- 
+
   return (
     <>
       {loading ? <Spinner /> : null}
