@@ -13,7 +13,7 @@ export default function ProfileUser() {
     const [avatar, setAvatar] = useState("https://st3.depositphotos.com/15648834/17930/v/600/depositphotos_179308454-stock-illustration-unknown-person-silhouette-glasses-profile.jpg");
     const [isEditingName, setIsEditingName] = useState(false);
     const [isEditingEmail, setIsEditingEmail] = useState(false);
-    const [action, setAction] = useState("Student");
+    const [action, setAction] = useState("Teacher");
 
     const handleNameChange = (e) => {
         setName(e.target.value);
@@ -236,7 +236,7 @@ export default function ProfileUser() {
                 {action === 'Teacher' && (
                 <div className="home-page-container">
       
-            <Link to="/add-course" className="btn btn-primary mt-3 add-course-button">Add Course</Link>
+            <Link to="/Addcourse" className="btn btn-primary mt-3 add-course-button">Add Course</Link>
         </div>
                 )}
                 </div>
