@@ -12,6 +12,7 @@ const UserProfile = React.lazy(() => import("../pages/UserProfile/index"));
 const Addcourse = React.lazy(() => import("../pages/Addcourse/index"));
 const Courses = React.lazy(() => import("../pages/Courses/index"));
 const SingleCourse = React.lazy(() => import("../pages/SingleCourse/index"));
+const LessonSingle = React.lazy(() => import("../pages/SingleCourse/Lesson/LessonSingle"));
 const Teachers = React.lazy(() => import("../pages/Teachers/index"));
 const NotFound = React.lazy(() => import("../pages/NotFound"));
 export default function Router() {
@@ -46,7 +47,8 @@ export default function Router() {
         <Route path="/register" element={<RegisterForm />} />
         
         <Route path="/courses" element={<Courses />} />
-        <Route path="/course/:id" element={<SingleCourse />} />
+        <Route path="/course/:courseID" element={<SingleCourse />} />
+        <Route path="/course/:courseID/lesson/:lessonID" element={<LessonSingle />} />
   
         <Route path="/teachers" element={<Teachers />} />
 

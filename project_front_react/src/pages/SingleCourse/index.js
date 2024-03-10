@@ -28,7 +28,7 @@ export default function SingleCourse() {
       <Navbar />
       <Container fixed className="mt-5">
         <Grid container spacing={2}>
-          <Grid item xs={8}>
+          <Grid item sm={12} md={8}>
             <div className="d-flex flex-column mb-5 gap-3">
               <Typography variant="h3" component="h2">
                 UI/UX Design
@@ -85,11 +85,13 @@ export default function SingleCourse() {
             <CourseInfoTab />
             {/*  */}
           </Grid>
-          <Grid item xs={4}>
+          <Grid item sm={12} md={4}>
             <CourseDetails />
           </Grid>
         </Grid>
       </Container>
+      <br />
+      <br />
       <Footer />
     </>
   );

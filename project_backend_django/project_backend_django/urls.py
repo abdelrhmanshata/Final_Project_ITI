@@ -17,9 +17,8 @@ Including another URLconf
 
 from django.contrib import admin
 from django.urls import path, include
-import user_authentication_app.views as views 
+
 urlpatterns = [
-    path("", views.apiConnection, name="get_category"),
-    path("admin/", admin.site.urls),
-    path("user/", include("user_authentication_app.urls")),
+    path('admin/', admin.site.urls),
+    path('user/', include('user_authentication_app.urls')),
 ]

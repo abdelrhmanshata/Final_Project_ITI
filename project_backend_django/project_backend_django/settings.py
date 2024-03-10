@@ -80,9 +80,9 @@ WSGI_APPLICATION = "project_backend_django.wsgi.application"
 DATABASES = {
     "default": {
         "ENGINE": "django.db.backends.postgresql",
-        "NAME": "e-learning",
+        "NAME": "e-learningtest",
         "USER": "postgres",
-        "PASSWORD": "120699",
+        "PASSWORD": "19991999",
         "HOST": "localhost",
         "PORT": "5432",
     }
@@ -135,3 +135,6 @@ AUTH_USER_MODEL = "user_authentication_app.User"
 
 CORS_ORIGIN_ALLOW_ALL = True
 CORS_ALLOW_CREDENTIALS = True
+
+EMAIL_HOST = 'localhost'
+EMAIL_PORT = 1025

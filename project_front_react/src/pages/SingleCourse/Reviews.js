@@ -1,7 +1,15 @@
-import { Grid, Paper, Rating, Typography } from "@mui/material";
+import {
+  Button,
+  Grid,
+  Paper,
+  Rating,
+  TextField,
+  Typography,
+} from "@mui/material";
 import React from "react";
 import { ProgressBar } from "react-bootstrap";
 import StudentReviews from "./StudentReviews";
+import HoverRating from "./Lesson/HoverRating";
 
 export default function Reviews() {
   return (
@@ -106,6 +114,16 @@ export default function Reviews() {
             </Paper>
           </Grid>
         </Grid>
+        <br />
+        <Paper className="mt-4 p-4">
+          <div className="d-flex flex-column gap-2">
+            <Typography variant="h5">Add Reviews & Rate</Typography>
+            <Typography variant="body2">What is it like to Course?</Typography>
+            <HoverRating />
+            <TextField fullWidth label="Reviews" multiline rows={5} />
+            <Button variant="contained">Submit Review</Button>
+          </div>
+        </Paper>
         <br />
         <Typography component="div" className="d-flex bg-primary">
           <StudentReviews />
