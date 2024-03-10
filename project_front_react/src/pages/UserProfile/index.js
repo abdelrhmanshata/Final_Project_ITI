@@ -7,6 +7,11 @@ import { Tab, Tabs } from "@mui/material";
 import Navbar from "components/Navbar";
 import Footer from "components/Footer";
 
+import { faPlus, faEdit, faTrashAlt } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import CardCourse from "components/Profile/CardCousre";
+
+
 export default function ProfileUser() {
     const [name, setName] = useState("Student");
     const [email, setEmail] = useState("sarayasserma@mail.com.my");
@@ -14,7 +19,7 @@ export default function ProfileUser() {
     const [isEditingName, setIsEditingName] = useState(false);
     const [isEditingEmail, setIsEditingEmail] = useState(false);
     const [action, setAction] = useState("Teacher");
-
+    const [videoTitle, setVideoTitle] = useState("");
   const handleNameChange = (e) => {
     setName(e.target.value);
   };
@@ -37,14 +42,16 @@ export default function ProfileUser() {
   };
 
   const [selectedTab, setSelectedTab] = useState(0);
-
   const handleTabChange = (event, newValue) => {
     setSelectedTab(newValue);
   };
 
+
+
   return (
     <>
       <Navbar />
+
       <div className="BBody">
         <div className="container rounded bg-white mt-5 mb-5 ">
           <Tabs
@@ -238,73 +245,23 @@ export default function ProfileUser() {
             )}
 
             {selectedTab === 1 && (
-              <div className="col-md-8 border-right">
+              <div className="col border-right">
                 <div className="p-5 py-8">
                   <div className="d-flex justify-content-between align-items-center mb-3">
                     <h4 className="text-right">Courses</h4>
+                   
                   </div>
 
-                  <div className="row mt-3 ">
-                    {" "}
-                    <div className="row g-4 justify-content-center">
-                      <div className="col-6 wow fadeInUp" data-wow-delay="0.1s">
-                        <div className="course-item bg-light">
-                          <div className="position-relative overflow-hidden">
-                            <img
-                              className="img-fluid"
-                              src={require("../../assets/img/course-1.jpg")}
-                              alt=""
-                            />
-                            <div className="w-100 d-flex justify-content-center position-absolute bottom-0 start-0 mb-4">
-                              <Link
-                                to="/"
-                                className="flex-shrink-0 btn btn-sm btn-primary px-3 border-end"
-                                style={{ borderRadius: "30px 0 0 30px" }}
-                              >
-                                Read More
-                              </Link>
-                              <Link
-                                to="/"
-                                className="flex-shrink-0 btn btn-sm btn-primary px-3"
-                                style={{ borderRadius: "0 30px 30px 0" }}
-                              >
-                                Join Now
-                              </Link>
-                            </div>
-                          </div>
-                          <div className="text-center p-4 pb-0">
-                            <h3 className="mb-0">$149.00</h3>
-                            <div className="mb-3">
-                              <small className="fa fa-star text-primary"></small>
-                              <small className="fa fa-star text-primary"></small>
-                              <small className="fa fa-star text-primary"></small>
-                              <small className="fa fa-star text-primary"></small>
-                              <small className="fa fa-star text-primary"></small>
-                              <small>(123)</small>
-                            </div>
-                            <h5 className="mb-4">
-                              Web Design & Development Course for Beginners
-                            </h5>
-                          </div>
-                          <div className="d-flex border-top">
-                            <small className="flex-fill text-center border-end py-2">
-                              <i className="fa fa-user-tie text-primary me-2"></i>
-                              John Doe
-                            </small>
-                            <small className="flex-fill text-center border-end py-2">
-                              <i className="fa fa-clock text-primary me-2"></i>
-                              1.49 Hrs
-                            </small>
-                            <small className="flex-fill text-center py-2">
-                              <i className="fa fa-user text-primary me-2"></i>30
-                              Students
-                            </small>
-                          </div>
-                        </div>
-                      </div>
+                 
+                  <div className="component" style={{ display: 'flex', flexDirection: 'row', gap: '16px' }}>
+                      <CardCourse />
+                      <CardCourse />
+                      
                     </div>
-                  </div>
-                </div>
+
+
+                                          </div>
+             
                 {action === "Teacher" && (
                   <div className="home-page-container">
                     <Link
@@ -320,11 +277,6 @@ export default function ProfileUser() {
           </div>
         </div>
       </div>
-     
-
-                    
-                   
-              
      
         <Footer />
     </> 
