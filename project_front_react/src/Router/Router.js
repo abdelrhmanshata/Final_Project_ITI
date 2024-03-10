@@ -1,13 +1,52 @@
-import React, { Suspense } from "react";
+import React, { Suspense, useEffect, useState } from "react";
 import { Route, Routes } from "react-router-dom";
+import Spinner from "../components/Spinner";
 
+const LoginForm = React.lazy(() => import("../pages/LoginForm/index"));
+const RegisterForm = React.lazy(() => import("../pages/RegisterForm/index"));
 const Home = React.lazy(() => import("../pages/Home"));
+const Admin = React.lazy(() => import("../pages/Admin"));
+const UserProfile = React.lazy(() => import("../pages/UserProfile/index"));
+const Addcourse = React.lazy(() => import("../pages/Addcourse/index"));
+const Courses = React.lazy(() => import("../pages/Courses/index"));
+const SingleCourse = React.lazy(() => import("../pages/SingleCourse/index"));
+const LessonSingle = React.lazy(() => import("../pages/SingleCourse/Lesson/LessonSingle"));
+const Teachers = React.lazy(() => import("../pages/Teachers/index"));
 const NotFound = React.lazy(() => import("../pages/NotFound"));
 export default function Router() {
+  const [isAdmin, setIsAdmin] = useState(false);
+  useEffect(() => {
+    if (localStorage.getItem("User_ID") !== null) {
+      if (localStorage.getItem("isAdmin") !== null) {
+        setIsAdmin(localStorage.getItem("isAdmin") === "true");
+        // console.log(localStorage.getItem("isAdmin") === "true");
+      }
+    }
+  }, []);
   return (
-    <Suspense fallback={<h5>Loading ...</h5>}>
+    <Suspense fallback={<Spinner />}>
       <Routes>
         <Route path="" element={<Home />} />
+        {isAdmin ? (
+          <Route path="/admin" element={<Admin />} />
+        ) : (
+          <>
+          <Route path="/profile" element={<UserProfile />} />
+          <Route path="/Addcourse" element={<Addcourse />} />
+        </>
+        
+        
+        )}
+        {/* Auth */}
+        <Route path="/login" element={<LoginForm />} />
+        <Route path="/register" element={<RegisterForm />} />
+
+        <Route path="/courses" element={<Courses />} />
+        <Route path="/course/:courseID" element={<SingleCourse />} />
+        <Route path="/course/:courseID/lesson/:lessonID" element={<LessonSingle />} />
+  
+        <Route path="/teachers" element={<Teachers />} />
+
         <Route path="*" element={<NotFound />} />
       </Routes>
     </Suspense>

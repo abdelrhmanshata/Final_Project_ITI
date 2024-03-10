@@ -1,0 +1,26 @@
+virtualenv env
+env\Scripts\activate
+pip install django
+django-admin startproject djangoAuth
+
+python manage.py runserver 9000
+python manage.py startapp projects_app
+python manage.py createsuperuser
+
+#restart SEQUENCE
+#ALTER SEQUENCE ecommerce_db_products_id_seq RESTART WITH 1 ;
+
+python manage.py makemigrations     -> # create migrations 
+python manage.py migrate            -> # save migration in database 
+python manage.py createsuperuser
+
+### Add to urls ###
+pip install django-bootstrap-v5
+pip install django-crispy-forms
+pip install django-bootstrap4 
+pip install crispy-bootstrap4
+pip install django-crispy-forms==1.13.0
+pip install Pillow
+    
+
+

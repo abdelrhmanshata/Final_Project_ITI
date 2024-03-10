@@ -1,20 +1,25 @@
+import About from "../components/About";
+import Carousel from "../components/Carousel";
+import Categories from "../components/Categories";
+import Courses from "../components/Courses";
+import Service from "../components/Service";
+import Team from "../components/Team";
+// import Testimonial from "../components/Testimonial";
+import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
-import About from "../components/Home/About";
-import Categories from "../components/Home/Categories";
-import Carousel from "../components/Home/Carousel";
-import Services from "../components/Home/Services";
 
 export default function Home() {
   return (
     <>
-      {/* <!-- Carousel Start --> */}
+      <Navbar active={"Home"} />
       <Carousel />
-      <Services />
+      <Service />
       <About />
       <Categories />
+      <Courses />
+      <Team />
+      {/* <Testimonial /> */}
       <Footer />
-
-      {/* <!-- Carousel End --> */}
     </>
   );
 }
