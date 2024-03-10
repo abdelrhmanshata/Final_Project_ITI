@@ -1,8 +1,7 @@
 import React, { Suspense, useEffect, useState } from "react";
 import { Route, Routes } from "react-router-dom";
 import Spinner from "../components/Spinner";
-import ExpandIcon from "components/Profile/ExpandIcon";
-import CardCourse from "components/Profile/CardCousre";
+
 
 const LoginForm = React.lazy(() => import("../pages/LoginForm/index"));
 const RegisterForm = React.lazy(() => import("../pages/RegisterForm/index"));
@@ -34,9 +33,7 @@ export default function Router() {
         ) : (
           <>
           <Route path="/profile" element={<UserProfile />} />
-          <Route path="/sara" element={<ExpandIcon />} />
-          <Route path="/card" element={<CardCourse />} />
-        
+         
           <Route path="/Addcourse" element={<Addcourse />} />
         </>
         
