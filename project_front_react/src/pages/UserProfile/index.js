@@ -7,8 +7,6 @@ import { Tab, Tabs } from "@mui/material";
 import Navbar from "components/Navbar";
 import Footer from "components/Footer";
 
-import { faPlus, faEdit, faTrashAlt } from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import CardCourse from "components/Profile/CardCousre";
 import CourseStudent from "components/Profile/CourseStudent";
 

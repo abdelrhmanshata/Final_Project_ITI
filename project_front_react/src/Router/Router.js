@@ -12,7 +12,7 @@ const Addcourse = React.lazy(() => import("../pages/Addcourse/index"));
 const Courses = React.lazy(() => import("../pages/Courses/index"));
 const SingleCourse = React.lazy(() => import("../pages/SingleCourse/index"));
 const LessonSingle = React.lazy(() =>
-  import("../pages/SingleCourse/Lesson/LessonSingle")
+  import("../components/SingleCourse/Lesson/LessonSingle")
 );
 const Teachers = React.lazy(() => import("../pages/Teachers/index"));
 const NotFound = React.lazy(() => import("../pages/NotFound"));
