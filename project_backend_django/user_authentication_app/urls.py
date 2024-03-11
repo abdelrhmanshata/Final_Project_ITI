@@ -1,4 +1,5 @@
 from django.urls import path
+from .views import *
 from .views import RegisterView, LoginView, UserView, LogoutView, ForgetPasswordView,ResetPasswordView,Print_All_Teachers,Print_All_Students, Print_All_Users,Get_Specific_User,Update_User,Delete_User,Get_Approved_User
 
 
@@ -17,4 +18,6 @@ urlpatterns = [
     path('Update_User/<int:id>',Update_User,name='Update_User'),
     path('Delete_User/<int:id>',Delete_User,name='Delete_User'),
     path('Get_Approved_User/<int:id>',Get_Approved_User,name='Get_Approved_User'),
+    
+     path('getUserImage/<int:userID>', getUserImage, name='getUserImage'),
 ]

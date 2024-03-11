@@ -1,5 +1,5 @@
 import Navbar from "components/Navbar";
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import {
   Avatar,
@@ -17,12 +17,25 @@ import {
 import CourseInfoTab from "./CourseInfoTab";
 import Footer from "components/Footer";
 import CourseDetails from "./CourseDetails";
+import { axiosInstance } from "api/config";
 
 export default function SingleCourse() {
   const params = useParams();
+  const [course, setCourse] = useState({});
+
   useEffect(() => {
-    console.log(params.id);
-  }, [params]);
+    getData();
+  });
+
+  async function getData() {
+    await axiosInstance
+      .get(`course/listAllCourses/${params.courseID}`)
+      .then((res) => {
+        setCourse(res.data.message[0]);
+      })
+      .catch((err) => console.log(err));
+  }
+
   return (
     <>
       <Navbar />
@@ -31,10 +44,10 @@ export default function SingleCourse() {
           <Grid item sm={12} md={8}>
             <div className="d-flex flex-column mb-5 gap-3">
               <Typography variant="h3" component="h2">
-                UI/UX Design
+                {course.courseName}
               </Typography>
               <Typography variant="body2">
-                User Interface Design Essentials - UI/UX Design
+                Explore the Foundations of {course.courseName}
               </Typography>
             </div>
             <div className="d-flex mb-3 gap-2 align-items-center">
@@ -82,11 +95,11 @@ export default function SingleCourse() {
             </div>
 
             {/*  */}
-            <CourseInfoTab />
+            <CourseInfoTab data={course} />
             {/*  */}
           </Grid>
           <Grid item sm={12} md={4}>
-            <CourseDetails />
+            <CourseDetails data={course} />
           </Grid>
         </Grid>
       </Container>

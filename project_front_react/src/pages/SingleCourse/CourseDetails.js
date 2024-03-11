@@ -11,7 +11,7 @@ import { TbCertificate } from "react-icons/tb";
 import { BsCalendarDate } from "react-icons/bs";
 import { VscSettings } from "react-icons/vsc";
 
-export default function CourseDetails() {
+export default function CourseDetails({ data }) {
   return (
     <>
       <Paper className="p-2">
@@ -19,7 +19,7 @@ export default function CourseDetails() {
           <Image
             width={"100%"}
             height={250}
-            src={require("../../assets/img/course-3.jpg")}
+            src={`http://127.0.0.1:9000/course/get_image/${data.id}`}
             rounded
             className="border border-2 border-primary"
           />
@@ -46,7 +46,7 @@ export default function CourseDetails() {
           <div className="d-flex align-items-center gap-2">
             <MdOutlineOndemandVideo size={20} />
             <span className="w-50">Lectures</span>
-            <span className="w-50 text-end">32</span>
+            <span className="w-50 text-end">{data.courseLessons}</span>
           </div>
           <div className="d-flex align-items-center gap-2">
             <BiBookReader size={20} />

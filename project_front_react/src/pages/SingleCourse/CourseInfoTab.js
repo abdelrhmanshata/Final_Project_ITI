@@ -41,7 +41,7 @@ function a11yProps(index) {
   };
 }
 
-export default function CourseInfoTab() {
+export default function CourseInfoTab({data}) {
   const [value, setValue] = React.useState(0);
   const handleChange = (event, newValue) => {
     setValue(newValue);
@@ -63,7 +63,7 @@ export default function CourseInfoTab() {
           </Tabs>
         </Box>
         <CustomTabPanel value={value} index={0}>
-          <Overview />
+          <Overview course={data}/>
         </CustomTabPanel>
         <CustomTabPanel value={value} index={1}>
           <Curriculum />

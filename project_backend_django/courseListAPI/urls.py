@@ -9,14 +9,16 @@ urlpatterns = [
     path('addACourse/', views.addACourse, name="addACourse"),
     path('updateACourse/', views.updateACourse, name="updateACourse"),
     path('deleteACourse/<int:courseID>', views.deleteACourse, name="deleteACourse"),
+    
+    path('get_image/<int:courseID>', views.getImage, name='get_image'),
 
     # Sections
 
-    path('course/<int:courseID>/sections/all/', views.getAllSections, name="getAllSections"),
-    path('course/<int:courseID>/<int:sectionID>/', views.getASection, name="getASection"),
-    path('course/<int:courseID>/addASection/', views.addASection, name="addASection"),
-    path('course/<int:courseID>/updateASection/', views.updateASection, name="updateASection"),
-    path('course/<int:courseID>/deleteASection/<int:sectionID>/', views.deleteASection, name="deleteASection"),
+    path('<int:courseID>/sections/all/', views.getAllSections, name="getAllSections"),
+    path('<int:courseID>/<int:sectionID>/', views.getASection, name="getASection"),
+    path('<int:courseID>/addASection/', views.addASection, name="addASection"),
+    path('<int:courseID>/updateASection/', views.updateASection, name="updateASection"),
+    path('<int:courseID>/deleteASection/<int:sectionID>/', views.deleteASection, name="deleteASection"),
 
     # Videos
 
