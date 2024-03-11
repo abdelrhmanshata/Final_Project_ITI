@@ -44,6 +44,8 @@ class VideoAddSerializer(serializers.ModelSerializer):
 
 class VideoGetSerializer(serializers.Serializer):
     # id Automatic Field
+    id = serializers.IntegerField()
+    sectionID = serializers.PrimaryKeyRelatedField(queryset=Section.objects.all())
     videoTitle = serializers.CharField(max_length=50)
     videoDescription = serializers.CharField(max_length=300)
     videoLink = serializers.CharField(max_length=50)
@@ -66,6 +68,8 @@ class SectionAddSerializer(serializers.ModelSerializer):
 
 class SectionGetSerializer(serializers.Serializer):
     # id Automatic Field
+    id = serializers.IntegerField()
+    courseID = serializers.PrimaryKeyRelatedField(queryset=Course.objects.all())
     sectionName = serializers.CharField(max_length=50)
 
 

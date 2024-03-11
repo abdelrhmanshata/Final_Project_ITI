@@ -17,7 +17,8 @@ urlpatterns = [
     path('Get_Specific_User/<int:id>',Get_Specific_User,name='Get_Specific_User'),
     path('Update_User/<int:id>',Update_User,name='Update_User'),
     path('Delete_User/<int:id>',Delete_User,name='Delete_User'),
-    path('Get_Approved_User/<int:id>',Get_Approved_User,name='Get_Approved_User'),
+    
+    path('Get_Approved_User/<int:userId>/<int:isApprove>',Get_Approved_User,name='Get_Approved_User'),
     
      path('getUserImage/<int:userID>', getUserImage, name='getUserImage'),
 ]

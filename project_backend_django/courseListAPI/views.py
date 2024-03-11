@@ -45,6 +45,15 @@ def getACourse(request, courseID):
         return Response({"message": datajson})
     return Response({"message": "Course Not Found."})
 
+@api_view(["GET"])
+def getTeacherCourse(request, teacherID):
+    data = Course.objects.filter(userID=teacherID)
+    if data:
+        datajson = CourseSerializer(data, many=True).data
+        return Response({"message": datajson})
+    return Response({"message": "Course Not Found."})
+
+
 
 @api_view(["POST", "GET", "PUT"])
 def updateACourse(request):
@@ -84,9 +93,8 @@ def addAVideo(request):
 
 
 @api_view(["GET"])
-def getAllVideos(request, courseID):
-    data = Video.objects.filter(courseID=courseID)
-    print(data)
+def getAllVideos(request, sectionID):
+    data = Video.objects.filter(sectionID=sectionID)
     if data:
         datajson = VideoGetSerializer(data, many=True).data
         return Response({"message": datajson})
@@ -145,7 +153,7 @@ def getAllSections(request, courseID):
     if data:
         datajson = SectionGetSerializer(data, many=True).data
         return Response({"message": datajson})
-    return Response({"message": "Video Not Found."})
+    return Response({"message": "Section Not Found."})
 
 
 @api_view(["POST", "GET", "PUT"])

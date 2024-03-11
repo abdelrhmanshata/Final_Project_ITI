@@ -218,7 +218,7 @@ def Update_User(request, id):
 
 
 #  delete specific user
-@api_view(["DELETE"])
+@api_view(["GET"])
 def Delete_User(request, id):
     User_Delete = User.objects.filter(id=id).first()
     if User_Delete:
@@ -229,16 +229,14 @@ def Delete_User(request, id):
 
 # for approving the teacher by the admin
 @api_view(["GET"])
-def Get_Approved_User(request, id, is_staff=False):
-    user = get_object_or_404(User, id=id)
-    is_teacher = user.usertype == "teacher"
-    data = UserSerializer(user).data
-
-    if is_teacher:
-        data["is_staff"] = True
+def Get_Approved_User(request, userId, isApprove):
+    user = get_object_or_404(User, id=userId)
+    if isApprove == 0:
+        user.isApprove = False
     else:
-        data["is_staff"] = False
-
+        user.isApprove = True
+    user.save()
+    data = UserSerializer(user).data
     return Response({"data": data})
 
 

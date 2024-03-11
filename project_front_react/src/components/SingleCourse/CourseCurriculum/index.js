@@ -15,7 +15,11 @@ export default function Curriculum({ course }) {
       await axiosInstance
         .get(`course/${course.id}/sections/all/`)
         .then((res) => {
-          setSections(res.data.message);
+          if (typeof res.data.message != "string")
+            setSections(res.data.message);
+          else {
+            setSections([]);
+          }
         })
         .catch((err) => console.log(err));
     } catch (error) {

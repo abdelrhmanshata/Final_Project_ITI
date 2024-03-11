@@ -16,7 +16,7 @@ class User(AbstractUser):
     identificationcard = models.CharField(null=True)
     educationstage = models.CharField(max_length=255,null=True)
     usertype = models.CharField(max_length=255,null=True)
-    is_staff = models.BooleanField()
+    isApprove = models.BooleanField()
     username=None
 
     USERNAME_FIELD= 'email'
