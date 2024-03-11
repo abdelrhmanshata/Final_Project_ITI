@@ -25,10 +25,10 @@ export default function Video({ onVideoAdded }) {
   };
 
   const handleSaveVideo = () => {
-    const updatedVideoNames = [...videoNames]; // Create a copy of the existing video names array
-    updatedVideoNames.push(newVideoName); // Add the new video name to the copied array
-    setVideoNames(updatedVideoNames); // Update the state with the new array of video names
-    onVideoAdded(updatedVideoNames); // Pass the updated list to the parent component
+    const updatedVideoNames = [...videoNames]; 
+    updatedVideoNames.push(newVideoName); 
+    setVideoNames(updatedVideoNames);
+    onVideoAdded(updatedVideoNames); 
     setNewVideoName('');
     setDialogOpen(false);
   };
@@ -43,7 +43,7 @@ export default function Video({ onVideoAdded }) {
   color="primary"
   variant="text"
   aria-label="add video"
-  style={{ padding: '0 12px', minWidth: 'auto' }} // Adjust padding and size
+  style={{ padding: '0 12px', minWidth: 'auto' }}
 >
   <AddIcon style={{ fontSize: 16 }} />
 </Button>

@@ -109,7 +109,7 @@ export default function ExpandIcon() {
         onClick={handleAddSection}
         variant="contained"
         color="primary"
-        style={{ marginTop: '10px' }} // Adding margin-top to the button
+        style={{ marginTop: '10px' }} 
       >
         Add Section
       </Button>

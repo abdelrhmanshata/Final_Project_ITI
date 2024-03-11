@@ -10,6 +10,7 @@ import Footer from "components/Footer";
 import { faPlus, faEdit, faTrashAlt } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import CardCourse from "components/Profile/CardCousre";
+import CourseStudent from "components/Profile/CourseStudent";
 
 
 export default function ProfileUser() {
@@ -18,7 +19,7 @@ export default function ProfileUser() {
     const [avatar, setAvatar] = useState("https://st3.depositphotos.com/15648834/17930/v/600/depositphotos_179308454-stock-illustration-unknown-person-silhouette-glasses-profile.jpg");
     const [isEditingName, setIsEditingName] = useState(false);
     const [isEditingEmail, setIsEditingEmail] = useState(false);
-    const [action, setAction] = useState("Teacher");
+    const [action, setAction] = useState("Student");
     const [videoTitle, setVideoTitle] = useState("");
   const handleNameChange = (e) => {
     setName(e.target.value);
@@ -252,17 +253,15 @@ export default function ProfileUser() {
                    
                   </div>
 
-                 
-                  <div className="component" style={{ display: 'flex', flexDirection: 'row', gap: '16px' }}>
-                      <CardCourse />
-                      <CardCourse />
-                      
-                    </div>
-
-
-                                          </div>
+                  
+                </div>
              
-                {action === "Teacher" && (
+                {action === "Teacher" ? (
+                <div>
+                  <div className="component" style={{ display: 'flex', flexDirection: 'row', gap: '16px' }}>
+                    <CardCourse />
+                    <CardCourse />
+                  </div>
                   <div className="home-page-container">
                     <Link
                       to="/Addcourse"
@@ -271,8 +270,19 @@ export default function ProfileUser() {
                       Add Course
                     </Link>
                   </div>
-                )}
+                </div>
+              ) : (
+                <div>
+                  
+                  <div className="component" style={{ display: 'flex', flexDirection: 'row', gap: '16px' }}>
+                    <CourseStudent />
+                    <CourseStudent />
+                  </div>
+                </div>
+              )}
+
               </div>
+           
             )}
           </div>
         </div>

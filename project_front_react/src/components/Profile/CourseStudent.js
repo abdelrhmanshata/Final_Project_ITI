@@ -6,9 +6,8 @@ import CardMedia from '@mui/material/CardMedia';
 
 import Typography from '@mui/material/Typography';
 import courseImage from "../../assets/img/course-1.jpg";
-import ExpandIcon from './ExpandIcon';
 
-export default function CardCourse() {
+export default function CourseStudent() {
   return (
     <Card sx={{ maxWidth: 345 }}>
     <CardMedia
@@ -30,10 +29,7 @@ export default function CardCourse() {
         This course web design for beginner
         
       </Typography>
-      <Typography variant="body2" color="text.secondary" style={{ marginTop: '10px' }}>
-       
-      <ExpandIcon style={{ width: '100%' }} />
-      </Typography>
+      
     </CardContent>
 
     <CardActions style={{ width: '100%' }}>
