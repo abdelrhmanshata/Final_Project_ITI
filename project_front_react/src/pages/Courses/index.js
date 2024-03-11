@@ -56,7 +56,7 @@ export default function CoursesPage() {
 
       {/* FormControl Start */}
       <FormControlLayout
-        text={"We found 432 courses available for you"}
+        text={`We found ${allCourses.length} courses available for you`}
         value={category}
         select={getCoursesByCategory}
       />

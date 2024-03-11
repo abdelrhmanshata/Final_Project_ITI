@@ -10,8 +10,11 @@ import {
 import { TbCertificate } from "react-icons/tb";
 import { BsCalendarDate } from "react-icons/bs";
 import { VscSettings } from "react-icons/vsc";
+import { useNavigate } from "react-router-dom";
 
 export default function CourseDetails({ data }) {
+  const navigate = useNavigate();
+
   return (
     <>
       <Paper className="p-2">
@@ -24,7 +27,7 @@ export default function CourseDetails({ data }) {
             className="border border-2 border-primary"
           />
           <div className="position-absolute top-50 start-50 translate-middle">
-            <Fab color="primary">
+            <Fab color="primary" onClick={() => navigate(`/course/4/lesson/1`)}>
               <BiSolidRightArrow size={24} />
             </Fab>
           </div>

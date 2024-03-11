@@ -4,10 +4,10 @@ import Tabs from "@mui/material/Tabs";
 import Tab from "@mui/material/Tab";
 import Box from "@mui/material/Box";
 import { Container } from "@mui/material";
-import Overview from "./Overview";
-import Curriculum from "./Curriculum";
-import Instructor from "./Instructor";
-import Reviews from "./Reviews";
+import Overview from "../../components/SingleCourse/Overview";
+import Curriculum from "../../components/SingleCourse/CourseCurriculum/index"
+import Instructor from "../../components/SingleCourse/Instructor";
+import Reviews from "../../components/SingleCourse/Reviews";
 
 function CustomTabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -66,7 +66,7 @@ export default function CourseInfoTab({data}) {
           <Overview course={data}/>
         </CustomTabPanel>
         <CustomTabPanel value={value} index={1}>
-          <Curriculum />
+          <Curriculum course={data}/>
         </CustomTabPanel>
         <CustomTabPanel value={value} index={2}>
           <Instructor />

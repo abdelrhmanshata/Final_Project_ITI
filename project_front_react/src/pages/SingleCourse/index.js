@@ -1,5 +1,5 @@
 import Navbar from "components/Navbar";
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import {
   Avatar,
@@ -22,19 +22,38 @@ import { axiosInstance } from "api/config";
 export default function SingleCourse() {
   const params = useParams();
   const [course, setCourse] = useState({});
+  const [user, setUser] = useState({});
 
-  useEffect(() => {
-    getData();
-  });
-
-  async function getData() {
+  const getCourseData = async () => {
     await axiosInstance
       .get(`course/listAllCourses/${params.courseID}`)
       .then((res) => {
         setCourse(res.data.message[0]);
+        getUserData(res.data.message[0].userID);
       })
       .catch((err) => console.log(err));
-  }
+  };
+
+  const getUserData = async (userID) => {
+    await axiosInstance
+      .get(`user/Get_Specific_User/${userID}`)
+      .then((res) => {
+        setUser(res.data.data);
+      })
+      .catch((err) => console.log(err));
+  };
+
+  const getData = useCallback(async () => {
+    try {
+      getCourseData();
+    } catch (error) {
+      console.log(error);
+    }
+  }, [params.courseID]);
+
+  useEffect(() => {
+    getData();
+  }, [getData]);
 
   return (
     <>
@@ -52,8 +71,8 @@ export default function SingleCourse() {
             </div>
             <div className="d-flex mb-3 gap-2 align-items-center">
               <Avatar
-                alt="Remy Sharp"
-                src={require("../../assets/img/team-0.jpg")}
+                alt={user.name}
+                src={`http://127.0.0.1:9000/${user.image}`}
                 sx={{ width: 80, height: 80 }}
               />
               <TableContainer>
@@ -74,7 +93,7 @@ export default function SingleCourse() {
                   <TableBody>
                     <TableRow style={{ borderBottom: "none" }}>
                       <TableCell style={{ borderBottom: "none" }}>
-                        AbdElrhman
+                        {user.name}
                       </TableCell>
                       <TableCell style={{ borderBottom: "none" }}>
                         Arabic
