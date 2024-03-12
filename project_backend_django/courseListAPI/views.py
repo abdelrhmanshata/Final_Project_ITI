@@ -27,13 +27,16 @@ def getImage(request, courseID):
 
 @api_view(["POST"])
 def addACourse(request):
-    obj = CourseAddSerializer(data=request.data)
+    user_id = request.data.get("userID")
+    user = User.objects.get(id=user_id)
+    obj = CourseAddSerializer(data=request.data, context={"user": user})
     obj.courseReviewScore = 0
-    obj.courseImage = request.getFiles()
-    print(obj)
+    obj.courseImage = request.FILES.get("courseImage")
+    obj.userID = user
     if obj.is_valid():
         obj.save()
         return Response({"message": "Course added."})
+    print("Error:", obj.errors)
     return Response({"message": "Course not added. Data might be invalid."})
 
 
@@ -45,6 +48,7 @@ def getACourse(request, courseID):
         return Response({"message": datajson})
     return Response({"message": "Course Not Found."})
 
+
 @api_view(["GET"])
 def getTeacherCourse(request, teacherID):
     data = Course.objects.filter(userID=teacherID)
@@ -52,7 +56,6 @@ def getTeacherCourse(request, teacherID):
         datajson = CourseSerializer(data, many=True).data
         return Response({"message": datajson})
     return Response({"message": "Course Not Found."})
-
 
 
 @api_view(["POST", "GET", "PUT"])
@@ -130,7 +133,6 @@ def deleteAVideo(request, courseID, videoID):
 @api_view(["POST"])
 def addASection(request):
     obj = SectionAddSerializer(data=request.data)
-    print(obj)
     if obj.is_valid():
         obj.save()
         return Response({"message": "Section added."})
