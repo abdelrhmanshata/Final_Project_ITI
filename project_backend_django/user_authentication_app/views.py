@@ -16,6 +16,7 @@ from django.shortcuts import get_object_or_404
 from user_authentication_app import serializers
 from django.views.static import serve
 from django.conf import settings
+from django.template.loader import render_to_string
 
 
 def apiConnection(request):
@@ -135,16 +136,18 @@ class ForgetPasswordView(APIView):
         token = "".join(
             random.choice(string.ascii_uppercase + string.digits) for _ in range(12)
         )
-
         PasswordReset.objects.create(email=email, token=token)
-        send_mail(
-            subject="Reset Your Password",
-            message='Click <a href="http://localhost:3000/reset/'
-            + token
-            + '">here</a> to reset your password',
-            from_email="admin@example.com",
-            recipient_list=[email],
-        )
+        try:
+            send_mail(
+                subject="Reset Your Password",
+                message='Click "http://localhost:3000/reset/'
+                + token
+                + '"to reset your password',
+                from_email="admin@example.com",
+                recipient_list=[email],
+            )
+        except Exception as e:
+            print("Error", e)
         return Response({"message": "Please Check Your Email"})
 
 
@@ -208,12 +211,14 @@ def Update_User(request, id):
     except User.DoesNotExist:
         return Response({"msg": "User Not Found"}, status=404)
 
+    print(updateobj)
     serialized_user = UserSerializer(instance=updateobj, data=request.data)
 
     if serialized_user.is_valid():
         serialized_user.save()
         return Response(data=serialized_user.data)
     else:
+        print(serialized_user.errors)
         return Response(serialized_user.errors, status=400)
 
 

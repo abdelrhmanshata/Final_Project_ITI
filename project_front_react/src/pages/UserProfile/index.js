@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 
 import "./UserProfile.css";
@@ -7,33 +7,44 @@ import { Tab, Tabs } from "@mui/material";
 import Navbar from "components/Navbar";
 import Footer from "components/Footer";
 
-import CardCourse from "components/Profile/CardCousre";
 import CourseStudent from "components/Profile/CourseStudent";
-
+import { axiosInstance } from "api/config";
+import ListCourses from "components/Profile/ListCourses";
 
 export default function ProfileUser() {
-    const [name, setName] = useState("Student");
-    const [email, setEmail] = useState("sarayasserma@mail.com.my");
-    const [avatar, setAvatar] = useState("https://st3.depositphotos.com/15648834/17930/v/600/depositphotos_179308454-stock-illustration-unknown-person-silhouette-glasses-profile.jpg");
-    const [isEditingName, setIsEditingName] = useState(false);
-    const [isEditingEmail, setIsEditingEmail] = useState(false);
-    const [action, setAction] = useState("Student");
-    const [videoTitle, setVideoTitle] = useState("");
-  const handleNameChange = (e) => {
-    setName(e.target.value);
+  const [user, setUser] = useState({});
+  const [avatar, setAvatar] = useState("");
+
+  const getData = useCallback(async () => {
+    try {
+      await axiosInstance
+        .get(`user/Get_Specific_User/${localStorage.getItem("User_ID")}`)
+        .then((res) => {
+          setUser(res.data.data);
+          setAvatar(`http://127.0.0.1:9000/${res.data.data.image}`);
+        })
+        .catch((err) => console.log(err));
+    } catch (error) {
+      console.log(error);
+    }
+  }, []);
+
+  useEffect(() => {
+    getData();
+  }, [getData]);
+
+  const handleChange = (e) => {
+    setUser({ ...user, [e.target.name]: e.target.value });
   };
 
-  const handleEmailChange = (e) => {
-    setEmail(e.target.value);
-  };
-
-  const handleAvatarChange = (e) => {
+  const handleImageChange = (e) => {
     const file = e.target.files[0];
     const reader = new FileReader();
     reader.readAsDataURL(file);
     reader.onload = () => {
       setAvatar(reader.result);
     };
+    setUser({ ...user, image: file });
   };
 
   const handleEditIconClick = () => {
@@ -45,7 +56,22 @@ export default function ProfileUser() {
     setSelectedTab(newValue);
   };
 
-
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    try {
+      console.log(user)
+      const response = await axiosInstance.put(`user/Update_User/${localStorage.getItem("User_ID")}`,user,{
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
+        }
+      );
+      console.log("Update Successfully" + response);
+    } catch (error) {
+      // Handle error (e.g., display error message to the user)
+      console.log("Error : " + error);
+    }
+  };
 
   return (
     <>
@@ -91,39 +117,22 @@ export default function ProfileUser() {
                   <input
                     type="file"
                     id="avatarInput"
+                    name="image"
                     style={{ display: "none" }}
-                    onChange={handleAvatarChange}
+                    onChange={handleImageChange}
                     accept="image/*"
                   />
                 </div>
 
-                <span className="font-weight-bold">
-                  {isEditingName ? (
-                    <input
-                      type="text"
-                      value={name}
-                      onChange={handleNameChange}
-                      onBlur={() => setIsEditingName(false)}
-                    />
-                  ) : (
-                    <span onClick={() => setIsEditingName(true)}>{name}</span>
-                  )}
+                <span className="fw-bold fs-3">
+                  <span>{user.name}</span>
                 </span>
                 <span className="text-black-50">
-                  {isEditingEmail ? (
-                    <input
-                      type="email"
-                      value={email}
-                      onChange={handleEmailChange}
-                      onBlur={() => setIsEditingEmail(false)}
-                    />
-                  ) : (
-                    <span onClick={() => setIsEditingEmail(true)}>{email}</span>
-                  )}
+                  <span>{user.email}</span>
                 </span>
-                <span> </span>
               </div>
             </div>
+
             {selectedTab === 0 && (
               <div className="col-md-8 border-right">
                 <div className="p-5 py-8">
@@ -137,6 +146,9 @@ export default function ProfileUser() {
                         type="text"
                         className="form-control"
                         placeholder="Name"
+                        value={user.name}
+                        name="name"
+                        onChange={handleChange}
                       />
                     </div>
                     <div className="col-md-6">
@@ -145,24 +157,22 @@ export default function ProfileUser() {
                         type="text"
                         className="form-control"
                         placeholder="Email"
+                        value={user.email}
+                        name="email"
+                        onChange={handleChange}
                       />
                     </div>
                   </div>
                   <div className="row mt-3">
-                    <div className="col-md-12">
-                      <label className="labels">Password</label>
-                      <input
-                        type="password"
-                        className="form-control"
-                        placeholder="Password"
-                      />
-                    </div>
                     <div className="col-md-12">
                       <label className="labels">Phone Number</label>
                       <input
                         type="text"
                         className="form-control"
                         placeholder="Phone Number"
+                        value={user.phonenumber}
+                        name="phonenumber"
+                        onChange={handleChange}
                       />
                     </div>
                     <div className="col-md-12">
@@ -171,9 +181,12 @@ export default function ProfileUser() {
                         type="text"
                         className="form-control"
                         placeholder="Address"
+                        value={user.address}
+                        name="address"
+                        onChange={handleChange}
                       />
                     </div>
-                    {action === "Teacher" && (
+                    {user.usertype === "teacher" ? (
                       <div className=" row mt-3">
                         <div className="col-md-12">
                           <label className="labels">identification card</label>
@@ -181,48 +194,53 @@ export default function ProfileUser() {
                             type="number"
                             className="form-control"
                             placeholder="ID card"
+                            value={user.identificationcard}
+                            name="identificationcard"
+                            onChange={handleChange}
                           />
                         </div>
-
                         <div className="col-md-12">
                           <label className="labels">Grade Level</label>
-                          <select className="form-control bg-white">
-                            <option value="Choose grade level">
-                              Choose Grade Level
-                            </option>
-                            <option value="primary">primary</option>
-                            <option value="preperatory">preperatory</option>
-                            <option value="secondary">secondary</option>
+                          <select
+                            value={user.gradelevels}
+                            name="gradelevels"
+                            className="form-control bg-white"
+                            onChange={handleChange}
+                          >
+                            <option value=""> Choose Grade Level</option>
+                            <option value="Primary">Primary</option>
+                            <option value="Preparatory">Preparatory</option>
+                            <option value="Secondary">Secondary</option>
                           </select>
                         </div>
-                        <div className="col-md-12">
-                          <label className="labels">Image</label>
-                          <input
-                            type="file"
-                            className="form-control bg-white"
-                          />
-                        </div>
                       </div>
-                    )}
-                    {action !== "Teacher" && (
-                      <div className=" row mt-2">
+                    ) : (
+                      <div className="row mt-2">
                         <div className="col-md-12">
-                          <label className="labels">Grade Level</label>
-                          <select className="form-control bg-white">
-                            <option value="Choose Educational Stage">
-                              Choose Educational stage
-                            </option>
-                            <option value="primary">primary</option>
-                            <option value="preperatory">preperatory</option>
-                            <option value="secondary">secondary</option>
+                          <label className="labels">
+                            Education Stage Level
+                          </label>
+                          <select
+                            name="educationstage"
+                            value={user.educationstage}
+                            className="form-control bg-white"
+                            onChange={handleChange}
+                          >
+                            <option value=""> Choose Educational Stage</option>
+                            <option value="Primary">Primary</option>
+                            <option value="Preparatory">Preparatory</option>
+                            <option value="Secondary">Secondary</option>
                           </select>
                         </div>
                         <div className="col-md-12">
                           <label className="labels">Classroom</label>
-                          <select className="form-control bg-white">
-                            <option value="Choose ClassRoom">
-                              Choose class Room
-                            </option>
+                          <select
+                            className="form-control bg-white"
+                            name="classroom"
+                            value={user.classroom}
+                            onChange={handleChange}
+                          >
+                            <option value=""> Choose ClassRoom</option>
                             <option value="First">First</option>
                             <option value="Secound">Secound</option>
                             <option value="Third">Third</option>
@@ -235,6 +253,7 @@ export default function ProfileUser() {
                     <button
                       className="btn btn-primary profile-button"
                       type="button"
+                      onClick={handleSubmit}
                     >
                       Save Profile
                     </button>
@@ -248,46 +267,43 @@ export default function ProfileUser() {
                 <div className="p-5 py-8">
                   <div className="d-flex justify-content-between align-items-center mb-3">
                     <h4 className="text-right">Courses</h4>
-                   
                   </div>
-
-                  
                 </div>
-             
-                {action === "Teacher" ? (
-                <div>
-                  <div className="component" style={{ display: 'flex', flexDirection: 'row', gap: '16px' }}>
-                    <CardCourse />
-                    <CardCourse />
+
+                {user.usertype === "teacher" ? (
+                  <div>
+                    <ListCourses />
+                    <div className="home-page-container">
+                      <Link
+                        to="/Addcourse"
+                        className="btn btn-primary mt-3 add-course-button"
+                      >
+                        Add Course
+                      </Link>
+                    </div>
                   </div>
-                  <div className="home-page-container">
-                    <Link
-                      to="/Addcourse"
-                      className="btn btn-primary mt-3 add-course-button"
+                ) : (
+                  <div>
+                    <div
+                      className="component"
+                      style={{
+                        display: "flex",
+                        flexDirection: "row",
+                        gap: "16px",
+                      }}
                     >
-                      Add Course
-                    </Link>
+                      <CourseStudent />
+                      <CourseStudent />
+                    </div>
                   </div>
-                </div>
-              ) : (
-                <div>
-                  
-                  <div className="component" style={{ display: 'flex', flexDirection: 'row', gap: '16px' }}>
-                    <CourseStudent />
-                    <CourseStudent />
-                  </div>
-                </div>
-              )}
-
+                )}
               </div>
-           
             )}
           </div>
         </div>
       </div>
-     
-        <Footer />
-    </> 
-      
-    );
+
+      <Footer />
+    </>
+  );
 }
