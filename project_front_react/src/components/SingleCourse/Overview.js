@@ -57,33 +57,42 @@ export default function Overview({ course }) {
         </Typography>
       </Typography>
       {/* What you'll learn */}
-      <Typography component="div" className="d-flex flex-column py-3 gap-1">
-        <Typography gutterBottom variant="h4" component="div">
-          What you'll learn
-        </Typography>
-        <div className="row d-flex flex-wrap ">
-          {skills.map((skill, index) => (
-            <div key={index} className="col-md-6 col-12">
-              <BiCheckCircle fontSize={20} color="black" />
-              <span> {skill.whatYoullLearnDescription}</span>
+      {skills.length > 0 && (
+        <>
+          <Typography component="div" className="d-flex flex-column py-3 gap-1">
+            <Typography gutterBottom variant="h4" component="div">
+              What you'll learn
+            </Typography>
+            <div className="row d-flex flex-wrap ">
+              {skills.map((skill, index) => (
+                <div key={index} className="col-md-6 col-12">
+                  <BiCheckCircle fontSize={20} color="black" />
+                  <span> {skill.whatYoullLearnDescription}</span>
+                </div>
+              ))}
             </div>
-          ))}
-        </div>
-      </Typography>
+          </Typography>
+        </>
+      )}
+
       {/*Requirements */}
-      <Typography component="div" className="d-flex flex-column py-3 gap-1">
-        <Typography gutterBottom variant="h4" component="div">
-          Requirements
-        </Typography>
-        <div className="row d-flex flex-wrap ">
-          {requirements.map((requirement, index) => (
-            <div key={index} className="col-md-6 col-12">
-              <BiCheckCircle fontSize={20} color="black" />
-              <span> {requirement.requirementDescription}</span>
+      {requirements.length > 0 && (
+        <>
+          <Typography component="div" className="d-flex flex-column py-3 gap-1">
+            <Typography gutterBottom variant="h4" component="div">
+              Requirements
+            </Typography>
+            <div className="row d-flex flex-wrap ">
+              {requirements.map((requirement, index) => (
+                <div key={index} className="col-md-6 col-12">
+                  <BiCheckCircle fontSize={20} color="black" />
+                  <span> {requirement.requirementDescription}</span>
+                </div>
+              ))}
             </div>
-          ))}
-        </div>
-      </Typography>
+          </Typography>
+        </>
+      )}
     </>
   );
 }
