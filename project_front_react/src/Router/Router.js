@@ -1,6 +1,7 @@
 import React, { Suspense, useEffect, useState } from "react";
 import { Route, Routes } from "react-router-dom";
 import Spinner from "../components/Spinner";
+import PaymentStripe from "../pages/payment/PaymentStripe";
 
 const LoginForm = React.lazy(() => import("../pages/LoginForm/index"));
 const RegisterForm = React.lazy(() => import("../pages/RegisterForm/index"));
@@ -16,6 +17,8 @@ const LessonSingle = React.lazy(() =>
 );
 const Teachers = React.lazy(() => import("../pages/Teachers/index"));
 const NotFound = React.lazy(() => import("../pages/NotFound"));
+const Stripe = React.lazy(() => import("../pages/payment/PaymentStripe"));
+
 export default function Router() {
   const [isAdmin, setIsAdmin] = useState(false);
   useEffect(() => {
@@ -28,6 +31,7 @@ export default function Router() {
   return (
     <Suspense fallback={<Spinner />}>
       <Routes>
+        
         <Route path="" element={<Home />} />
         {isAdmin ? (
           <Route path="/admin" element={<Admin />} />
@@ -36,12 +40,13 @@ export default function Router() {
             <Route path="/profile" element={<UserProfile />} />
             <Route path="/Addcourse" element={<Addcourse />} />
             <Route path="/UpdateCourse/:courseID" element={<Updatecourse />} />
+
           </>
         )}
         {/* Auth */}
         <Route path="/login" element={<LoginForm />} />
         <Route path="/register" element={<RegisterForm />} />
-
+        <Route path="/payment/:courseID" element={<Stripe />} />
         <Route path="/courses" element={<Courses />} />
         <Route path="/course/:courseID" element={<SingleCourse />} />
         <Route

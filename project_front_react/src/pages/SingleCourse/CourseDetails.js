@@ -11,10 +11,25 @@ import { TbCertificate } from "react-icons/tb";
 import { BsCalendarDate } from "react-icons/bs";
 import { VscSettings } from "react-icons/vsc";
 import { useNavigate } from "react-router-dom";
+import { axiosInstance } from "api/config";
 
 export default function CourseDetails({ data }) {
   const navigate = useNavigate();
-
+  const checkout=async()=>{
+    try {
+      console.log("clicked")
+      const response = await axiosInstance.post(
+        `api/create-checkout-session/${data.id}/`
+      );
+      // Handle success (e.g., show success message to the user)
+      if (response.status === 200) {
+        console.log(response.data.message);
+      }
+    } catch (error) {
+      // Handle error (e.g., display error message to the user
+      console.log(error.message);
+    }
+}
   return (
     <>
       <Paper className="p-2">
@@ -34,7 +49,7 @@ export default function CourseDetails({ data }) {
           </div>
         </div>
         <div className="d-flex flex-column p-4 gap-3">
-          <Button className="bg-primary" variant="contained">
+          <Button className="bg-primary" variant="contained" onClick={()=>(navigate(`/payment/${data.id}`))}>
             Buy Now
           </Button>
           <Button variant="contained" color="warning">
