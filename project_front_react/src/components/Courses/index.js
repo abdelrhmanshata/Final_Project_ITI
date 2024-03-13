@@ -1,65 +1,26 @@
 import { Link } from "react-router-dom";
-import image from "../../assets/img/course-1.jpg";
+import { useCallback, useEffect, useState } from "react";
+import { axiosInstance } from "api/config";
+import { Rating } from "@mui/material";
 
 export default function Courses() {
-  const rating = (numRating) => {
-    const items = [];
-    for (let i = 0; i < 5; i++) {
-      if (i < numRating) {
-        items.push(<small key={i} className="fa fa-star text-primary"></small>);
-      } else {
-        items.push(<small key={i} className="fa fa-star"></small>);
-      }
+  const [courses, setCourses] = useState([]);
+  const getData = useCallback(async () => {
+    try {
+      await axiosInstance
+        .get(`course/listAllCourses`)
+        .then((res) => {
+          setCourses(res.data.message.slice(0, 4));
+        })
+        .catch((err) => console.log(err));
+    } catch (error) {
+      console.log(error);
     }
-    return <>{items}</>;
-  };
-  const listCourses = [
-    {
-      id: "1",
-      image: "",
-      price: "$150.00",
-      num_of_rating: 5,
-      num_of_student_rating: 150,
-      title: "Web Design Course for Beginners",
-      instructor: "Abd El-rhman",
-      hours: 25,
-      students: 50,
-    },
-    {
-      id: "2",
-      image: "",
-      price: "$190.00",
-      num_of_rating: 3,
-      num_of_student_rating: 123,
-      title:
-        "Python Course for Beginners Python Course for BeginnersPython Course for BeginnersPython Course for BeginnersPython Course for BeginnersPython Course for Beginners",
-      instructor: "Yossif",
-      hours: 15,
-      students: 25,
-    },
-    {
-      id: "3",
-      image: "",
-      price: "$180.00",
-      num_of_rating: 1,
-      num_of_student_rating: 10,
-      title: "Backend Course for Beginners",
-      instructor: "Ali",
-      hours: 12.5,
-      students: 30,
-    },
-    {
-      id: "4",
-      image: "",
-      price: "$180.00",
-      num_of_rating: 1,
-      num_of_student_rating: 10,
-      title: "Backend Course for Beginners",
-      instructor: "Ali",
-      hours: 12.5,
-      students: 30,
-    },
-  ];
+  }, []);
+
+  useEffect(() => {
+    getData();
+  }, [getData]);
 
   return (
     <>
@@ -73,7 +34,7 @@ export default function Courses() {
             <h1 className="mb-5">Popular Courses</h1>
           </div>
           <div className="row g-4 justify-content-center">
-            {listCourses.map((item) => (
+            {courses.map((item) => (
               <>
                 <div key={item.id} className="col-lg-3 col-md-6">
                   <div
@@ -82,13 +43,20 @@ export default function Courses() {
                   >
                     {/* Course Image */}
                     <div
-                      className="position-relative overflow-hidden"
+                      className="position-relative overflow-hidden justify-content-center "
                       style={{ borderRadius: "5%" }}
                     >
-                      <img className="img-fluid" src={image} alt="" />
+                      <div className="d-flex justify-content-center align-items-center ">
+                        <img
+                          style={{ height: "200px" }}
+                          className="img-fluid"
+                          src={`http://127.0.0.1:9000/${item.courseImage}`}
+                          alt={item.courseName}
+                        />
+                      </div>
                       <div className="w-100 d-flex justify-content-center position-absolute bottom-0 start-0 mb-2">
                         <Link
-                          to="/"
+                          to={`/course/${item.id}`}
                           className="flex-shrink-0 btn btn-sm btn-primary px-3 border-end"
                           style={{ borderRadius: "30px 0 0 30px" }}
                         >
@@ -106,37 +74,42 @@ export default function Courses() {
                     {/* Course Title */}
                     <div className="text-center">
                       {/* Price */}
-                      <h5 className="m-1">{item.price}</h5>
+                      <h5 className="m-1">{item.coursePrice} $</h5>
                       {/* Rating */}
-                      <div className="mb-3">
-                        {rating(item.num_of_rating)}
-                        <small>({item.num_of_student_rating})</small>
+                      <div className="d-flex mb-3 align-items-center justify-content-center ">
+                        <Rating
+                          name="read-only"
+                          value={item.courseReviewScore}
+                          readOnly
+                        />
+                        <small>(152)</small>
                       </div>
                       {/* Title */}
                       <h5
                         className="m-2"
-                        style={{ height: "50px", overflow: "hidden" }}
+                        style={{ height: "24px", overflow: "hidden" }}
                       >
-                        {item.title}
+                        {item.courseName}
                       </h5>
+                      <p className="m-2" style={{ overflow: "hidden" }}>
+                        {item.courseDescription}
+                      </p>
                     </div>
                     {/* Info */}
-                    <div className="d-flex border-top py-1">
-                      <small
-                        className="text-center border-end p-2"
-                        style={{ overflow: "hidden" }}
-                      >
-                        <i className="fa fa-user-tie text-primary me-2"></i>
-                        {item.instructor}
-                      </small>
-                      <small className="flex-fill text-center border-end py-2">
-                        <i className="fa fa-clock text-primary me-2"></i>
-                        {item.hours}Hrs
-                      </small>
-                      <small className="flex-fill text-center py-2">
-                        <i className="fa fa-user text-primary me-2"></i>
-                        {item.students} Students
-                      </small>
+                    <div className="d-flex border-top py-1 justify-content-space-between">
+                      <div className="w-50 text-center border-end">
+                        <small className="p-2">
+                          <i className="fa fa-book text-primary me-2"></i>
+                          {item.courseLessons} Lessons
+                        </small>
+                      </div>
+
+                      <div className="w-50 text-center border-start">
+                        <small className="flex-fill text-center py-2">
+                          <i className="fa fa-clock text-primary me-2"></i>
+                          {item.courseHours} Hrs
+                        </small>
+                      </div>
                     </div>
                   </div>
                 </div>

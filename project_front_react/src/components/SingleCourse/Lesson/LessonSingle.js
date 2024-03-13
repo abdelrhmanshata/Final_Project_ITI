@@ -1,20 +1,32 @@
-import React from "react";
-import {
-  Button,
-  Container,
-  Grid,
-  Paper,
-  TextField,
-  Typography,
-} from "@mui/material";
-import { Link, useNavigate } from "react-router-dom";
-import Curriculum from "../Curriculum";
+import React, { useCallback, useEffect, useState } from "react";
+import { Button, Container, Grid, Paper } from "@mui/material";
+import { Link, useNavigate, useParams } from "react-router-dom";
+import Curriculum from "../CourseCurriculum/index";
 import VideoPlayer from "./VideoPlayer";
 import Footer from "components/Footer";
-import HoverRating from "./HoverRating";
+import { axiosInstance } from "api/config";
 
 export default function LessonSingle() {
+  const params = useParams();
   const navigate = useNavigate();
+  const [data, setData] = useState({});
+
+  const getData = useCallback(async () => {
+    try {
+      await axiosInstance
+        .get(`course/listAllCourses/${params.courseID}`)
+        .then((res) => {
+          setData(res.data.message[0]);
+        })
+        .catch((err) => console.log(err));
+    } catch (error) {
+      console.log(error);
+    }
+  }, [params]);
+
+  useEffect(() => {
+    getData();
+  }, [getData]);
 
   return (
     <>
@@ -28,7 +40,7 @@ export default function LessonSingle() {
           </Link>
         </div>
         <div className="col-md-6 col-12 text-center">
-          <h3 className="text-light">User Interface Design Essentials</h3>
+          <h3 className="text-light">{data.courseName}</h3>
         </div>
         <div className="col-md-3 col-12 text-end">
           <Button
@@ -49,11 +61,10 @@ export default function LessonSingle() {
             <Paper className="p-2">
               <VideoPlayer videoId={"9r-BoGoZWVs"} />
             </Paper>
-           
           </Grid>
           <Grid item xs={4}>
             <Paper className="p-2">
-              <Curriculum />
+              <Curriculum course={data} />
             </Paper>
           </Grid>
         </Grid>

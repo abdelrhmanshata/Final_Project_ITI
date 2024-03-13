@@ -8,9 +8,12 @@ const Home = React.lazy(() => import("../pages/Home"));
 const Admin = React.lazy(() => import("../pages/Admin"));
 const UserProfile = React.lazy(() => import("../pages/UserProfile/index"));
 const Addcourse = React.lazy(() => import("../pages/Addcourse/index"));
+const Updatecourse = React.lazy(() => import("../pages/Updatecourse/index"));
 const Courses = React.lazy(() => import("../pages/Courses/index"));
 const SingleCourse = React.lazy(() => import("../pages/SingleCourse/index"));
-const LessonSingle = React.lazy(() => import("../pages/SingleCourse/Lesson/LessonSingle"));
+const LessonSingle = React.lazy(() =>
+  import("../components/SingleCourse/Lesson/LessonSingle")
+);
 const Teachers = React.lazy(() => import("../pages/Teachers/index"));
 const NotFound = React.lazy(() => import("../pages/NotFound"));
 export default function Router() {
@@ -19,7 +22,6 @@ export default function Router() {
     if (localStorage.getItem("User_ID") !== null) {
       if (localStorage.getItem("isAdmin") !== null) {
         setIsAdmin(localStorage.getItem("isAdmin") === "true");
-        // console.log(localStorage.getItem("isAdmin") === "true");
       }
     }
   }, []);
@@ -31,11 +33,10 @@ export default function Router() {
           <Route path="/admin" element={<Admin />} />
         ) : (
           <>
-          <Route path="/profile" element={<UserProfile />} />
-          <Route path="/Addcourse" element={<Addcourse />} />
-        </>
-        
-        
+            <Route path="/profile" element={<UserProfile />} />
+            <Route path="/Addcourse" element={<Addcourse />} />
+            <Route path="/UpdateCourse/:courseID" element={<Updatecourse />} />
+          </>
         )}
         {/* Auth */}
         <Route path="/login" element={<LoginForm />} />
@@ -43,8 +44,11 @@ export default function Router() {
 
         <Route path="/courses" element={<Courses />} />
         <Route path="/course/:courseID" element={<SingleCourse />} />
-        <Route path="/course/:courseID/lesson/:lessonID" element={<LessonSingle />} />
-  
+        <Route
+          path="/course/:courseID/lesson/:lessonID"
+          element={<LessonSingle />}
+        />
+
         <Route path="/teachers" element={<Teachers />} />
 
         <Route path="*" element={<NotFound />} />

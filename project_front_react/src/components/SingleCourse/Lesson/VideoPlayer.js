@@ -6,6 +6,7 @@ export default function VideoPlayer({ videoId }) {
   const [player, setPlayer] = useState(null);
   const onReady = (event) => {
     setPlayer(event.target);
+    console.log(player);
   };
 
   return (

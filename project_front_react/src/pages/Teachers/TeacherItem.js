@@ -11,7 +11,7 @@ export default function TeacherItem({ data }) {
         <CardMedia
           component="img"
           height="250"
-          image={data.image}
+          image={`http://127.0.0.1:9000/${data.image}`}
           alt="Instructor Image"
         />
         <CardContent>
@@ -19,11 +19,11 @@ export default function TeacherItem({ data }) {
           <Grid className="my-0" container spacing={2}>
             <Grid item xs={6}>
               <div className="d-flex align-items-center ">
-                <small className="overflow-hidden">{data.category}</small>
+                <small className="overflow-hidden">{data.classroom}</small>
               </div>
             </Grid>
             <Grid item xs={6}>
-              <Rating name="read-only" value={data.rating} readOnly />
+              <Rating name="read-only" value={4} readOnly />
             </Grid>
           </Grid>
         </CardContent>
