@@ -15,7 +15,11 @@ const Section = ({ sectionData }) => {
       await axiosInstance
         .get(`/course/section/${sectionData.id}/getAllVideos/`)
         .then((res) => {
-          setVideos(res.data.message);
+          if (typeof res.data.message != "string") {
+            setVideos(res.data.message);
+          } else {
+            setVideos([]);
+          }
         })
         .catch((err) => console.log(err));
     } catch (error) {

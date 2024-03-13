@@ -3,14 +3,18 @@ import CardCourse from "./CardCousre";
 import { axiosInstance } from "api/config";
 
 export default function ListCourses() {
+  const [isUpdate, setIsUpdate] = useState(0);
   const [courses, setCourses] = useState([]);
-
   const getData = useCallback(async () => {
     try {
       await axiosInstance
         .get(`course/teacherCourses/${localStorage.getItem("User_ID")}`)
         .then((res) => {
-          setCourses(res.data.message);
+          if (typeof res.data.message != "string") {
+            setCourses(res.data.message);
+          } else {
+            setCourses([]);
+          }
         })
         .catch((err) => console.log(err));
     } catch (error) {
@@ -20,17 +24,20 @@ export default function ListCourses() {
 
   useEffect(() => {
     getData();
-  }, [getData]);
+  }, [isUpdate]);
 
   return (
     <div className="container">
       <div
-        // ref={divRef}
         className="d-flex flex-wrap gap-2"
         style={{ justifyContent: "space-around" }}
       >
         {courses.map((item) => (
-          <CardCourse course={item} />
+          <CardCourse
+            course={item}
+            isUpdate={isUpdate}
+            setIsUpdate={setIsUpdate}
+          />
         ))}
       </div>
     </div>

@@ -9,7 +9,7 @@ import Footer from "components/Footer";
 
 import CourseStudent from "components/Profile/CourseStudent";
 import { axiosInstance } from "api/config";
-import ListCourses from "components/Profile/ListCourses";
+import ListCourses from "components/Profile/Teacher/ListCourses";
 
 export default function ProfileUser() {
   const [user, setUser] = useState({});
@@ -59,8 +59,11 @@ export default function ProfileUser() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      console.log(user)
-      const response = await axiosInstance.put(`user/Update_User/${localStorage.getItem("User_ID")}`,user,{
+      console.log(user);
+      const response = await axiosInstance.put(
+        `user/Update_User/${localStorage.getItem("User_ID")}`,
+        user,
+        {
           headers: {
             "Content-Type": "multipart/form-data",
           },

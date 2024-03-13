@@ -58,21 +58,26 @@ def getTeacherCourse(request, teacherID):
     return Response({"message": "Course Not Found."})
 
 
-@api_view(["POST", "GET", "PUT"])
-def updateACourse(request):
+@api_view(["PUT"])
+def updateACourse(request, courseID):
     try:
-        print(request.data["courseID"])
-        courseID = request.data["courseID"]
         selectedCourse = Course.objects.get(id=courseID)
-        datajson = CourseAddSerializer(selectedCourse, data=request.data)
+        datajson = CourseAddSerializer(selectedCourse, data=request.data, partial=True)
+
+        if "courseImage" in request.FILES:
+            datajson.courseImage = request.FILES["courseImage"]
+
         if datajson.is_valid():
             datajson.save()
             return Response({"message": "Successfully updated the course."})
+        else:
+            print(datajson.errors)
+            return Response({"message": "Invalid data.", "errors": datajson.errors})
     except Course.DoesNotExist:
         return Response({"message": "Not Found."})
 
 
-@api_view(["POST", "GET", "DELETE"])
+@api_view(["GET"])
 def deleteACourse(request, courseID):
     try:
         selectedCourse = Course.objects.get(id=courseID)
@@ -86,13 +91,22 @@ def deleteACourse(request, courseID):
 
 
 @api_view(["POST"])
-def addAVideo(request):
+def addAVideo(request, sectionID):
+    section = Section.objects.get(id=sectionID)
     obj = VideoAddSerializer(data=request.data)
+    obj.videoTitle = request.data.get("videoTitle")
+    obj.videoDescription = request.data.get("videoDescription")
+    obj.videoLink = request.data.get("videoLink")
+    obj.sectionID = section
     print(obj)
     if obj.is_valid():
         obj.save()
         return Response({"message": "Video added."})
-    return Response({"message": "Video not added. Data might be invalid."})
+
+    print(obj.errors)
+    return Response(
+        {"message": "Video not added. Data might be invalid." + str(obj.errors)}
+    )
 
 
 @api_view(["GET"])
@@ -104,10 +118,9 @@ def getAllVideos(request, sectionID):
     return Response({"message": "Video Not Found."})
 
 
-@api_view(["POST", "GET", "PUT"])
-def updateAVideo(request):
+@api_view(["PUT"])
+def updateAVideo(request, videoID):
     try:
-        videoID = request.data["videoID"]
         selectedVideo = Video.objects.get(id=videoID)
         datajson = VideoAddSerializer(selectedVideo, data=request.data)
         if datajson.is_valid():
@@ -118,7 +131,7 @@ def updateAVideo(request):
 
 
 @api_view(["POST", "GET", "DELETE"])
-def deleteAVideo(request, courseID, videoID):
+def deleteAVideo(request, videoID):
     try:
         selectedVideo = Video.objects.get(id=videoID)
         selectedVideo.delete()
@@ -131,8 +144,11 @@ def deleteAVideo(request, courseID, videoID):
 
 
 @api_view(["POST"])
-def addASection(request):
-    obj = SectionAddSerializer(data=request.data)
+def addASection(request, courseID):
+    course = Course.objects.get(id=courseID)
+    obj = SectionAddSerializer(data=request.data, context={"courseID": course})
+    obj.courseID = course
+    obj.sectionName = request.data.get("sectionName")
     if obj.is_valid():
         obj.save()
         return Response({"message": "Section added."})
@@ -158,21 +174,20 @@ def getAllSections(request, courseID):
     return Response({"message": "Section Not Found."})
 
 
-@api_view(["POST", "GET", "PUT"])
-def updateASection(request):
+@api_view(["PUT"])
+def updateASection(request, sectionID):
     try:
-        sectionID = request.data["videoID"]
         selectedSection = Section.objects.get(id=sectionID)
         datajson = SectionAddSerializer(selectedSection, data=request.data)
         if datajson.is_valid():
             datajson.save()
-            return Response({"message": "Successfully updated the video."})
+            return Response({"message": "Successfully updated Section."})
     except Section.DoesNotExist:
         return Response({"message": "Not Found."})
 
 
-@api_view(["POST", "GET", "DELETE"])
-def deleteASection(request, courseID, sectionID):
+@api_view(["GET"])
+def deleteASection(request, sectionID):
     try:
         selectedSection = Section.objects.get(id=sectionID)
         selectedSection.delete()

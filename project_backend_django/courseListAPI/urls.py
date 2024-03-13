@@ -6,7 +6,7 @@ urlpatterns = [
     path("listAllCourses/", views.listAllCourses, name="listAllCourses"),
     path("listAllCourses/<int:courseID>", views.getACourse, name="getACourse"),
     path("addACourse/", views.addACourse, name="addACourse"),
-    path("updateACourse/", views.updateACourse, name="updateACourse"),
+    path("updateACourse/<int:courseID>", views.updateACourse, name="updateACourse"),
     path("deleteACourse/<int:courseID>", views.deleteACourse, name="deleteACourse"),
     path(
         "teacherCourses/<int:teacherID>",
@@ -18,9 +18,9 @@ urlpatterns = [
     path("<int:courseID>/sections/all/", views.getAllSections, name="getAllSections"),
     path("<int:courseID>/<int:sectionID>/", views.getASection, name="getASection"),
     path("<int:courseID>/addASection/", views.addASection, name="addASection"),
-    path("<int:courseID>/updateASection/", views.updateASection, name="updateASection"),
+    path("updateASection/<int:sectionID>/", views.updateASection, name="updateASection"),
     path(
-        "<int:courseID>/deleteASection/<int:sectionID>/",
+        "deleteASection/<int:sectionID>/",
         views.deleteASection,
         name="deleteASection",
     ),
@@ -29,13 +29,18 @@ urlpatterns = [
         "section/<int:sectionID>/getAllVideos/", views.getAllVideos, name="getAllVideos"
     ),
     path("section/<int:sectionID>/addAVideo/", views.addAVideo, name="addAVideo"),
+    # path(
+    #     "section/<int:sectionID>/deleteAVideo/<int:videoID>",
+    #     views.deleteAVideo,
+    #     name="deleteAVideo",
+    # ),
     path(
-        "section/<int:sectionID>/deleteAVideo/<int:videoID>",
+        "deleteAVideo/<int:videoID>",
         views.deleteAVideo,
         name="deleteAVideo",
     ),
     path(
-        "section/<int:sectionID>/updateAVideo/<int:videoID>",
+        "section/updateAVideo/<int:videoID>",
         views.updateAVideo,
         name="updateAVideo",
     ),
