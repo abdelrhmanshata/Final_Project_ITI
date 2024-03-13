@@ -4,6 +4,7 @@ from . import views
 urlpatterns = [
     # Courses
     path("listAllCourses/", views.listAllCourses, name="listAllCourses"),
+    path("listCategoryCourses/<str:type>", views.listCategoryCourses, name="listCategoryCourses"),
     path("listAllCourses/<int:courseID>", views.getACourse, name="getACourse"),
     path("addACourse/", views.addACourse, name="addACourse"),
     path("updateACourse/<int:courseID>", views.updateACourse, name="updateACourse"),
@@ -18,7 +19,9 @@ urlpatterns = [
     path("<int:courseID>/sections/all/", views.getAllSections, name="getAllSections"),
     path("<int:courseID>/<int:sectionID>/", views.getASection, name="getASection"),
     path("<int:courseID>/addASection/", views.addASection, name="addASection"),
-    path("updateASection/<int:sectionID>/", views.updateASection, name="updateASection"),
+    path(
+        "updateASection/<int:sectionID>/", views.updateASection, name="updateASection"
+    ),
     path(
         "deleteASection/<int:sectionID>/",
         views.deleteASection,

@@ -99,9 +99,9 @@ export default function CourseItem({ data }) {
         </Grid>
       </CardContent>
       <CardActions disableSpacing>
-        <IconButton aria-label="share">
+        {/* <IconButton aria-label="share">
           <ShareIcon />
-        </IconButton>
+        </IconButton> */}
         <IconButton
           aria-label="visibility course"
           onClick={() => {

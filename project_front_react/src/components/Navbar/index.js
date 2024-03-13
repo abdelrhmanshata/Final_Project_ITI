@@ -1,5 +1,3 @@
-
-
 import { Link, useNavigate } from "react-router-dom";
 import { BiUserCircle } from "react-icons/bi";
 import { useEffect, useState } from "react";
@@ -31,6 +29,7 @@ export default function Navbar({ active }) {
   };
 
   const logout = () => {
+    navigate(`/`);
     localStorage.setItem("User_ID", "");
     localStorage.setItem("isAdmin", "");
     localStorage.setItem("User_JWT", "");
@@ -155,5 +154,4 @@ export default function Navbar({ active }) {
       {/* <!-- Navbar End --> */}
     </>
   );
-
-          }
+}

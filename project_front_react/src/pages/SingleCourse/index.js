@@ -83,7 +83,7 @@ export default function SingleCourse() {
                         <Typography variant="h6">Created by</Typography>
                       </TableCell>
                       <TableCell>
-                        <Typography variant="h6">Categories</Typography>
+                        <Typography variant="h6">Subject</Typography>
                       </TableCell>
                       <TableCell>
                         <Typography variant="h6">Review</Typography>
@@ -96,13 +96,14 @@ export default function SingleCourse() {
                         {user.name}
                       </TableCell>
                       <TableCell style={{ borderBottom: "none" }}>
-                        Arabic
+                        {user.subject}
                       </TableCell>
                       <TableCell
                         style={{ borderBottom: "none" }}
-                        className="d-flex align-items-center"
+                        className="d-flex align-items-center gap-2"
                       >
                         <Rating name="read-only" value={4} readOnly />
+
                         <Typography variant="span">
                           9.45 (9.8k+ reviews)
                         </Typography>

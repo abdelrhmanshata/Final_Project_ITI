@@ -83,13 +83,31 @@ export default function UpdateCourse() {
           </div>
           <div className="form-group">
             <label>Course Type</label>
+            <select
+              className="form-control bg-white"
+              name="courseType"
+              value={course.courseType}
+              onChange={handleInputChange}
+            >
+              <option value="">Choose Type</option>
+              <option value="Arabic">Arabic</option>
+              <option value="English ">English</option>
+              <option value="Computer Science">Computer Science</option>
+              <option value="History">History</option>
+              <option value="Geography">Geography</option>
+              <option value="Science">Science</option>
+              <option value="Physics ">Physics</option>
+              <option value="Chemistry">Chemistry</option>
+            </select>
+
+            {/* <label>Course Type</label>
             <input
               type="text"
               className="form-control"
               name="courseType"
               value={course.courseType}
               onChange={handleInputChange}
-            />
+            /> */}
           </div>
           <div className="form-group">
             <label>Course Price</label>
