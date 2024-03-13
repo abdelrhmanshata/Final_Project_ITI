@@ -38,4 +38,19 @@ urlpatterns = [
     path('section/<int:sectionID>/<int:questionID>/addAnAnswer/', views.addAnAnswer, name="addAnAnswer"),
     path('section/<int:sectionID>/<int:questionID>/getAllAnswers/', views.getAllAnswers, name="getAllAnswers"),
 
+    # Requirements
+    
+    path('course/<int:courseID>/addARequirement/', views.addARequirement, name="addARequirement"),
+    path('course/<int:courseID>/getAllRequirements/', views.getAllRequirements, name="getAllRequirements"),
+    path('course/<int:courseID>/updateARequirement/', views.updateARequirement, name="updateARequirement"),
+    path('course/<int:courseID>/deleteARequirement/<int:requirementID>', views.deleteARequirement, name="deleteARequirement"),
+
+    # WhatYoullLearn
+
+    path('course/<int:courseID>/addAWhatYoullLearn/', views.addAWhatYoullLearn, name="addAWhatYoullLearn"),
+    path('course/<int:courseID>/getAllWhatYoullLearns/', views.getAllWhatYoullLearns, name="getAllWhatYoullLearns"),
+    path('course/<int:courseID>/updateAWhatYoullLearn/', views.updateAWhatYoullLearn, name="updateAWhatYoullLearn"),
+    path('course/<int:courseID>/deleteAWhatYoullLearn/<int:WhatYoullLearnID>', views.deleteAWhatYoullLearn, name="deleteAWhatYoullLearn"),
+
+
 ]

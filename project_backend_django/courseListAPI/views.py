@@ -112,7 +112,7 @@ def addASection(request):
 def getASection(request, sectionID):
     data=Section.objects.filter(id=sectionID)
     if (data):
-        datajson=SectionSerializer(data,many=True).data
+        datajson=SectionSerializer(data, many=True).data
         return Response({'message':datajson})
     return Response({'message':"Course Not Found."})
 
@@ -215,3 +215,87 @@ def getAllAnswers(request, questionID):
         datajson=AnswerGetSerializer(data,many=True).data
         return Response({'message':datajson})
     return Response({'message':"Video Not Found."})
+
+# Requirements
+
+@api_view(['POST'])
+def addARequirement(request, courseID):
+    obj=RequirementAddSerializer(data=request.data)
+    print(obj)
+    if (obj.is_valid()):
+        obj.save()
+        return Response({'message':"Requirement added."})
+    return Response({'message':"Requirement not added. Data might be invalid."})
+
+@api_view(['GET'])
+def getAllRequirements(request, courseID):
+    data=Requirement.objects.filter(courseID=courseID)
+    print(data)
+    if (data):
+        datajson=RequirementSerializer(data, many=True).data
+        print("Does this return?", datajson)
+        return Response({'message':datajson})
+    return Response({'message':"Requirements Not Found."})
+
+@api_view(['POST','GET','PUT'])
+def updateARequirement(request):
+    try:
+        requirementID=request.data["requirementID"]
+        selectedRequirement=Requirement.objects.get(id=requirementID)
+        datajson=RequirementAddSerializer(selectedRequirement, data=request.data)
+        if datajson.is_valid():
+            datajson.save()
+            return Response({'message':"Successfully updated the requirement."})
+    except Requirement.DoesNotExist:
+        return Response({'message':"Not Found."})
+
+@api_view(['POST','GET','DELETE'])
+def deleteARequirement(request, requirementID):
+    try:
+        selectedRequirement=Requirement.objects.get(id=requirementID)
+        selectedRequirement.delete()
+        return Response({'message':"Successfully deleted."})
+    except Requirement.DoesNotExist:
+        return Response({'message':"Not Found."})
+    
+# WhatYoullLearn
+
+@api_view(['POST'])
+def addAWhatYoullLearn(request):
+    obj=WhatYoullLearnAddSerializer(data=request.data)
+    print(obj)
+    if (obj.is_valid()):
+        obj.save()
+        return Response({'message':"What You'll Learn added."})
+    return Response({'message':"What You'll Learn not added. Data might be invalid."})
+
+@api_view(['GET'])
+def getAllWhatYoullLearns(request, courseID):
+    data=WhatYoullLearn.objects.filter(courseID=courseID)
+    print(data)
+    if (data):
+        datajson=WhatYoullLearnGetSerializer(data,many=True).data
+        return Response({'message':datajson})
+    return Response({'message':"WhatYoullLearns Not Found."})
+
+@api_view(['POST','GET','PUT'])
+def updateAWhatYoullLearn(request):
+    try:
+        whatYoullLearnID=request.data["WhatYoullLearnID"]
+        selectedWhatYoullLearn=WhatYoullLearn.objects.get(id=whatYoullLearnID)
+        datajson=WhatYoullLearnAddSerializer(selectedWhatYoullLearn, data=request.data)
+        if datajson.is_valid():
+            datajson.save()
+            return Response({'message':"Successfully updated."})
+    except WhatYoullLearn.DoesNotExist:
+        return Response({'message':"Not Found."})
+
+@api_view(['POST','GET','DELETE'])
+def deleteAWhatYoullLearn(request, whatYoullLearnID):
+    try:
+        selectedWhatYoullLearn=WhatYoullLearn.objects.get(id=whatYoullLearnID)
+        selectedWhatYoullLearn.delete()
+        return Response({'message':"Successfully deleted."})
+    except WhatYoullLearn.DoesNotExist:
+        return Response({'message':"Not Found."})
+    

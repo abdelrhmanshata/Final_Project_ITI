@@ -90,3 +90,33 @@ class AnswerGetSerializer(serializers.Serializer):
     questionID=serializers.IntegerField()
     answerText=serializers.CharField(max_length=50)
     isAnswer=serializers.BooleanField()
+
+
+# Requirements
+    
+class RequirementSerializer(serializers.Serializer):
+    #id Automatic Field
+    #courseID=serializers.IntegerField()
+    requirementDescription=serializers.CharField(max_length=50)
+
+class RequirementAddSerializer(serializers.ModelSerializer):
+    class Meta:
+        model=Requirement
+        fields='__all__'
+
+# What you'll learn
+    
+class WhatYoullLearnSerializer(serializers.Serializer):
+    #id Automatic Field
+    #courseID=serializers.IntegerField()
+    whatYoullLearnDescription=serializers.CharField(max_length=50)
+
+class WhatYoullLearnAddSerializer(serializers.ModelSerializer):
+    class Meta:
+        model=WhatYoullLearn
+        fields='__all__'
+
+class WhatYoullLearnGetSerializer(serializers.Serializer):
+    #id Automatic Field
+    #courseID=serializers.IntegerField()
+    WhatYoullLearnDescription=serializers.CharField(max_length=50)

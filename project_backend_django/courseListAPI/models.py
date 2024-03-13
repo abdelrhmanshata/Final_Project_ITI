@@ -35,13 +35,23 @@ class Answer(models.Model):
     #   Boolean False
     #   Boolean True
 
-
 class Video(models.Model):
     #id Automatic Field
     sectionID=models.ForeignKey(Section, on_delete=models.CASCADE)
     videoTitle=models.CharField(max_length=50)
     videoDescription=models.CharField(max_length=300)
     videoLink=models.CharField(max_length=50)
+
+class Requirement(models.Model):
+    #id Automatic Field
+    courseID=models.ForeignKey(Course, on_delete=models.CASCADE)
+    requirementDescription=models.CharField(max_length=50)
+
+class WhatYoullLearn(models.Model):
+    #id Automatic Field
+    courseID=models.ForeignKey(Course, on_delete=models.CASCADE)
+    whatYoullLearnDescription=models.CharField(max_length=50)
+
 
 # class PaymentMethod(models.Model):
 #     #id Automatic Field
