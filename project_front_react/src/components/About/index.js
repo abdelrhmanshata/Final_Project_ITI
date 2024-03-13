@@ -27,13 +27,10 @@ export default function About() {
               </h6>
               <h1 className="mb-4">Welcome to eLEARNING</h1>
               <p className="mb-4">
-                Tempor erat elitr rebum at clita. Diam dolor diam ipsum sit.
-                Aliqu diam amet diam et eos. Clita erat ipsum et lorem et sit.
+              Welcome to  E-Learning Platform, where learning knows no bounds. Our mission is to provide accessible, high-quality education to learners worldwide, empowering them to pursue their passions and achieve their goals.
               </p>
               <p className="mb-4">
-                Tempor erat elitr rebum at clita. Diam dolor diam ipsum sit.
-                Aliqu diam amet diam et eos. Clita erat ipsum et lorem et sit,
-                sed stet lorem sit clita duo justo magna dolore erat amet
+              At  Your E-Learning Platform , we believe that education should be inclusive, flexible, and engaging. That's why we offer a diverse range of courses taught by industry experts, covering topics spanning from technology and business to arts and humanities. Whether you're a beginner looking to explore new interests or a professional aiming to enhance your skills, we have something for everyone.
               </p>
               <div className="row gy-2 gx-4 mb-4">
                 <div className="col-sm-6">
@@ -57,21 +54,13 @@ export default function About() {
                 <div className="col-sm-6">
                   <p className="mb-0">
                     <i className="fa fa-arrow-right text-primary me-2"></i>
-                    Skilled Instructors
+                    Interactive Learning Experience
+
+
                   </p>
                 </div>
-                <div className="col-sm-6">
-                  <p className="mb-0">
-                    <i className="fa fa-arrow-right text-primary me-2"></i>
-                    Online classNamees
-                  </p>
-                </div>
-                <div className="col-sm-6">
-                  <p className="mb-0">
-                    <i className="fa fa-arrow-right text-primary me-2"></i>
-                    International Certificate
-                  </p>
-                </div>
+                
+               
               </div>
               <Link className="btn btn-primary py-3 px-5 mt-2" to="">
                 Read More

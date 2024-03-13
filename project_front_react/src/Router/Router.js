@@ -3,6 +3,8 @@ import { Route, Routes } from "react-router-dom";
 import Spinner from "../components/Spinner";
 
 
+const SingleInstructor = React.lazy(() => import("../pages/SingleInstructor/index"));
+const Aboutus =React.lazy(() => import("../pages/Aboutus/index"));
 const LoginForm = React.lazy(() => import("../pages/LoginForm/index"));
 const RegisterForm = React.lazy(() => import("../pages/RegisterForm/index"));
 const Home = React.lazy(() => import("../pages/Home"));
@@ -35,6 +37,9 @@ export default function Router() {
           <Route path="/profile" element={<UserProfile />} />
          
           <Route path="/Addcourse" element={<Addcourse />} />
+          <Route path="/Aboutus" element={<Aboutus />} />
+          <Route path="/single" element={<SingleInstructor />} />
+          
         </>
         
         

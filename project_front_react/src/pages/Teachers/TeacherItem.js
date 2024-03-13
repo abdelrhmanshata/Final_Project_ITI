@@ -3,17 +3,20 @@ import CardContent from "@mui/material/CardContent";
 import CardMedia from "@mui/material/CardMedia";
 import Typography from "@mui/material/Typography";
 import { CardActionArea, Grid, Rating } from "@mui/material";
+import { Link } from "react-router-dom";
 
 export default function TeacherItem({ data }) {
   return (
     <Card key={data.id} sx={{ width: 350, maxWidth: 345 }}>
       <CardActionArea>
-        <CardMedia
-          component="img"
-          height="250"
-          image={data.image}
-          alt="Instructor Image"
-        />
+      <Link to="/single">
+    <CardMedia
+        component="img"
+        height="250"
+        image={data.image}
+        alt="Instructor Image"
+    />
+</Link>
         <CardContent>
           <Typography variant="h6">{data.name}</Typography>
           <Grid className="my-0" container spacing={2}>
