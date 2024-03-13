@@ -90,7 +90,7 @@ export default function Navbar({ active }) {
               Teachers
             </Link>
             <Link
-              to="/course/1/lesson/1"
+              to="/Aboutus"
               className={
                 active === "About"
                   ? "nav-item nav-link active"
