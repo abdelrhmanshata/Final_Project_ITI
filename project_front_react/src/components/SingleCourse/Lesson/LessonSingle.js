@@ -46,7 +46,7 @@ export default function LessonSingle() {
           <Button
             variant="contained"
             onClick={() => {
-              navigate("/course/1");
+              navigate(`/course/${data.id}`);
             }}
           >
             Back To Course
@@ -59,12 +59,12 @@ export default function LessonSingle() {
         <Grid container spacing={3}>
           <Grid item xs={8}>
             <Paper className="p-2">
-              <VideoPlayer videoId={"9r-BoGoZWVs"} />
+              <VideoPlayer />
             </Paper>
           </Grid>
           <Grid item xs={4}>
             <Paper className="p-2">
-              <Curriculum course={data} />
+              <Curriculum course={data} isPlay={true} />
             </Paper>
           </Grid>
         </Grid>

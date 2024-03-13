@@ -18,7 +18,9 @@ class UserSerializer(serializers.ModelSerializer):
             "identificationcard",
             "educationstage",
             "usertype",
-            "isApprove"
+            "isApprove",
+            "description",
+            "subject"
         ]
         extra_kwargs={
             'password' : {'write_only':True,'required': False},
@@ -26,8 +28,8 @@ class UserSerializer(serializers.ModelSerializer):
         }
 
     def create(self, validated_data):
-        password = validated_data.pop("password", None)
-        instance = self.Meta.model(**validated_data)
+        password=validated_data.pop('password',None)
+        instance= self.Meta.model(**validated_data)
         if password is not None:
             instance.set_password(password)
         instance.save()

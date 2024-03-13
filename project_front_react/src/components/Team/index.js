@@ -38,14 +38,14 @@ export default function Team() {
                 data-wow-delay="0.1s"
               >
                 <div className="team-item bg-light">
-                  <div className="overflow-hidden">
+                  <div className="d-flex justify-content-center">
                     <img
                       className="img-fluid"
                       src={`http://127.0.0.1:9000/${item.image}`}
                       alt={item.name}
                     />
                   </div>
-                  <div
+                  {/* <div
                     className="position-relative d-flex justify-content-center"
                     style={{ marginTop: "-23px" }}
                   >
@@ -69,10 +69,21 @@ export default function Team() {
                         <i className="fab fa-instagram"></i>
                       </Link>
                     </div>
-                  </div>
+                  </div> */}
                   <div className="text-center p-4">
-                    <h5 className="mb-0">{item.name}</h5>
-                    <small>{item.phonenumber}</small>
+                    <h5
+                      className="mb-0"
+                      style={{ height: "50px", overflow: "hidden" }}
+                    >
+                      {item.name}
+                    </h5>
+                    <small style={{ height: "20px", overflow: "hidden" }}>
+                      {item.email}
+                    </small>
+                    <br />
+                    <small style={{ height: "20px", overflow: "hidden" }}>
+                      {item.phonenumber}
+                    </small>
                   </div>
                 </div>
               </div>

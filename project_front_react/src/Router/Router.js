@@ -45,7 +45,7 @@ export default function Router() {
         <Route path="/courses" element={<Courses />} />
         <Route path="/course/:courseID" element={<SingleCourse />} />
         <Route
-          path="/course/:courseID/lesson/:lessonID"
+          path="/lesson/:courseID"
           element={<LessonSingle />}
         />
 

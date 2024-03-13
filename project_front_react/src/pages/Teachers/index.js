@@ -11,7 +11,7 @@ import { axiosInstance } from "api/config";
 export default function TeachersPage() {
   const [allTeachers, setAllTeachers] = useState([]);
   const [teachers, setTeachers] = useState([]);
-  const category = useState("");
+  const [category, setCategory] = useState("");
 
   const getData = useCallback(async () => {
     try {
@@ -39,8 +39,9 @@ export default function TeachersPage() {
   };
 
   const getTeachersByCategory = (value) => {
+    setCategory(value);
     const filteredData = allTeachers.filter((item) =>
-      item.classroom.toLowerCase().includes(value.toLowerCase())
+      item.subject.toLowerCase().includes(value.toLowerCase())
     );
     setTeachers(filteredData);
   };
@@ -72,12 +73,12 @@ export default function TeachersPage() {
       </div>
 
       {/* Pagination */}
-      <div
+      {/* <div
         className="container d-flex p-5"
         style={{ justifyContent: "center" }}
       >
         <Pagination count={10} color="primary" />
-      </div>
+      </div> */}
 
       {/* Footer */}
       <Footer />

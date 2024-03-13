@@ -9,12 +9,20 @@ from django.conf import settings
 
 # Create your views here.
 
+
 # Courses
 
 
 @api_view(["GET"])
 def listAllCourses(request):
     data = Course.objects.all()
+    datajson = CourseSerializer(data, many=True).data
+    return Response({"message": datajson})
+
+
+@api_view(["GET"])
+def listCategoryCourses(request, type):
+    data = Course.objects.filter(courseType=type)
     datajson = CourseSerializer(data, many=True).data
     return Response({"message": datajson})
 

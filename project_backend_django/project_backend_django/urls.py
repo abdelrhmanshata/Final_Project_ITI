@@ -28,6 +28,8 @@ urlpatterns = [
     path("admin/", admin.site.urls),
     path("user/", include("user_authentication_app.urls")),
     path("course/", include("courseListAPI.urls")),
+    path("api/",include('payment_app.urls'))
+
 ]
 if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

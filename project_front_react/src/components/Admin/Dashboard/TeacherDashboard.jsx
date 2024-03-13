@@ -79,26 +79,30 @@ export default function TeacherDashboard() {
             </span>
           </div>
 
-          <div className="action--button">
-            <Button
-              variant="primary"
-              size="sm"
-              onClick={() => {
-                activeUser(teacher.id, 1);
-              }}
-            >
-              Approve
-            </Button>
-
-            <Button
-              variant="danger"
-              size="sm"
-              onClick={() => {
-                activeUser(teacher.id, 0);
-              }}
-            >
-              Reject
-            </Button>
+          <div style={{ width: "100px" }} className="action--button">
+            {teacher.isApprove ? (
+              <Button
+                variant="danger"
+                size="sm"
+                style={{ width: "100px" }}
+                onClick={() => {
+                  activeUser(teacher.id, 0);
+                }}
+              >
+                Block
+              </Button>
+            ) : (
+              <Button
+                variant="primary"
+                size="sm"
+                style={{ width: "100px" }}
+                onClick={() => {
+                  activeUser(teacher.id, 1);
+                }}
+              >
+                Approve
+              </Button>
+            )}
           </div>
         </div>
       </>

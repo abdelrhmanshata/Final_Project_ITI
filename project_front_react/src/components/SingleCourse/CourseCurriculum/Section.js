@@ -1,15 +1,18 @@
+import React, { useCallback, useEffect, useState } from "react";
+import { axiosInstance } from "api/config";
+import { useDispatch } from "react-redux";
+import { selectVideo } from "store/slices/video";
+import { BiSolidRightArrow, BiVideo } from "react-icons/bi";
 import {
   IconButton,
   ListItem,
   ListItemAvatar,
   ListItemText,
 } from "@mui/material";
-import { axiosInstance } from "api/config";
-import React, { useCallback, useEffect, useState } from "react";
-import { BiFile, BiSolidRightArrow } from "react-icons/bi";
 
-const Section = ({ sectionData }) => {
+const Section = ({ sectionData, index, isPlay }) => {
   const [videos, setVideos] = useState([]);
+  const dispatch = useDispatch();
   const getData = useCallback(async () => {
     try {
       await axiosInstance
@@ -17,6 +20,9 @@ const Section = ({ sectionData }) => {
         .then((res) => {
           if (typeof res.data.message != "string") {
             setVideos(res.data.message);
+            if (index === 0) {
+              dispatch(selectVideo(res.data.message[0]));
+            }
           } else {
             setVideos([]);
           }
@@ -37,13 +43,21 @@ const Section = ({ sectionData }) => {
         <>
           <ListItem
             secondaryAction={
-              <IconButton edge="end" aria-label="delete">
-                <BiSolidRightArrow />
-              </IconButton>
+              <>
+                {isPlay ? (
+                  <IconButton
+                    edge="end"
+                    aria-label="select"
+                    onClick={() => dispatch(selectVideo(video))}
+                  >
+                    <BiSolidRightArrow />
+                  </IconButton>
+                ) : null}
+              </>
             }
           >
             <ListItemAvatar>
-              <BiFile size={24} />
+              <BiVideo size={24} />
             </ListItemAvatar>
             <ListItemText
               primary={video.videoTitle}
