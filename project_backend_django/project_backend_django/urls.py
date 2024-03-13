@@ -17,12 +17,19 @@ Including another URLconf
 
 from django.contrib import admin
 from django.urls import path, include
+import user_authentication_app.views as views
 from django.conf import settings
+from .settings import *
 from django.conf.urls.static import static
 
+
 urlpatterns = [
-    path('admin/', admin.site.urls),
-    path('user/', include('user_authentication_app.urls')),
+    path("", views.apiConnection, name="get_category"),
+    path("admin/", admin.site.urls),
+    path("user/", include("user_authentication_app.urls")),
+    path("course/", include("courseListAPI.urls")),
     path("api/",include('payment_app.urls'))
 
-] + static (settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+]
+if settings.DEBUG:
+    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

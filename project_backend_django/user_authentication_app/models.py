@@ -43,7 +43,7 @@ class User(AbstractUser):
     phonenumber = models.CharField(null=True)
     classroom = models.CharField(max_length=255,null=True)
     gradelevels = models.CharField(max_length=255,null=True)
-    image = models.ImageField(upload_to='user_images/', null=True,  default="bk1.jfif" )
+    image = models.ImageField(upload_to='user_images/', null=True,  default="user.png" )
     address = models.CharField(max_length=255, default='No address provided',null=True)
     identificationcard = models.CharField(null=True)
     educationstage = models.CharField(max_length=255,null=True)
@@ -51,6 +51,7 @@ class User(AbstractUser):
     objects = UserManager()
 
     # is_staff = models.BooleanField()
+    isApprove = models.BooleanField()
     username=None
 
     USERNAME_FIELD= 'email'

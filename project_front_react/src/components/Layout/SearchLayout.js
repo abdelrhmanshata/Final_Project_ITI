@@ -1,7 +1,7 @@
 import React from "react";
 import { IconButton, TextField } from "@mui/material";
 import { Search } from "@mui/icons-material";
-export default function SearchLayout({ text, action }) {
+export default function SearchLayout({ action }) {
   return (
     <div className="container-fluid bg-light py-5 mb-5">
       <div className="container py-5">
@@ -13,7 +13,7 @@ export default function SearchLayout({ text, action }) {
                 label="Search..."
                 color="info"
                 onChange={(e) => {
-                  text(e.target.value);
+                  action(e.target.value)
                 }}
               />
               <IconButton

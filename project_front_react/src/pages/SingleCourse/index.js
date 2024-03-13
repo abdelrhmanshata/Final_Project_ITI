@@ -1,5 +1,5 @@
 import Navbar from "components/Navbar";
-import React, { useEffect } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import {
   Avatar,
@@ -17,12 +17,44 @@ import {
 import CourseInfoTab from "./CourseInfoTab";
 import Footer from "components/Footer";
 import CourseDetails from "./CourseDetails";
+import { axiosInstance } from "api/config";
 
 export default function SingleCourse() {
   const params = useParams();
+  const [course, setCourse] = useState({});
+  const [user, setUser] = useState({});
+
+  const getCourseData = async () => {
+    await axiosInstance
+      .get(`course/listAllCourses/${params.courseID}`)
+      .then((res) => {
+        setCourse(res.data.message[0]);
+        getUserData(res.data.message[0].userID);
+      })
+      .catch((err) => console.log(err));
+  };
+
+  const getUserData = async (userID) => {
+    await axiosInstance
+      .get(`user/Get_Specific_User/${userID}`)
+      .then((res) => {
+        setUser(res.data.data);
+      })
+      .catch((err) => console.log(err));
+  };
+
+  const getData = useCallback(async () => {
+    try {
+      getCourseData();
+    } catch (error) {
+      console.log(error);
+    }
+  }, [params.courseID]);
+
   useEffect(() => {
-    console.log(params.id);
-  }, [params]);
+    getData();
+  }, [getData]);
+
   return (
     <>
       <Navbar />
@@ -31,16 +63,16 @@ export default function SingleCourse() {
           <Grid item sm={12} md={8}>
             <div className="d-flex flex-column mb-5 gap-3">
               <Typography variant="h3" component="h2">
-                UI/UX Design
+                {course.courseName}
               </Typography>
               <Typography variant="body2">
-                User Interface Design Essentials - UI/UX Design
+                Explore the Foundations of {course.courseName}
               </Typography>
             </div>
             <div className="d-flex mb-3 gap-2 align-items-center">
               <Avatar
-                alt="Remy Sharp"
-                src={require("../../assets/img/team-0.jpg")}
+                alt={user.name}
+                src={`http://127.0.0.1:9000/${user.image}`}
                 sx={{ width: 80, height: 80 }}
               />
               <TableContainer>
@@ -61,7 +93,7 @@ export default function SingleCourse() {
                   <TableBody>
                     <TableRow style={{ borderBottom: "none" }}>
                       <TableCell style={{ borderBottom: "none" }}>
-                        AbdElrhman
+                        {user.name}
                       </TableCell>
                       <TableCell style={{ borderBottom: "none" }}>
                         Arabic
@@ -82,11 +114,11 @@ export default function SingleCourse() {
             </div>
 
             {/*  */}
-            <CourseInfoTab />
+            <CourseInfoTab data={course} />
             {/*  */}
           </Grid>
           <Grid item sm={12} md={4}>
-            <CourseDetails />
+            <CourseDetails data={course} />
           </Grid>
         </Grid>
       </Container>

@@ -2,7 +2,7 @@ import { Typography } from "@mui/material";
 import React from "react";
 import { BiCheckCircle } from "react-icons/bi";
 
-export default function Overview() {
+export default function Overview({ course }) {
   const skillsList = [
     "Become a UI/UX designer.",
     "Build & test a complete mobile app.",
@@ -30,14 +30,7 @@ export default function Overview() {
           Course Description
         </Typography>
         <Typography variant="body2" color="text.secondary">
-          Do you want to become a UI/UX designer but you don't know where to
-          start? This course will allow you to develop your user interface
-          design skills and you can add UI designer to your CV and start getting
-          clients for your skills. Hi everyone. I'm Arash and I'm a UI/UX
-          designer. In this course, I will help you learn and master Figma app
-          comprehensively from scratch. Figma is an innovative and brilliant
-          tool for User Interface design. It's used by everyone from
-          entrepreneurs and start-ups to Apple, Airbnb, Facebook, etc.
+          {course.courseDescription}
         </Typography>
       </Typography>
       {/* What you'll learn */}

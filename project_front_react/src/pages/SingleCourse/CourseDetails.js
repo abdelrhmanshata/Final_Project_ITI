@@ -10,8 +10,11 @@ import {
 import { TbCertificate } from "react-icons/tb";
 import { BsCalendarDate } from "react-icons/bs";
 import { VscSettings } from "react-icons/vsc";
+import { useNavigate } from "react-router-dom";
 
-export default function CourseDetails() {
+export default function CourseDetails({ data }) {
+  const navigate = useNavigate();
+
   return (
     <>
       <Paper className="p-2">
@@ -19,12 +22,13 @@ export default function CourseDetails() {
           <Image
             width={"100%"}
             height={250}
-            src={require("../../assets/img/course-3.jpg")}
+            src={`http://127.0.0.1:9000/${data.courseImage}`}
+            // src={`http://127.0.0.1:9000/course/get_image/${data.id}`}
             rounded
             className="border border-2 border-primary"
           />
           <div className="position-absolute top-50 start-50 translate-middle">
-            <Fab color="primary">
+            <Fab color="primary" onClick={() => navigate(`/course/4/lesson/1`)}>
               <BiSolidRightArrow size={24} />
             </Fab>
           </div>
@@ -46,7 +50,7 @@ export default function CourseDetails() {
           <div className="d-flex align-items-center gap-2">
             <MdOutlineOndemandVideo size={20} />
             <span className="w-50">Lectures</span>
-            <span className="w-50 text-end">32</span>
+            <span className="w-50 text-end">{data.courseLessons}</span>
           </div>
           <div className="d-flex align-items-center gap-2">
             <BiBookReader size={20} />
