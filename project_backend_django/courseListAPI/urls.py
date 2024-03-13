@@ -53,5 +53,10 @@ urlpatterns = [
     path('course/<int:courseID>/updateAWhatYoullLearn/', views.updateAWhatYoullLearn, name="updateAWhatYoullLearn"),
     path('course/<int:courseID>/deleteAWhatYoullLearn/<int:WhatYoullLearnID>', views.deleteAWhatYoullLearn, name="deleteAWhatYoullLearn"),
 
+     # Get number of courses by a teacher
+
+    path('course/<int:teacherID>/numberOfCourses/', views.getAllCoursesByTeacher, name="getAllCoursesByTeacher"),
+
+
 
 ]

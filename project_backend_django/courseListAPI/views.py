@@ -304,3 +304,13 @@ def deleteAWhatYoullLearn(request, whatYoullLearnID):
     except WhatYoullLearn.DoesNotExist:
         return Response({'message':"Not Found."})
     
+# Teacher ID Find
+    
+@api_view(['GET'])
+def getAllCoursesByTeacher(request, teacherID):
+    data=Course.objects.filter(userID=teacherID)
+    if (data):
+        datajson=data.count()
+        print(datajson)
+        return Response({'message':datajson})
+    return Response({'message':"Requirements Not Found."})
