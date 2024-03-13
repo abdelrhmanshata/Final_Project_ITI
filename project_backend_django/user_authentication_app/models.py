@@ -1,7 +1,39 @@
 from django.db import models
 from django.contrib.auth.models import AbstractUser
 
-# Create your models here.
+from django.contrib.auth.base_user import BaseUserManager
+
+# this is used to create a superuser using an email instead of username
+class UserManager(BaseUserManager):
+    use_in_migrations = True
+
+    def _create_user(self, email, password, **extra_fields):
+        """
+        Create and save a user with the given email, and password.
+        """
+        if not email:
+            raise ValueError('The given email must be set')
+        user = self.model(email=email, **extra_fields)
+        user.set_password(password)
+        user.save(using=self._db)
+        return user
+
+    def create_user(self, email, password=None, **extra_fields):
+        extra_fields.setdefault('is_staff', False)
+        extra_fields.setdefault('is_superuser', False)
+        return self._create_user(email, password, **extra_fields)
+
+    def create_superuser(self, email, password, **extra_fields):
+        extra_fields.setdefault('is_staff', True)
+        extra_fields.setdefault('is_superuser', True)
+
+        if extra_fields.get('is_staff') is not True:
+            raise ValueError('Superuser must have is_staff=True.')
+        if extra_fields.get('is_superuser') is not True:
+            raise ValueError('Superuser must have is_superuser=True.')
+
+        return self._create_user(email, password, **extra_fields)
+
 
 
 class User(AbstractUser):
@@ -16,7 +48,9 @@ class User(AbstractUser):
     identificationcard = models.CharField(null=True)
     educationstage = models.CharField(max_length=255,null=True)
     usertype = models.CharField(max_length=255,null=True)
-    is_staff = models.BooleanField()
+    objects = UserManager()
+
+    # is_staff = models.BooleanField()
     username=None
 
     USERNAME_FIELD= 'email'

@@ -213,7 +213,6 @@ def Update_User(request,id):
     else:
         return Response(serialized_user.errors, status=400)
 
-
 #  delete specific user 
 @api_view(['DELETE'])
 def Delete_User(request,id):
