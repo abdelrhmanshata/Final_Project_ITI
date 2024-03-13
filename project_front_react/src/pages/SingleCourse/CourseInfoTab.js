@@ -4,10 +4,10 @@ import Tabs from "@mui/material/Tabs";
 import Tab from "@mui/material/Tab";
 import Box from "@mui/material/Box";
 import { Container } from "@mui/material";
-import Overview from "./Overview";
-import Curriculum from "./Curriculum";
-import Instructor from "./Instructor";
-import Reviews from "./Reviews";
+import Overview from "../../components/SingleCourse/Overview";
+import Curriculum from "../../components/SingleCourse/CourseCurriculum/index";
+import Instructor from "../../components/SingleCourse/Instructor";
+import Reviews from "../../components/SingleCourse/Reviews";
 
 function CustomTabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -41,7 +41,7 @@ function a11yProps(index) {
   };
 }
 
-export default function CourseInfoTab() {
+export default function CourseInfoTab({ data }) {
   const [value, setValue] = React.useState(0);
   const handleChange = (event, newValue) => {
     setValue(newValue);
@@ -63,13 +63,13 @@ export default function CourseInfoTab() {
           </Tabs>
         </Box>
         <CustomTabPanel value={value} index={0}>
-          <Overview />
+          <Overview course={data} />
         </CustomTabPanel>
         <CustomTabPanel value={value} index={1}>
-          <Curriculum />
+          <Curriculum course={data} isPlay={false} />
         </CustomTabPanel>
         <CustomTabPanel value={value} index={2}>
-          <Instructor />
+          <Instructor course={data}/>
         </CustomTabPanel>
         <CustomTabPanel value={value} index={3}>
           <Reviews />

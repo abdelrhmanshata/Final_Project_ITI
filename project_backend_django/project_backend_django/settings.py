@@ -11,6 +11,8 @@ https://docs.djangoproject.com/en/4.2/ref/settings/
 """
 
 from pathlib import Path
+import os
+
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -40,6 +42,8 @@ INSTALLED_APPS = [
     "rest_framework",
     "corsheaders",
     "user_authentication_app",
+    "courseListAPI",
+    "payment_app",
 ]
 
 MIDDLEWARE = [
@@ -80,9 +84,9 @@ WSGI_APPLICATION = "project_backend_django.wsgi.application"
 DATABASES = {
     "default": {
         "ENGINE": "django.db.backends.postgresql",
-        "NAME": "e-learningtest",
+        "NAME": "e-learning",
         "USER": "postgres",
-        "PASSWORD": "19991999",
+        "PASSWORD": "120699",
         "HOST": "localhost",
         "PORT": "5432",
     }
@@ -123,7 +127,13 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.2/howto/static-files/
 
+
 STATIC_URL = "static/"
+# MEDIA_ROOT=BASE_DIR / 'course'
+STATIC_ROOT = os.path.join(BASE_DIR, STATIC_URL)
+MEDIA_URL = "media/"
+MEDIA_ROOT = os.path.join(BASE_DIR, MEDIA_URL)
+
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
@@ -138,3 +148,17 @@ CORS_ALLOW_CREDENTIALS = True
 
 EMAIL_HOST = 'localhost'
 EMAIL_PORT = 1025
+
+CORS_ALLOWED_ORIGINS=[
+    'http://localhost:3000'
+]
+
+STRIPE_SECRET_KEY='sk_test_51OrsuJCHZYVjk4rBeXg61P4NgVxEjl7x2sSN6oRja9upEnQni8xXbh5nqyLKqT1yjEfCywLkBMx8vVi8ZWm3IGK4002I6yn4n9'
+STRIPE_PUBLIC_KEY='pk_test_51OrsuJCHZYVjk4rB3OeNDa1qNmZcLgbEYs9ajUmJdjDgr516U1I1HKvqxs0SNHGnQEDvIdp32WnFJjDwvQbb8fUj00oRGHusxN'
+SITE_URL='http://localhost:3000/'
+# EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
+# EMAIL_HOST = "smtp.gmail.com"
+# EMAIL_PORT = 587
+# EMAIL_USE_TLS = True
+# EMAIL_HOST_USER = os.environ.get("EMAIL_USER", "abdelrhmanmohamedshata@gmail.com")
+# EMAIL_HOST_PASSWORD = os.environ.get("EMAIL_PASS", "vkrdrgrbegzmkfds")

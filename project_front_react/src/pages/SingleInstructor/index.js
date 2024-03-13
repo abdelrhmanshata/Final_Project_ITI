@@ -20,11 +20,7 @@ export default function SingleInstructor(){
             <h1  className="text-center mb-1 " >Kathelen Monero</h1>
                 <div  className="text-center mb-7 ">UI Designer</div>
          <ReviewsComponent />
-         <div className="text-center mb-7">
-            <div style={{ marginTop: '20px' }}>
-                <a href="#" className="btn btn-teal btn-wide text-white" style={{ backgroundColor: '#06BBCC' }}>SEND MESSAGE</a>
-            </div>
-        </div>
+         
     
        
        

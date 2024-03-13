@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 
 import "./UserProfile.css";
@@ -6,36 +6,60 @@ import { FaEdit } from "react-icons/fa";
 import { Tab, Tabs } from "@mui/material";
 import Navbar from "components/Navbar";
 import Footer from "components/Footer";
-
-import { faPlus, faEdit, faTrashAlt } from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import CardCourse from "components/Profile/CardCousre";
+import { axiosInstance } from "api/config";
+import ListCourses from "components/Profile/Teacher/ListCourses";
+import CourseItem from "pages/Courses/CourseItem";
 import CourseStudent from "components/Profile/CourseStudent";
 
-
 export default function ProfileUser() {
-    const [name, setName] = useState("Student");
-    const [email, setEmail] = useState("sarayasserma@mail.com.my");
-    const [avatar, setAvatar] = useState("https://st3.depositphotos.com/15648834/17930/v/600/depositphotos_179308454-stock-illustration-unknown-person-silhouette-glasses-profile.jpg");
-    const [isEditingName, setIsEditingName] = useState(false);
-    const [isEditingEmail, setIsEditingEmail] = useState(false);
-    const [action, setAction] = useState("Student");
-    const [videoTitle, setVideoTitle] = useState("");
-  const handleNameChange = (e) => {
-    setName(e.target.value);
+  const [courses, setCourses] = useState([1,2,3]);
+  const [user, setUser] = useState({});
+  const [avatar, setAvatar] = useState("");
+
+  const getData = useCallback(async () => {
+    try {
+      await axiosInstance
+        .get(`user/Get_Specific_User/${localStorage.getItem("User_ID")}`)
+        .then((res) => {
+          setUser(res.data.data);
+          setAvatar(`http://127.0.0.1:9000/${res.data.data.image}`);
+        })
+        .catch((err) => console.log(err));
+    } catch (error) {
+      console.log(error);
+    }
+  }, []);
+
+  const getCourses = useCallback(async () => {
+    try {
+      await axiosInstance
+        .get(`user/Get_Specific_User/${localStorage.getItem("User_ID")}`)
+        .then((res) => {
+          // setCourses(res.data.data);
+        })
+        .catch((err) => console.log(err));
+    } catch (error) {
+      console.log(error);
+    }
+  }, []);
+
+  useEffect(() => {
+    getData();
+    // getCourses();
+  }, []);
+
+  const handleChange = (e) => {
+    setUser({ ...user, [e.target.name]: e.target.value });
   };
 
-  const handleEmailChange = (e) => {
-    setEmail(e.target.value);
-  };
-
-  const handleAvatarChange = (e) => {
+  const handleImageChange = (e) => {
     const file = e.target.files[0];
     const reader = new FileReader();
     reader.readAsDataURL(file);
     reader.onload = () => {
       setAvatar(reader.result);
     };
+    setUser({ ...user, image: file });
   };
 
   const handleEditIconClick = () => {
@@ -47,7 +71,25 @@ export default function ProfileUser() {
     setSelectedTab(newValue);
   };
 
-
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    try {
+      console.log(user);
+      const response = await axiosInstance.put(
+        `user/Update_User/${localStorage.getItem("User_ID")}`,
+        user,
+        {
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
+        }
+      );
+      console.log("Update Successfully" + response);
+    } catch (error) {
+      // Handle error (e.g., display error message to the user)
+      console.log("Error : " + error);
+    }
+  };
 
   return (
     <>
@@ -66,68 +108,54 @@ export default function ProfileUser() {
             <Tab label="Profile Settings" className="tabs" />
             <Tab label="Courses" className="tabs" />
           </Tabs>
-          <div className="row">
-            <div className="col-md-3 border-right">
-              <div className="d-flex flex-column align-items-center text-center p-3 py-5">
-                <div style={{ position: "relative" }}>
-                  <img
-                    className="rounded-circle mt-20"
-                    width="150px"
-                    src={avatar}
-                    alt="User Avatar"
-                  />
-                  <FaEdit
-                    style={{
-                      position: "absolute",
-                      bottom: "0",
-                      right: "0",
-                      cursor: "pointer",
-                      backgroundColor: "LightGray",
-                      borderRadius: "50%",
-                      padding: "5px",
-                      width: "30px",
-                      height: "30px",
-                    }}
-                    onClick={handleEditIconClick}
-                  />
-                  <input
-                    type="file"
-                    id="avatarInput"
-                    style={{ display: "none" }}
-                    onChange={handleAvatarChange}
-                    accept="image/*"
-                  />
-                </div>
+          <div className="row justify-content-center">
+            {user.usertype === "teacher" ? (
+              <>
+                <div className="col-md-2 border-right">
+                  <div className="d-flex flex-column align-items-center text-center p-3 py-5">
+                    <div style={{ position: "relative" }}>
+                      <img
+                        className="rounded-circle mt-20"
+                        width="150px"
+                        src={avatar}
+                        alt="User Avatar"
+                      />
+                      <FaEdit
+                        style={{
+                          position: "absolute",
+                          bottom: "0",
+                          right: "0",
+                          cursor: "pointer",
+                          backgroundColor: "LightGray",
+                          borderRadius: "50%",
+                          padding: "5px",
+                          width: "30px",
+                          height: "30px",
+                        }}
+                        onClick={handleEditIconClick}
+                      />
+                      <input
+                        type="file"
+                        id="avatarInput"
+                        name="image"
+                        style={{ display: "none" }}
+                        onChange={handleImageChange}
+                        accept="image/*"
+                      />
+                    </div>
 
-                <span className="font-weight-bold">
-                  {isEditingName ? (
-                    <input
-                      type="text"
-                      value={name}
-                      onChange={handleNameChange}
-                      onBlur={() => setIsEditingName(false)}
-                    />
-                  ) : (
-                    <span onClick={() => setIsEditingName(true)}>{name}</span>
-                  )}
-                </span>
-                <span className="text-black-50">
-                  {isEditingEmail ? (
-                    <input
-                      type="email"
-                      value={email}
-                      onChange={handleEmailChange}
-                      onBlur={() => setIsEditingEmail(false)}
-                    />
-                  ) : (
-                    <span onClick={() => setIsEditingEmail(true)}>{email}</span>
-                  )}
-                </span>
-                <span> </span>
-              </div>
-            </div>
+                    <span className="fw-bold fs-3">
+                      <span>{user.name}</span>
+                    </span>
+                    <span className="text-black-50">
+                      <span>{user.email}</span>
+                    </span>
+                  </div>
+                </div>
+              </>
+            ) : null}{" "}
             {selectedTab === 0 && (
-              <div className="col-md-8 border-right">
+              <div className="col-md-10 border-right">
                 <div className="p-5 py-8">
                   <div className="d-flex justify-content-between align-items-center mb-3">
                     <h4 className="text-right">Profile Settings</h4>
@@ -139,6 +167,9 @@ export default function ProfileUser() {
                         type="text"
                         className="form-control"
                         placeholder="Name"
+                        value={user.name}
+                        name="name"
+                        onChange={handleChange}
                       />
                     </div>
                     <div className="col-md-6">
@@ -147,24 +178,22 @@ export default function ProfileUser() {
                         type="text"
                         className="form-control"
                         placeholder="Email"
+                        value={user.email}
+                        name="email"
+                        onChange={handleChange}
                       />
                     </div>
                   </div>
                   <div className="row mt-3">
-                    <div className="col-md-12">
-                      <label className="labels">Password</label>
-                      <input
-                        type="password"
-                        className="form-control"
-                        placeholder="Password"
-                      />
-                    </div>
                     <div className="col-md-12">
                       <label className="labels">Phone Number</label>
                       <input
                         type="text"
                         className="form-control"
                         placeholder="Phone Number"
+                        value={user.phonenumber}
+                        name="phonenumber"
+                        onChange={handleChange}
                       />
                     </div>
                     <div className="col-md-12">
@@ -173,9 +202,12 @@ export default function ProfileUser() {
                         type="text"
                         className="form-control"
                         placeholder="Address"
+                        value={user.address}
+                        name="address"
+                        onChange={handleChange}
                       />
                     </div>
-                    {action === "Teacher" && (
+                    {user.usertype === "teacher" ? (
                       <div className=" row mt-3">
                         <div className="col-md-12">
                           <label className="labels">identification card</label>
@@ -183,48 +215,87 @@ export default function ProfileUser() {
                             type="number"
                             className="form-control"
                             placeholder="ID card"
+                            value={user.identificationcard}
+                            name="identificationcard"
+                            onChange={handleChange}
                           />
+                        </div>
+                        <div className="col-md-12">
+                          <label className="labels">Grade Level</label>
+                          <select
+                            value={user.gradelevels}
+                            name="gradelevels"
+                            className="form-control bg-white"
+                            onChange={handleChange}
+                          >
+                            <option value=""> Choose Grade Level</option>
+                            <option value="Primary">Primary</option>
+                            <option value="Preparatory">Preparatory</option>
+                            <option value="Secondary">Secondary</option>
+                          </select>
                         </div>
 
                         <div className="col-md-12">
-                          <label className="labels">Grade Level</label>
-                          <select className="form-control bg-white">
-                            <option value="Choose grade level">
-                              Choose Grade Level
+                          <label className="labels">Subject</label>
+                          <select
+                            value={user.subject}
+                            name="subject"
+                            className="form-control bg-white"
+                            onChange={handleChange}
+                          >
+                            <option value="">Choose Subject</option>
+                            <option value="Arabic">Arabic</option>
+                            <option value="English ">English</option>
+                            <option value="Computer Science">
+                              Computer Science
                             </option>
-                            <option value="primary">primary</option>
-                            <option value="preperatory">preperatory</option>
-                            <option value="secondary">secondary</option>
+                            <option value="History">History</option>
+                            <option value="Geography">Geography</option>
+                            <option value="Science">Science</option>
+                            <option value="Physics ">Physics</option>
+                            <option value="Chemistry">Chemistry</option>
                           </select>
                         </div>
+
                         <div className="col-md-12">
-                          <label className="labels">Image</label>
+                          <label className="labels">Description</label>
                           <input
-                            type="file"
-                            className="form-control bg-white"
+                            type="text"
+                            className="form-control"
+                            placeholder="description"
+                            value={user.description}
+                            name="description"
+                            onChange={handleChange}
                           />
                         </div>
                       </div>
-                    )}
-                    {action !== "Teacher" && (
-                      <div className=" row mt-2">
+                    ) : (
+                      <div className="row mt-2">
                         <div className="col-md-12">
-                          <label className="labels">Grade Level</label>
-                          <select className="form-control bg-white">
-                            <option value="Choose Educational Stage">
-                              Choose Educational stage
-                            </option>
-                            <option value="primary">primary</option>
-                            <option value="preperatory">preperatory</option>
-                            <option value="secondary">secondary</option>
+                          <label className="labels">
+                            Education Stage Level
+                          </label>
+                          <select
+                            name="educationstage"
+                            value={user.educationstage}
+                            className="form-control bg-white"
+                            onChange={handleChange}
+                          >
+                            <option value=""> Choose Educational Stage</option>
+                            <option value="Primary">Primary</option>
+                            <option value="Preparatory">Preparatory</option>
+                            <option value="Secondary">Secondary</option>
                           </select>
                         </div>
                         <div className="col-md-12">
                           <label className="labels">Classroom</label>
-                          <select className="form-control bg-white">
-                            <option value="Choose ClassRoom">
-                              Choose class Room
-                            </option>
+                          <select
+                            className="form-control bg-white"
+                            name="classroom"
+                            value={user.classroom}
+                            onChange={handleChange}
+                          >
+                            <option value=""> Choose ClassRoom</option>
                             <option value="First">First</option>
                             <option value="Secound">Secound</option>
                             <option value="Third">Third</option>
@@ -237,6 +308,7 @@ export default function ProfileUser() {
                     <button
                       className="btn btn-primary profile-button"
                       type="button"
+                      onClick={handleSubmit}
                     >
                       Save Profile
                     </button>
@@ -244,52 +316,64 @@ export default function ProfileUser() {
                 </div>
               </div>
             )}
-
             {selectedTab === 1 && (
               <div className="col border-right">
                 <div className="p-5 py-8">
                   <div className="d-flex justify-content-between align-items-center mb-3">
                     <h4 className="text-right">Courses</h4>
-                   
                   </div>
-
-                  
                 </div>
-             
-                {action === "Teacher" ? (
-                <div>
-                  <div className="component" style={{ display: 'flex', flexDirection: 'row', gap: '16px' }}>
-                    <CardCourse />
-                    <CardCourse />
+
+                {user.usertype === "teacher" ? (
+                  <div>
+                    <ListCourses />
+                    {user.isApprove ? (
+                      <>
+                        <div className="home-page-container">
+                          <Link
+                            to="/Addcourse"
+                            className="btn btn-primary add-course-button"
+                          >
+                            Add Course
+                          </Link>
+                        </div>
+                      </>
+                    ) : null}
                   </div>
-                  <div className="home-page-container">
-                    <Link
-                      to="/Addcourse"
-                      className="btn btn-primary mt-3 add-course-button"
+                ) : (
+                  <div>
+                    <div className="container p-5">
+                      <div
+                        className="d-flex flex-wrap gap-4"
+                        style={{ justifyContent: "space-around" }}
+                      >
+                        {courses.map((item) => (
+                          <CourseStudent data={item}/>
+                          // <CourseItem data={item} />
+                        ))}
+                      </div>
+                    </div>
+
+                    {/* <div
+                      className="component"
+                      style={{
+                        display: "flex",
+                        flexDirection: "row",
+                        gap: "16px",
+                      }}
                     >
-                      Add Course
-                    </Link>
+                      <CourseStudent />
+                      <CourseStudent />
+                    </div> */}
                   </div>
-                </div>
-              ) : (
-                <div>
-                  
-                  <div className="component" style={{ display: 'flex', flexDirection: 'row', gap: '16px' }}>
-                    <CourseStudent />
-                    <CourseStudent />
-                  </div>
-                </div>
-              )}
-
+                )}
               </div>
-           
             )}
           </div>
         </div>
       </div>
-     
-        <Footer />
-    </> 
-      
-    );
+
+      <Footer />
+    </>
+  );
 }

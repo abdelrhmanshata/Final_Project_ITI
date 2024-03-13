@@ -1,5 +1,5 @@
 import React from "react";
-import { Button, Fab, Paper } from "@mui/material";
+import { Button, Fab, Paper, Rating } from "@mui/material";
 import { Image } from "react-bootstrap";
 import { BiBookReader, BiSolidRightArrow } from "react-icons/bi";
 import {
@@ -10,8 +10,12 @@ import {
 import { TbCertificate } from "react-icons/tb";
 import { BsCalendarDate } from "react-icons/bs";
 import { VscSettings } from "react-icons/vsc";
+import { useNavigate } from "react-router-dom";
+import { FcRating } from "react-icons/fc";
 
-export default function CourseDetails() {
+export default function CourseDetails({ data }) {
+  const navigate = useNavigate();
+
   return (
     <>
       <Paper className="p-2">
@@ -19,12 +23,12 @@ export default function CourseDetails() {
           <Image
             width={"100%"}
             height={250}
-            src={require("../../assets/img/course-3.jpg")}
+            src={`http://127.0.0.1:9000/${data.courseImage}`}
             rounded
             className="border border-2 border-primary"
           />
           <div className="position-absolute top-50 start-50 translate-middle">
-            <Fab color="primary">
+            <Fab color="primary" onClick={() => navigate(`/lesson/${data.id}`)}>
               <BiSolidRightArrow size={24} />
             </Fab>
           </div>
@@ -39,14 +43,9 @@ export default function CourseDetails() {
         </div>
         <div className="d-flex flex-column p-4 gap-3">
           <div className="d-flex align-items-center gap-2">
-            <MdOutlineAccessTime size={20} />
-            <span className="w-50">Duration</span>
-            <span className="w-50 text-end">43 weeks</span>
-          </div>
-          <div className="d-flex align-items-center gap-2">
             <MdOutlineOndemandVideo size={20} />
             <span className="w-50">Lectures</span>
-            <span className="w-50 text-end">32</span>
+            <span className="w-50 text-end">{data.courseLessons}</span>
           </div>
           <div className="d-flex align-items-center gap-2">
             <BiBookReader size={20} />
@@ -54,25 +53,37 @@ export default function CourseDetails() {
             <span className="w-50 text-end">1982 students</span>
           </div>
           <div className="d-flex align-items-center gap-2">
+            <FcRating size={20} />
+            <span className="w-50">Rating</span>
+            <span className="w-50 text-end">
+              <Rating name="read-only" value={4} readOnly />
+            </span>
+          </div>
+          {/* <div className="d-flex align-items-center gap-2">
+            <MdOutlineAccessTime size={20} />
+            <span className="w-50">Duration</span>
+            <span className="w-50 text-end">43 weeks</span>
+          </div> */}
+          {/* <div className="d-flex align-items-center gap-2">
             <MdOutlineGTranslate size={20} />
             <span className="w-50">Language</span>
             <span className="w-50 text-end">English</span>
-          </div>
-          <div className="d-flex align-items-center gap-2">
+          </div> */}
+          {/* <div className="d-flex align-items-center gap-2">
             <VscSettings size={20} />
             <span className="w-50">Skill level</span>
             <span className="w-50 text-end">beginner</span>
-          </div>
-          <div className="d-flex align-items-center gap-2">
+          </div> */}
+          {/* <div className="d-flex align-items-center gap-2">
             <BsCalendarDate size={20} />
             <span className="w-50">Deadline</span>
             <span className="w-50 text-end">06 April 2020</span>
-          </div>
-          <div className="d-flex align-items-center gap-2">
+          </div> */}
+          {/* <div className="d-flex align-items-center gap-2">
             <TbCertificate size={20} />
             <span className="w-50">Certificate</span>
             <span className="w-50 text-end">Yes</span>
-          </div>
+          </div> */}
         </div>
       </Paper>
     </>

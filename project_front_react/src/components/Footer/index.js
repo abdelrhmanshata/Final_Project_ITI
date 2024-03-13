@@ -1,5 +1,8 @@
 import { Link } from "react-router-dom";
-import image from "../../assets/img/course-1.jpg";
+import image1 from "../../assets/img/course-1.jpg";
+import image2 from "../../assets/img/course-2.jpg";
+import image3 from "../../assets/img/course-3.jpg";
+
 export default function Footer() {
   return (
     <>
@@ -31,8 +34,8 @@ export default function Footer() {
             <div className="col-lg-3 col-md-6">
               <h4 className="text-white mb-3">Contact</h4>
               <p className="mb-2">
-                <i className="fa fa-map-marker-alt me-3"></i>123 Street, New
-                York, USA
+                <i className="fa fa-map-marker-alt me-3"></i>123 Street, Cairo,
+                Egypt
               </p>
               <p className="mb-2">
                 <i className="fa fa-phone-alt me-3"></i>+012 345 67890
@@ -59,22 +62,22 @@ export default function Footer() {
               <h4 className="text-white mb-3">Gallery</h4>
               <div className="row g-2 pt-2">
                 <div className="col-4">
-                  <img className="img-fluid bg-light p-1" src={image} alt="" />
+                  <img className="img-fluid bg-light p-1" src={image1} alt="" />
                 </div>
                 <div className="col-4">
-                  <img className="img-fluid bg-light p-1" src={image} alt="" />
+                  <img className="img-fluid bg-light p-1" src={image2} alt="" />
                 </div>
                 <div className="col-4">
-                  <img className="img-fluid bg-light p-1" src={image} alt="" />
+                  <img className="img-fluid bg-light p-1" src={image3} alt="" />
                 </div>
                 <div className="col-4">
-                  <img className="img-fluid bg-light p-1" src={image} alt="" />
+                  <img className="img-fluid bg-light p-1" src={image2} alt="" />
                 </div>
                 <div className="col-4">
-                  <img className="img-fluid bg-light p-1" src={image} alt="" />
+                  <img className="img-fluid bg-light p-1" src={image3} alt="" />
                 </div>
                 <div className="col-4">
-                  <img className="img-fluid bg-light p-1" src={image} alt="" />
+                  <img className="img-fluid bg-light p-1" src={image1} alt="" />
                 </div>
               </div>
             </div>

@@ -1,7 +1,7 @@
 
 
 import CardCourse from 'components/Profile/CardCousre';
-import CourseItem from 'pages/Courses/CourseItem';
+
 import React, { useState } from 'react';
 import { Tabs, Tab } from 'react-bootstrap';
 

@@ -6,6 +6,7 @@ import { axiosInstance } from "api/config";
 
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import ForgetPassword from "./ForgetPassword";
 
 export default function LoginForm() {
   const navigate = useNavigate();
@@ -37,6 +38,7 @@ export default function LoginForm() {
         navigate(`/`);
         setLoading(false);
         notify("User Login Successfully");
+        window.location.reload();
       }
     } catch (error) {
       // Handle error (e.g., display error message to the user)
@@ -45,6 +47,17 @@ export default function LoginForm() {
     }
   };
   const notify = (Message) => toast(Message);
+
+  const [open, setOpen] = useState(false);
+
+  const handleClickOpen = () => {
+    setOpen(true);
+  };
+
+  const handleClose = () => {
+    setOpen(false);
+  };
+
   return (
     <div className="body">
       <ToastContainer />
@@ -81,7 +94,8 @@ export default function LoginForm() {
               />
               Remember Me
             </label>
-            <Link to="/">Forget password</Link>
+            <p onClick={handleClickOpen}>Forget password</p>
+            <ForgetPassword open={open} handleClose={handleClose} />
           </div>
           {loading ? (
             <div className="d-flex m-2 justify-content-center">
