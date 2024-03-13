@@ -56,10 +56,10 @@ class SectionGetSerializer(serializers.Serializer):
 
 class QuestionSerializer(serializers.Serializer):
     #id Automatic Field
-    sectionID=serializers.IntegerField()
+    #sectionID=serializers.IntegerField()
     questionHead=serializers.CharField(max_length=50)
-    questionAnswer=serializers.CharField(max_length=50)
-    questionImage=serializers.ImageField()
+    #questionAnswer=serializers.CharField(max_length=50)
+    #questionImage=serializers.ImageField()
 
 class QuestionAddSerializer(serializers.ModelSerializer):
     class Meta:
@@ -69,14 +69,14 @@ class QuestionAddSerializer(serializers.ModelSerializer):
 class QuestionGetSerializer(serializers.Serializer):
     #id Automatic Field
     questionHead=serializers.CharField(max_length=50)
-    questionAnswer=serializers.CharField(max_length=50)
-    questionImage=serializers.ImageField()
+    #questionAnswer=serializers.CharField(max_length=50)
+    #questionImage=serializers.ImageField()
 
 # Answer
     
 class AnswerSerializer(serializers.Serializer):
     #id Automatic Field
-    questionID=serializers.IntegerField()
+    #questionID=serializers.IntegerField()
     answerText=serializers.CharField(max_length=50)
     isAnswer=serializers.BooleanField()
 
@@ -87,10 +87,21 @@ class AnswerAddSerializer(serializers.ModelSerializer):
 
 class AnswerGetSerializer(serializers.Serializer):
     #id Automatic Field
-    questionID=serializers.IntegerField()
+    #questionID=serializers.IntegerField()
     answerText=serializers.CharField(max_length=50)
     isAnswer=serializers.BooleanField()
 
+    
+class UserAnswerSerializer(serializers.Serializer):
+    #id Automatic Field
+    #userID=serializers.Integerfield()
+    #questionID=serializers.IntegerField()
+    isAnswer=serializers.BooleanField()
+
+class UserAnswerAddSerializer(serializers.ModelSerializer):
+    class Meta:
+        model=UserAnswer
+        fields='__all__'
 
 # Requirements
     

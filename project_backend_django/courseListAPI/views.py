@@ -100,9 +100,8 @@ def deleteAVideo(request, courseID, videoID):
 # Sections
     
 @api_view(['POST'])
-def addASection(request):
+def addASection(request, courseID):
     obj=SectionAddSerializer(data=request.data)
-    print(obj)
     if (obj.is_valid()):
         obj.save()
         return Response({'message':"Section added."})
@@ -118,8 +117,7 @@ def getASection(request, sectionID):
 
 @api_view(['GET'])
 def getAllSections(request, courseID):
-    data=Section.objects.filter(courseID=courseID)
-    print(data)
+    data=Section.objects.all()
     if (data):
         datajson=SectionGetSerializer(data,many=True).data
         return Response({'message':datajson})
@@ -150,7 +148,7 @@ def deleteASection(request, courseID, sectionID):
 # Questions
     
 @api_view(['POST'])
-def addAQuestion(request):
+def addAQuestion(request, sectionID):
     obj=QuestionAddSerializer(data=request.data)
     print(obj)
     if (obj.is_valid()):
@@ -159,8 +157,8 @@ def addAQuestion(request):
     return Response({'message':"Question not added. Data might be invalid."})
 
 @api_view(['GET'])
-def getAllQuestions(request, courseID):
-    data=Question.objects.filter(courseID=courseID)
+def getAllQuestions(request, sectionID):
+    data=Question.objects.filter(sectionID=sectionID)
     print(data)
     if (data):
         datajson=QuestionGetSerializer(data,many=True).data
@@ -168,8 +166,9 @@ def getAllQuestions(request, courseID):
     return Response({'message':"Video Not Found."})
 
 @api_view(['GET'])
-def getAQuestion(request, questionID):
-    data=Course.objects.filter(id=questionID)
+def getAQuestion(request, questionID, sectionID):
+    data=Question.objects.filter(id=questionID)
+    print(data)
     if (data):
         datajson=QuestionSerializer(data,many=True).data
         return Response({'message':datajson})
@@ -184,7 +183,7 @@ def updateAQuestion(request):
         if datajson.is_valid():
             datajson.save()
             return Response({'message':"Successfully updated the video."})
-    except Section.DoesNotExist:
+    except Question.DoesNotExist:
         return Response({'message':"Not Found."})
 
 @api_view(['POST','GET','DELETE'])
@@ -199,22 +198,30 @@ def deleteAQuestion(request, courseID, questionID):
 # Answers
     
 @api_view(['POST'])
-def addAnAnswer(request):
+def addAnAnswer(request, sectionID, questionID):
     obj=AnswerAddSerializer(data=request.data)
-    print(obj)
     if (obj.is_valid()):
         obj.save()
         return Response({'message':"Answer added."})
     return Response({'message':"Answer not added. Data might be invalid."})
 
 @api_view(['GET'])
-def getAllAnswers(request, questionID):
+def getAllAnswers(request, sectionID, questionID):
     data=Answer.objects.filter(questionID=questionID)
-    print(data)
+    print("answers", data)
     if (data):
         datajson=AnswerGetSerializer(data,many=True).data
         return Response({'message':datajson})
     return Response({'message':"Video Not Found."})
+
+@api_view(['POST'])
+def answerAQuestion(request, sectionID, questionID):
+    obj=UserAnswerAddSerializer(data=request.data)
+    print(obj)
+    if (obj.is_valid()):
+        obj.save()
+        return Response({'message':"Answer added."})
+    return Response({'message':"Answer not added. Data might be invalid."})
 
 # Requirements
 
@@ -230,10 +237,8 @@ def addARequirement(request, courseID):
 @api_view(['GET'])
 def getAllRequirements(request, courseID):
     data=Requirement.objects.filter(courseID=courseID)
-    print(data)
     if (data):
         datajson=RequirementSerializer(data, many=True).data
-        print("Does this return?", datajson)
         return Response({'message':datajson})
     return Response({'message':"Requirements Not Found."})
 

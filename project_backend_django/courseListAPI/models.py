@@ -21,8 +21,8 @@ class Question(models.Model):
     #id Automatic Field
     sectionID=models.ForeignKey(Section, on_delete=models.CASCADE)
     questionHead=models.CharField(max_length=50)
-    questionAnswer=models.CharField(max_length=50)
-    questionImage=models.ImageField(blank=True)
+    #questionAnswer=models.CharField(max_length=50)
+    #questionImage=models.ImageField(blank=True)
 
 class Answer(models.Model):
     #id Automatic Field
@@ -30,10 +30,18 @@ class Answer(models.Model):
     answerText=models.CharField(max_length=50)
     isAnswer=models.BooleanField(default=False)
 
+    #   Example Question:
     #   Boolean False
     #   Boolean False
     #   Boolean False
     #   Boolean True
+
+class UserAnswer(models.Model):
+    #id Automatic Field
+    #userID=models.ForeignKey(Question, on_delete=models.CASCADE)
+    questionID=models.ForeignKey(Question, on_delete=models.CASCADE)
+    isAnswer=models.BooleanField(default=False)
+    
 
 class Video(models.Model):
     #id Automatic Field

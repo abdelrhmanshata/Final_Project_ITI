@@ -28,15 +28,16 @@ urlpatterns = [
     # Questions
 
     path('section/<int:sectionID>/questions/all/', views.getAllQuestions, name="getAllQuestions"),
-    path('section/<int:sectionID>/<int:questionID>/', views.getAQuestion, name="getAQuestion"),
+    path('section/<int:sectionID>/questions/<int:questionID>/', views.getAQuestion, name="getAQuestion"),
     path('section/<int:sectionID>/addAQuestion/', views.addAQuestion, name="addAQuestion"),
     path('section/<int:sectionID>/updateAQuestion/', views.updateAQuestion, name="updateAQuestion"),
     path('section/<int:sectionID>/deleteAQuestion/', views.deleteAQuestion, name="deleteAQuestion"),
 
     # Answers
-
+ 
     path('section/<int:sectionID>/<int:questionID>/addAnAnswer/', views.addAnAnswer, name="addAnAnswer"),
     path('section/<int:sectionID>/<int:questionID>/getAllAnswers/', views.getAllAnswers, name="getAllAnswers"),
+    path('section/<int:sectionID>/<int:questionID>/answerAQuestion/', views.answerAQuestion, name="answerAQuestion"),
 
     # Requirements
     
