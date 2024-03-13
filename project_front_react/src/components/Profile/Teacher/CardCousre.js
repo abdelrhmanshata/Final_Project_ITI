@@ -6,10 +6,21 @@ import CardMedia from "@mui/material/CardMedia";
 import Typography from "@mui/material/Typography";
 import ExpandIcon from "./ExpandIcon";
 import { MdEdit, MdOutlineDeleteForever, MdRemoveRedEye } from "react-icons/md";
-import { IconButton, Snackbar } from "@mui/material";
+import {
+  Accordion,
+  AccordionDetails,
+  AccordionSummary,
+  IconButton,
+  Snackbar,
+} from "@mui/material";
 import { axiosInstance } from "api/config";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import AddRequirement from "./AddRequirement";
+import YouLearn from "./YouLearn";
+import ListRequirement from "./ListRequirement";
+import ListSkillsWillLearn from "./ListSkillsWillLearn";
+import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
 
 export default function CardCourse({ course, isUpdate, setIsUpdate }) {
   const navigate = useNavigate();
@@ -60,6 +71,14 @@ export default function CardCourse({ course, isUpdate, setIsUpdate }) {
               color="light bg-light"
               aria-label="search"
             >
+              <AddRequirement courseId={course.id} />
+            </IconButton>
+
+            <IconButton
+              style={{ width: "50px", height: "50px" }}
+              color="light bg-light"
+              aria-label="search"
+            >
               <MdRemoveRedEye
                 color="blue"
                 fontSize={24}
@@ -94,6 +113,14 @@ export default function CardCourse({ course, isUpdate, setIsUpdate }) {
                 onClick={handleDelete}
               />
             </IconButton>
+
+            <IconButton
+              style={{ width: "50px", height: "50px" }}
+              color="light bg-light"
+              aria-label="search"
+            >
+              <YouLearn courseId={course.id} />
+            </IconButton>
           </div>
         </div>
 
@@ -108,6 +135,37 @@ export default function CardCourse({ course, isUpdate, setIsUpdate }) {
         <Typography variant="body2" color="text.secondary">
           {course.courseDescription}
         </Typography>
+        <Accordion className="mt-2" >
+          <AccordionSummary
+            expandIcon={<ArrowDropDownIcon />}
+            aria-controls={`panel-content`}
+            id={`panel-header`}
+          >
+            <div style={{ position: "relative", width: "100%" }}>
+              <Typography>Other...</Typography>
+            </div>
+          </AccordionSummary>
+          <AccordionDetails>
+            <Typography
+              variant="body2"
+              color="text.secondary"
+              style={{ marginTop: "10px" }}
+            >
+              <ListRequirement courseId={course.id} style={{ width: "100%" }} />
+            </Typography>
+
+            <Typography
+              variant="body2"
+              color="text.secondary"
+              style={{ marginTop: "10px" }}
+            >
+              <ListSkillsWillLearn
+                courseId={course.id}
+                style={{ width: "100%" }}
+              />
+            </Typography>
+          </AccordionDetails>
+        </Accordion>
         <Typography
           variant="body2"
           color="text.secondary"
@@ -116,7 +174,7 @@ export default function CardCourse({ course, isUpdate, setIsUpdate }) {
           <ExpandIcon courseId={course.id} style={{ width: "100%" }} />
         </Typography>
       </CardContent>
-      <CardActions style={{ width: "100%" }} />
+
       <Snackbar
         open={open}
         autoHideDuration={2000}

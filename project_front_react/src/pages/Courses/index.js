@@ -63,8 +63,10 @@ export default function CoursesPage() {
           className="d-flex flex-wrap gap-4"
           style={{ justifyContent: "space-around" }}
         >
-          {courses.map((item) => (
-            <CourseItem data={item} />
+          {courses.map((item, index) => (
+            <div key={index}>
+              <CourseItem data={item} />
+            </div>
           ))}
         </div>
       </div>
