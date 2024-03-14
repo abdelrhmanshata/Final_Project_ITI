@@ -33,6 +33,16 @@ def getImage(request, courseID):
     return serve(request, image_path, document_root=settings.MEDIA_ROOT)
 
 
+@api_view(["GET"])
+def getAllCoursesByTeacher(request, teacherID):
+    data = Course.objects.filter(userID=teacherID)
+    if data:
+        datajson = data.count()
+        print(datajson)
+        return Response({"message": datajson})
+    return Response({"message": "Requirements Not Found."})
+
+
 @api_view(["POST"])
 def addACourse(request):
     user_id = request.data.get("userID")

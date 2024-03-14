@@ -19,6 +19,12 @@ urlpatterns = [
         name="getTeacherCourses",
     ),
     path("get_image/<int:courseID>", views.getImage, name="get_image"),
+    # Get number of courses by a teacher
+    path(
+        "<int:teacherID>/numberOfCourses/",
+        views.getAllCoursesByTeacher,
+        name="getAllCoursesByTeacher",
+    ),
     # Sections
     path("<int:courseID>/sections/all/", views.getAllSections, name="getAllSections"),
     path("<int:courseID>/<int:sectionID>/", views.getASection, name="getASection"),
