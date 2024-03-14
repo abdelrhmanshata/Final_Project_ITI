@@ -3,11 +3,14 @@ from rest_framework.views import APIView
 from rest_framework.generics import RetrieveAPIView
 from .serializers import CourseSerialzer
 from .models import Course
+from payment_app.models import Payment_Course
+from user_authentication_app.models import User
 from rest_framework import permissions
 from rest_framework.response import Response
 from rest_framework import status
 from django.conf import settings
 import stripe
+from rest_framework.decorators import api_view
 
 # Create your views here.
 stripe.api_key = settings.STRIPE_SECRET_KEY
@@ -32,7 +35,9 @@ class CoursePreview(RetrieveAPIView):
 class CreateStripeCheckoutSession(APIView):
     def post(self, request, *args, **kwargs):
         course_id = self.kwargs["pk"]
+        user_id = self.kwargs["userID"]
         try:
+            user = User.objects.get(pk=user_id)
             course = Course.objects.get(pk=course_id)
             checkout_session = stripe.checkout.Session.create(
                 line_items=[
@@ -50,9 +55,23 @@ class CreateStripeCheckoutSession(APIView):
                 ],
                 mode="payment",
                 metadata={"course_id": course.id},
-                success_url=settings.SITE_URL + "?success=true",
+                success_url=settings.SITE_URL
+                + "?success=true"
+                + "&course_id="
+                + course_id
+                + "&user_id="
+                + user_id
+                + "",
                 cancel_url=settings.SITE_URL + "?cancel=true",
             )
+
+            obj = Payment_Course.objects.create(
+                paymentID=checkout_session.id, course_model=course, user_model=user
+            )
+            # obj.paymentID = checkout_session.id
+            # obj.course_model = course
+            # obj.user_model = user
+            obj.save()
             return redirect(checkout_session.url)
         except Exception as e:
             return Response(
@@ -62,3 +81,18 @@ class CreateStripeCheckoutSession(APIView):
                 },
                 status=500,
             )
+
+
+from courseListAPI.serializers import CourseSerializer
+
+
+@api_view(["GET"])
+def getPaymentCourse(request, userID):
+    paymentCourses = Payment_Course.objects.filter(user_model=userID)
+    coursesList = []
+    for obj in paymentCourses:
+        coursesList.append(obj.course_model)
+    if coursesList:
+        datajson = CourseSerializer(coursesList, many=True).data
+        return Response({"message": datajson})
+    return Response({"message": "Course Not Found."})

@@ -40,13 +40,15 @@ export default function Team() {
               >
                 <div className="team-item bg-light">
                   <div className="d-flex justify-content-center">
-                    <img
-                      className="img-fluid"
-                      src={`http://127.0.0.1:9000/${item.image}`}
-                      alt={item.name}
-                    />
+                    <Link to={`/single/${item.id}`}>
+                      <img
+                        className="img-fluid"
+                        src={`http://127.0.0.1:9000/${item.image}`}
+                        alt={item.name}
+                      />
+                    </Link>
                   </div>
-                  {/* <div
+                  <div
                     className="position-relative d-flex justify-content-center"
                     style={{ marginTop: "-23px" }}
                   >
@@ -70,7 +72,7 @@ export default function Team() {
                         <i className="fab fa-instagram"></i>
                       </Link>
                     </div>
-                  </div> */}
+                  </div>
                   <div className="text-center p-4">
                     <h5
                       className="mb-0"
@@ -78,6 +80,10 @@ export default function Team() {
                     >
                       {item.name}
                     </h5>
+                    <small style={{ height: "20px", overflow: "hidden" }}>
+                      {item.subject} Teacher
+                    </small>
+                    <br />
                     <small style={{ height: "20px", overflow: "hidden" }}>
                       {item.email}
                     </small>
