@@ -41,6 +41,8 @@ INSTALLED_APPS = [
     'user_authentication_app',
     'student',
     'django_filters',
+    'courseListAPI',
+    'reviews',
 ]
 
 MIDDLEWARE = [

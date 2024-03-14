@@ -17,11 +17,15 @@ Including another URLconf
 
 from django.contrib import admin
 from django.urls import path, include
-from ..user_authentication_app import views as views
+
+from user_authentication_app import views
+
 urlpatterns = [
 
     path('admin/', admin.site.urls),
     path('user/', include('user_authentication_app.urls')),
     path('student/', include('student.urls')),
+    path('course/', include('courseListAPI.urls')),
+    path('review/', include('reviews.urls')),
     path("", views.apiConnection, name="get_category"),
 ]

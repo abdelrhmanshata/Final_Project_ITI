@@ -19,6 +19,7 @@ class User(AbstractUser):
     identificationcard = models.CharField(null=True, blank=True)
     educationstage = models.CharField(max_length=255, null=True, blank=True)
     usertype = models.CharField(max_length=255, null=True, blank=True)
+    teacher_avg_score = models.FloatField(default=0)
     username = None
 
     USERNAME_FIELD = "email"

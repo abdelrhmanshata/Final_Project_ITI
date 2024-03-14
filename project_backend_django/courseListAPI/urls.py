@@ -13,6 +13,7 @@ urlpatterns = [
     path('course/<int:courseID>/addASection/', views.addASection, name="addASection"),
     path('course/<int:courseID>/updateASection/', views.updateASection, name="updateASection"),
     path('course/<int:courseID>/deleteASection/<int:sectionID>/', views.deleteASection, name="deleteASection"),
+    path('course/<int:pk>/', views.CourseDetailAPIView.as_view(), name='course-detail'),
 
     path('section/<int:sectionID>/getAllVideos/', views.getAllVideos, name="getAllVideos"),
     path('section/<int:sectionID>/addAVideo/', views.addAVideo, name="addAVideo"),
@@ -23,6 +24,6 @@ urlpatterns = [
     path('section/<int:sectionID>/<int:questionID>/', views.getAQuestion, name="getAQuestion"),
     path('section/<int:sectionID>/addAQuestion/', views.addAQuestion, name="addAQuestion"),
     path('section/<int:sectionID>/updateAQuestion/', views.updateAQuestion, name="updateAQuestion"),
-    path('section/<int:sectionID>/deleteAQuestion/<int:sectionID>/', views.deleteAQuestion, name="deleteAQuestion"),
+    path('section/<int:sectionID>/deleteAQuestion/<int:questionID>/', views.deleteAQuestion, name="deleteAQuestion"),
 
 ]

@@ -1,5 +1,8 @@
 from django.db import models
 
+from reviews import models as reviewModel
+
+
 # Create your models here.
 
 class Course(models.Model):
@@ -11,7 +14,8 @@ class Course(models.Model):
     courseReviewScore=models.FloatField()
     courseType=models.CharField(max_length=50)
     courseImage=models.ImageField(upload_to="course_images", null=True, default="testImage.png", blank=True)
-
+    reviews = models.ManyToManyField(reviewModel.StudentReviewCourse, related_name='studcoursereviews')
+    # reviewText = models.TextField(max_length=1000, default="", blank=False)
 class Section(models.Model):
     #id Automatic Field
     courseID=models.ForeignKey(Course, on_delete=models.CASCADE)
