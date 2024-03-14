@@ -138,6 +138,7 @@ const AddCourse = () => {
               onChange={handleImageChange}
             />
           </div>
+
           <button type="submit" className="btn btn-primary submit-button">
             Submit
           </button>
