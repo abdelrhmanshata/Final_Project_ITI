@@ -38,6 +38,7 @@ export default function LoginForm() {
         navigate(`/`);
         setLoading(false);
         notify("User Login Successfully");
+        window.location.reload();
       }
     } catch (error) {
       // Handle error (e.g., display error message to the user)

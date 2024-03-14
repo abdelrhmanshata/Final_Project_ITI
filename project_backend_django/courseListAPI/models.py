@@ -22,6 +22,21 @@ class Course(models.Model):
 
     def __str__(self):
         return f"{self.courseName}"
+    
+    
+    
+class Requirement(models.Model):
+    #id Automatic Field
+    courseID=models.ForeignKey(Course, on_delete=models.CASCADE)
+    requirementDescription=models.CharField(max_length=50)
+
+class WhatYoullLearn(models.Model):
+    #id Automatic Field
+    courseID=models.ForeignKey(Course, on_delete=models.CASCADE)
+    whatYoullLearnDescription=models.CharField(max_length=50)    
+    
+    
+    
 
 
 class Section(models.Model):

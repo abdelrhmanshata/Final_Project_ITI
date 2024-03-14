@@ -7,7 +7,7 @@ import { List } from "@mui/material";
 import { axiosInstance } from "api/config";
 import Section from "./Section";
 
-export default function Curriculum({ course }) {
+export default function Curriculum({ course,isPlay }) {
   const [dense] = useState(true);
   const [sections, setSections] = useState([]);
   const getData = useCallback(async () => {
@@ -35,7 +35,6 @@ export default function Curriculum({ course }) {
     <div className="d-flex flex-column py-4 gap-2">
       {sections.map((item, index) => (
         // defaultExpanded
-
         <>
           {index === 0 ? (
             <Accordion defaultExpanded>
@@ -48,7 +47,7 @@ export default function Curriculum({ course }) {
               </AccordionSummary>
               <AccordionDetails>
                 <List dense={dense}>
-                  <Section sectionData={item} />
+                  <Section sectionData={item} index={index} isPlay={isPlay} />
                 </List>
               </AccordionDetails>
             </Accordion>
@@ -63,7 +62,7 @@ export default function Curriculum({ course }) {
               </AccordionSummary>
               <AccordionDetails>
                 <List dense={dense}>
-                  <Section sectionData={item} />
+                  <Section sectionData={item} isPlay={isPlay} />
                 </List>
               </AccordionDetails>
             </Accordion>

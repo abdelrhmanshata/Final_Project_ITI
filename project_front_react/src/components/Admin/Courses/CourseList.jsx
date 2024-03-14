@@ -12,7 +12,12 @@ export default function CourseList() {
       await axiosInstance
         .get(`course/listAllCourses`)
         .then((res) => {
-          setCourses(res.data.message);
+          if (typeof res.data.message != "string") {
+            setCourses(res.data.message);
+            setCourse(res.data.message[0]);
+          } else {
+            setCourse([]);
+          }
         })
         .catch((err) => console.log(err));
     } catch (error) {
@@ -32,15 +37,15 @@ export default function CourseList() {
     <>
       <div className="d-flex text-center gap-5 p-2">
         <div
-          className="d-flex flex-row flex-wrap justify-content-space-between p-2"
+          className="d-flex flex-wrap p-2 w-75 gap-2"
           style={{
             overflowY: "scroll",
-            justifyContent: "space-between",
-            width: "70%",
           }}
         >
-          {courses.map((item) => (
-            <CourseCard data={item} onSelect={selectCourse} />
+          {courses.map((item, index) => (
+            <>
+              <CourseCard data={item} onSelect={selectCourse} />
+            </>
           ))}
         </div>
 
@@ -62,7 +67,7 @@ export default function CourseList() {
               <div>
                 <p>{course.courseDescription}</p>
               </div>
-              <Curriculum course={course} />
+              <Curriculum course={course} isPlay={false} />
             </div>
           </div>
         )}

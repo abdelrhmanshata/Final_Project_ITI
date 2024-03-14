@@ -17,6 +17,7 @@ import { axiosInstance } from "api/config";
 
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { MdOutlineMenuBook } from "react-icons/md";
 
 export default function RegisterForm() {
   const navigate = useNavigate();
@@ -34,6 +35,8 @@ export default function RegisterForm() {
     educationstage: "",
     usertype: "student",
     image: null,
+    description: "",
+    subject: "",
   });
 
   const [confirmPassword, setConfirmPassword] = useState("");
@@ -214,6 +217,28 @@ export default function RegisterForm() {
                 </select>
                 <div className="select-arrow">
                   <GiTeacher className="icon" />
+                </div>
+              </div>
+
+              <div className="input-box">
+                <select
+                  className="select-dropdown"
+                  name="subject"
+                  required
+                  onChange={handleChange}
+                >
+                  <option value="">Choose Subject</option>
+                  <option value="Arabic">Arabic</option>
+                  <option value="English ">English</option>
+                  <option value="Computer Science">Computer Science</option>
+                  <option value="History">History</option>
+                  <option value="Geography">Geography</option>
+                  <option value="Science">Science</option>
+                  <option value="Physics ">Physics</option>
+                  <option value="Chemistry">Chemistry</option>
+                </select>
+                <div className="select-arrow">
+                  <MdOutlineMenuBook className="icon" />
                 </div>
               </div>
             </div>

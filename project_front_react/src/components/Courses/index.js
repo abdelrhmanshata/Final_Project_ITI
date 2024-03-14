@@ -67,7 +67,7 @@ export default function Courses() {
                           className="flex-shrink-0 btn btn-sm btn-primary px-3"
                           style={{ borderRadius: "0 30px 30px 0" }}
                         >
-                          Join Now
+                          Buy Now
                         </Link>
                       </div>
                     </div>

@@ -4,6 +4,11 @@ from . import views
 urlpatterns = [
     # Courses
     path("listAllCourses/", views.listAllCourses, name="listAllCourses"),
+    path(
+        "listCategoryCourses/<str:type>",
+        views.listCategoryCourses,
+        name="listCategoryCourses",
+    ),
     path("listAllCourses/<int:courseID>", views.getACourse, name="getACourse"),
     path("addACourse/", views.addACourse, name="addACourse"),
     path("updateACourse/<int:courseID>", views.updateACourse, name="updateACourse"),
@@ -18,7 +23,9 @@ urlpatterns = [
     path("<int:courseID>/sections/all/", views.getAllSections, name="getAllSections"),
     path("<int:courseID>/<int:sectionID>/", views.getASection, name="getASection"),
     path("<int:courseID>/addASection/", views.addASection, name="addASection"),
-    path("updateASection/<int:sectionID>/", views.updateASection, name="updateASection"),
+    path(
+        "updateASection/<int:sectionID>/", views.updateASection, name="updateASection"
+    ),
     path(
         "deleteASection/<int:sectionID>/",
         views.deleteASection,
@@ -78,5 +85,47 @@ urlpatterns = [
         "section/<int:sectionID>/<int:questionID>/getAllAnswers/",
         views.getAllAnswers,
         name="getAllAnswers",
+    ),
+    # Requirements
+    path(
+        "<int:courseID>/addARequirement/",
+        views.addARequirement,
+        name="addARequirement",
+    ),
+    path(
+        "<int:courseID>/getAllRequirements/",
+        views.getAllRequirements,
+        name="getAllRequirements",
+    ),
+    path(
+        "course/<int:courseID>/updateARequirement/",
+        views.updateARequirement,
+        name="updateARequirement",
+    ),
+    path(
+        "course/<int:courseID>/deleteARequirement/<int:requirementID>",
+        views.deleteARequirement,
+        name="deleteARequirement",
+    ),
+    # WhatYoullLearn
+    path(
+        "<int:courseID>/addAWhatYoullLearn/",
+        views.addAWhatYoullLearn,
+        name="addAWhatYoullLearn",
+    ),
+    path(
+        "<int:courseID>/getAllWhatYoullLearns/",
+        views.getAllWhatYoullLearns,
+        name="getAllWhatYoullLearns",
+    ),
+    path(
+        "course/<int:courseID>/updateAWhatYoullLearn/",
+        views.updateAWhatYoullLearn,
+        name="updateAWhatYoullLearn",
+    ),
+    path(
+        "course/<int:courseID>/deleteAWhatYoullLearn/<int:WhatYoullLearnID>",
+        views.deleteAWhatYoullLearn,
+        name="deleteAWhatYoullLearn",
     ),
 ]

@@ -10,7 +10,7 @@ import { axiosInstance } from "api/config";
 export default function CoursesPage() {
   const [allCourses, setAllCourses] = useState([]);
   const [courses, setCourses] = useState([]);
-  const category = useState("");
+  const [category, setCategory] = useState("");
   const getData = useCallback(async () => {
     try {
       await axiosInstance
@@ -37,16 +37,13 @@ export default function CoursesPage() {
   };
 
   const getCoursesByCategory = (value) => {
+    setCategory(value);
     const filteredData = allCourses.filter((item) =>
       item.courseType.toLowerCase().includes(value.toLowerCase())
     );
     setCourses(filteredData);
   };
 
-  // const divRef = useRef();
-  // const clearContent = () => {
-  //   divRef.current.innerHTML = "";
-  // };
   return (
     <>
       <Navbar active={"Courses"} />
@@ -60,29 +57,27 @@ export default function CoursesPage() {
         value={category}
         select={getCoursesByCategory}
       />
-
-      {/* <button onClick={clearContent}>Clear Content</button> */}
-
       {/* Content */}
       <div className="container p-5">
         <div
-          // ref={divRef}
           className="d-flex flex-wrap gap-4"
           style={{ justifyContent: "space-around" }}
         >
-          {courses.map((item) => (
-            <CourseItem data={item} />
+          {courses.map((item, index) => (
+            <div key={index}>
+              <CourseItem data={item} />
+            </div>
           ))}
         </div>
       </div>
 
       {/* Pagination */}
-      <div
+      {/* <div
         className="container d-flex p-5"
         style={{ justifyContent: "center" }}
       >
         <Pagination count={10} color="primary" />
-      </div>
+      </div> */}
 
       {/* Footer */}
       <Footer />

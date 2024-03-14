@@ -6,12 +6,13 @@ import { FaEdit } from "react-icons/fa";
 import { Tab, Tabs } from "@mui/material";
 import Navbar from "components/Navbar";
 import Footer from "components/Footer";
-
-import CourseStudent from "components/Profile/CourseStudent";
 import { axiosInstance } from "api/config";
 import ListCourses from "components/Profile/Teacher/ListCourses";
+import CourseItem from "pages/Courses/CourseItem";
+import CourseStudent from "components/Profile/CourseStudent";
 
 export default function ProfileUser() {
+  const [courses, setCourses] = useState([1,2,3]);
   const [user, setUser] = useState({});
   const [avatar, setAvatar] = useState("");
 
@@ -29,9 +30,23 @@ export default function ProfileUser() {
     }
   }, []);
 
+  const getCourses = useCallback(async () => {
+    try {
+      await axiosInstance
+        .get(`user/Get_Specific_User/${localStorage.getItem("User_ID")}`)
+        .then((res) => {
+          // setCourses(res.data.data);
+        })
+        .catch((err) => console.log(err));
+    } catch (error) {
+      console.log(error);
+    }
+  }, []);
+
   useEffect(() => {
     getData();
-  }, [getData]);
+    // getCourses();
+  }, []);
 
   const handleChange = (e) => {
     setUser({ ...user, [e.target.name]: e.target.value });
@@ -93,51 +108,54 @@ export default function ProfileUser() {
             <Tab label="Profile Settings" className="tabs" />
             <Tab label="Courses" className="tabs" />
           </Tabs>
-          <div className="row">
-            <div className="col-md-3 border-right">
-              <div className="d-flex flex-column align-items-center text-center p-3 py-5">
-                <div style={{ position: "relative" }}>
-                  <img
-                    className="rounded-circle mt-20"
-                    width="150px"
-                    src={avatar}
-                    alt="User Avatar"
-                  />
-                  <FaEdit
-                    style={{
-                      position: "absolute",
-                      bottom: "0",
-                      right: "0",
-                      cursor: "pointer",
-                      backgroundColor: "LightGray",
-                      borderRadius: "50%",
-                      padding: "5px",
-                      width: "30px",
-                      height: "30px",
-                    }}
-                    onClick={handleEditIconClick}
-                  />
-                  <input
-                    type="file"
-                    id="avatarInput"
-                    name="image"
-                    style={{ display: "none" }}
-                    onChange={handleImageChange}
-                    accept="image/*"
-                  />
+          <div className="row justify-content-center">
+            {user.usertype === "teacher" ? (
+              <>
+                <div className="col-md-2 border-right">
+                  <div className="d-flex flex-column align-items-center text-center p-3 py-5">
+                    <div style={{ position: "relative" }}>
+                      <img
+                        className="rounded-circle mt-20"
+                        width="150px"
+                        src={avatar}
+                        alt="User Avatar"
+                      />
+                      <FaEdit
+                        style={{
+                          position: "absolute",
+                          bottom: "0",
+                          right: "0",
+                          cursor: "pointer",
+                          backgroundColor: "LightGray",
+                          borderRadius: "50%",
+                          padding: "5px",
+                          width: "30px",
+                          height: "30px",
+                        }}
+                        onClick={handleEditIconClick}
+                      />
+                      <input
+                        type="file"
+                        id="avatarInput"
+                        name="image"
+                        style={{ display: "none" }}
+                        onChange={handleImageChange}
+                        accept="image/*"
+                      />
+                    </div>
+
+                    <span className="fw-bold fs-3">
+                      <span>{user.name}</span>
+                    </span>
+                    <span className="text-black-50">
+                      <span>{user.email}</span>
+                    </span>
+                  </div>
                 </div>
-
-                <span className="fw-bold fs-3">
-                  <span>{user.name}</span>
-                </span>
-                <span className="text-black-50">
-                  <span>{user.email}</span>
-                </span>
-              </div>
-            </div>
-
+              </>
+            ) : null}{" "}
             {selectedTab === 0 && (
-              <div className="col-md-8 border-right">
+              <div className="col-md-10 border-right">
                 <div className="p-5 py-8">
                   <div className="d-flex justify-content-between align-items-center mb-3">
                     <h4 className="text-right">Profile Settings</h4>
@@ -216,6 +234,40 @@ export default function ProfileUser() {
                             <option value="Secondary">Secondary</option>
                           </select>
                         </div>
+
+                        <div className="col-md-12">
+                          <label className="labels">Subject</label>
+                          <select
+                            value={user.subject}
+                            name="subject"
+                            className="form-control bg-white"
+                            onChange={handleChange}
+                          >
+                            <option value="">Choose Subject</option>
+                            <option value="Arabic">Arabic</option>
+                            <option value="English ">English</option>
+                            <option value="Computer Science">
+                              Computer Science
+                            </option>
+                            <option value="History">History</option>
+                            <option value="Geography">Geography</option>
+                            <option value="Science">Science</option>
+                            <option value="Physics ">Physics</option>
+                            <option value="Chemistry">Chemistry</option>
+                          </select>
+                        </div>
+
+                        <div className="col-md-12">
+                          <label className="labels">Description</label>
+                          <input
+                            type="text"
+                            className="form-control"
+                            placeholder="description"
+                            value={user.description}
+                            name="description"
+                            onChange={handleChange}
+                          />
+                        </div>
                       </div>
                     ) : (
                       <div className="row mt-2">
@@ -264,7 +316,6 @@ export default function ProfileUser() {
                 </div>
               </div>
             )}
-
             {selectedTab === 1 && (
               <div className="col border-right">
                 <div className="p-5 py-8">
@@ -276,18 +327,34 @@ export default function ProfileUser() {
                 {user.usertype === "teacher" ? (
                   <div>
                     <ListCourses />
-                    <div className="home-page-container">
-                      <Link
-                        to="/Addcourse"
-                        className="btn btn-primary mt-3 add-course-button"
-                      >
-                        Add Course
-                      </Link>
-                    </div>
+                    {user.isApprove ? (
+                      <>
+                        <div className="home-page-container">
+                          <Link
+                            to="/Addcourse"
+                            className="btn btn-primary add-course-button"
+                          >
+                            Add Course
+                          </Link>
+                        </div>
+                      </>
+                    ) : null}
                   </div>
                 ) : (
                   <div>
-                    <div
+                    <div className="container p-5">
+                      <div
+                        className="d-flex flex-wrap gap-4"
+                        style={{ justifyContent: "space-around" }}
+                      >
+                        {courses.map((item) => (
+                          <CourseStudent data={item}/>
+                          // <CourseItem data={item} />
+                        ))}
+                      </div>
+                    </div>
+
+                    {/* <div
                       className="component"
                       style={{
                         display: "flex",
@@ -297,7 +364,7 @@ export default function ProfileUser() {
                     >
                       <CourseStudent />
                       <CourseStudent />
-                    </div>
+                    </div> */}
                   </div>
                 )}
               </div>

@@ -7,7 +7,7 @@ import DialogContent from "@mui/material/DialogContent";
 import DialogContentText from "@mui/material/DialogContentText";
 import DialogTitle from "@mui/material/DialogTitle";
 import { axiosInstance } from "api/config";
-import { Snackbar } from "@mui/material";
+import { Snackbar, Typography } from "@mui/material";
 import ListSection from "./ListSection";
 
 export default function ExpandIcon({ courseId }) {
@@ -60,7 +60,12 @@ export default function ExpandIcon({ courseId }) {
 
   return (
     <div>
-      <ListSection courseId={courseId} isUpdate={isUpdate} setIsUpdate={setIsUpdate} />
+     
+      <ListSection
+        courseId={courseId}
+        isUpdate={isUpdate}
+        setIsUpdate={setIsUpdate}
+      />
       <Button
         onClick={handleAddSection}
         variant="contained"

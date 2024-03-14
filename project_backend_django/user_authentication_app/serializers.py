@@ -18,7 +18,9 @@ class UserSerializer(serializers.ModelSerializer):
             "identificationcard",
             "educationstage",
             "usertype",
-            "isApprove"
+            "isApprove",
+            "description",
+            "subject"
         ]
         extra_kwargs={
             'password' : {'write_only':True,'required': False},

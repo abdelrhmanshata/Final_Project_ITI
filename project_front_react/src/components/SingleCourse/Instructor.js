@@ -1,27 +1,50 @@
 import { Avatar, ListItemAvatar, Typography } from "@mui/material";
-import React from "react";
+import { axiosInstance } from "api/config";
+import React, { useCallback, useEffect, useState } from "react";
 import { BiMessageRoundedEdit, BiMoviePlay, BiStar } from "react-icons/bi";
 import { PiStudentBold } from "react-icons/pi";
 
-export default function Instructor() {
+export default function Instructor({ course }) {
+  const [instructor, setInstructor] = useState({});
+  const getData = useCallback(async () => {
+    try {
+      await axiosInstance
+        .get(`user/Get_Specific_User/${course.userID}`)
+        .then((res) => {
+          setInstructor(res.data.data);
+        })
+        .catch((err) => console.log(err));
+    } catch (error) {
+      console.log(error);
+    }
+  }, []);
+
+  useEffect(() => {
+    getData();
+  }, [getData]);
+
   return (
-    <Typography component="div" className="d-flex flex-column py-4 gap-2">
+    <Typography component="div" className="d-flex flex-column py-4 gap-2 mt-3">
       <div className="d-flex align-items-center gap-4">
         <ListItemAvatar className="p-2 border border-5 rounded-circle">
           <Avatar
-            alt="Remy Sharp"
-            src={require("../../assets/img/team-0.jpg")}
+            alt={instructor.name}
+            src={`http://127.0.0.1:9000/${instructor.image}`}
             sx={{ width: 120, height: 120 }}
           />
         </ListItemAvatar>
         <div className="d-flex flex-column ">
-          <Typography variant="h4">AbdElrhman Mohamed</Typography>
-          <Typography variant="body2">
-            Android Developer & UI Designer
-          </Typography>
+          <Typography variant="h4">{instructor.name}</Typography>
+          <Typography variant="body2">{instructor.phonenumber}</Typography>
+          <br />
+          <Typography variant="h5">Subject</Typography>
+          <Typography variant="body1">{instructor.subject}</Typography>
+          <br />
+          <Typography variant="h5">Description</Typography>
+          <Typography variant="body1">{instructor.description}</Typography>
         </div>
       </div>
-      <div className="d-flex justify-content-between align-items-center my-4">
+      {/* <div className="d-flex justify-content-between align-items-center my-4">
         <div className="d-flex align-items-center gap-1">
           <BiStar size={24} />
           <span>4.87 Rating</span>
@@ -38,22 +61,7 @@ export default function Instructor() {
           <BiMoviePlay size={24} />
           <span>29 Courses</span>
         </div>
-      </div>
-      <Typography variant="body1">
-        I am a UI/UX designer and an iOS developer with having almost six years
-        of experience in application development and also ten years of graphic
-        design and User Interface design.
-      </Typography>
-      <br />
-      <Typography variant="body1">
-        My passion is helping people to learn new skills in a short-term course
-        and achieve their goals. I've been designing for more than ten years and
-        developing iOS apps for four years. It's my honor if I could help you
-        learn to program in a simple word. I currently am teaching iOS 13, Swift
-        5, ARKit 3, Sketch 5, Illustrator, Photoshop, Cinema 4D, HTML, CSS,
-        JavaScript, etc.
-      </Typography>
-      <br />
+      </div> */}
     </Typography>
   );
 }
