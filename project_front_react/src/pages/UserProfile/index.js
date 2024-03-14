@@ -12,7 +12,7 @@ import CourseItem from "pages/Courses/CourseItem";
 import CourseStudent from "components/Profile/CourseStudent";
 
 export default function ProfileUser() {
-  const [courses, setCourses] = useState([1,2,3]);
+  const [courses, setCourses] = useState([1, 2, 3]);
   const [user, setUser] = useState({});
   const [avatar, setAvatar] = useState("");
 
@@ -74,7 +74,6 @@ export default function ProfileUser() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      console.log(user);
       const response = await axiosInstance.put(
         `user/Update_User/${localStorage.getItem("User_ID")}`,
         user,
@@ -153,7 +152,7 @@ export default function ProfileUser() {
                   </div>
                 </div>
               </>
-            ) : null}{" "}
+            ) : null}
             {selectedTab === 0 && (
               <div className="col-md-10 border-right">
                 <div className="p-5 py-8">
@@ -348,7 +347,7 @@ export default function ProfileUser() {
                         style={{ justifyContent: "space-around" }}
                       >
                         {courses.map((item) => (
-                          <CourseStudent data={item}/>
+                          <CourseStudent data={item} />
                           // <CourseItem data={item} />
                         ))}
                       </div>

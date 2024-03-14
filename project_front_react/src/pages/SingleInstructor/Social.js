@@ -1,8 +1,7 @@
 import React from "react";
-import imaget from "../../assets/img/team-3.jpg";
 import { Link } from "react-router-dom";
 
-export default function Socialprofile() {
+export default function Socialprofile({ avatar }) {
   return (
     <div className="d-flex flex-wrap align-items-center justify-content-center mb-5 mt-5 mb-md-3">
       {/* Social */}
@@ -43,7 +42,7 @@ export default function Socialprofile() {
       <div className="border rounded-circle d-inline-block mb-4 mb-md-0 mx-lg-4 order-0">
         <div className="p-4">
           <img
-            src={imaget}
+            src={avatar}
             alt="..."
             className="rounded-circle img-fluid"
             width="170"

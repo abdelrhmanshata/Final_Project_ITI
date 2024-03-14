@@ -9,7 +9,7 @@ export default function TeacherItem({ data }) {
   return (
     <Card key={data.id} sx={{ width: 350, maxWidth: 345 }}>
       <CardActionArea>
-        <Link to="/single">
+        <Link to={`/single/${data.id}`}>
           <CardMedia
             component="img"
             height="250"

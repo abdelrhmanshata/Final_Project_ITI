@@ -63,7 +63,7 @@ export default function Courses() {
                           Read More
                         </Link>
                         <Link
-                          to="/"
+                          to={`/payment/${item.id}`}
                           className="flex-shrink-0 btn btn-sm btn-primary px-3"
                           style={{ borderRadius: "0 30px 30px 0" }}
                         >

@@ -29,52 +29,13 @@ const ListRequirement = ({ courseId }) => {
       {requirements.length > 0 && (
         <>
           <h5>Requirement</h5>
-          {requirements.map((item) => (
-            <>
-              <p>{item.requirementDescription}</p>
-            </>
+          {requirements.map((item, index) => (
+            <div key={index}>
+              <li>{item.requirementDescription}</li>
+            </div>
           ))}
         </>
       )}
-      {/* {requirements.map((item) => (
-        <Accordion key={item.id}>
-          <AccordionSummary
-            expandIcon={<ArrowDropDownIcon />}
-            aria-controls={`panel${item.id}-content`}
-            id={`panel${item.id}-header`}
-          >
-            <div style={{ position: "relative", width: "100%" }}>
-              <Typography>{item.sectionName}</Typography>
-              <div style={{ position: "absolute", top: 0, right: 0 }}>
-                <AddVideo
-                  sectionID={item.id}
-                  isUpdate={isUpdate}
-                  setIsUpdate={setIsUpdate}
-                />
-
-                <EditSection
-                  section={item}
-                  isUpdate={isUpdate}
-                  setIsUpdate={setIsUpdate}
-                />
-
-                <DeleteSection
-                  sectionID={item.id}
-                  isUpdate={isUpdate}
-                  setIsUpdate={setIsUpdate}
-                />
-              </div>
-            </div>
-          </AccordionSummary>
-          <AccordionDetails>
-            <ListVideo
-              sectionID={item.id}
-              isUpdate={isUpdate}
-              setIsUpdate={setIsUpdate}
-            />
-          </AccordionDetails>
-        </Accordion>
-      ))} */}
     </div>
   );
 };

@@ -1,6 +1,25 @@
-import React from "react";
+import { axiosInstance } from "api/config";
+import React, { useCallback, useEffect, useState } from "react";
 
-export default function ReviewsComponent() {
+export default function ReviewsComponent({ teacherID }) {
+  const [numCourses, setNumCourses] = useState(0);
+  const getNumCourses = useCallback(async () => {
+    try {
+      await axiosInstance
+        .get(`course/${teacherID}/numberOfCourses/`)
+        .then((res) => {
+          setNumCourses(res.data.message);
+        })
+        .catch((err) => console.log(err));
+    } catch (error) {
+      console.log(error);
+    }
+  }, [teacherID]);
+
+  useEffect(() => {
+    getNumCourses();
+  }, [teacherID]);
+
   return (
     <div className="row mb-7  justify-content-center align-items-center">
       <div className="col-12 col-md-auto mb-3 mb-md-0 ">
@@ -208,7 +227,7 @@ export default function ReviewsComponent() {
               />
             </svg>
           </div>
-          29 courses
+          {numCourses} courses
         </div>
       </div>
     </div>

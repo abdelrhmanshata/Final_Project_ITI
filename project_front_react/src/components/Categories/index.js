@@ -77,7 +77,6 @@ export default function Categories() {
                     >
                       <h5 className="m-0">Science</h5>
                       <small className="text-primary">
-                        {" "}
                         {categoryCourses[1]} Courses
                       </small>
                     </div>
@@ -98,7 +97,6 @@ export default function Categories() {
                     >
                       <h5 className="m-0">Computer Science</h5>
                       <small className="text-primary">
-                        {" "}
                         {categoryCourses[2]} Courses
                       </small>
                     </div>
@@ -127,7 +125,6 @@ export default function Categories() {
                 >
                   <h5 className="m-0">English</h5>
                   <small className="text-primary">
-                    {" "}
                     {categoryCourses[3]} Courses
                   </small>
                 </div>

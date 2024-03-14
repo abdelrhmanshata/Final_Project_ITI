@@ -32,20 +32,23 @@ export default function Team() {
             <h1 className="mb-5">Expert Instructors</h1>
           </div>
           <div className="row g-4">
-            {teachers.map((item) => (
+            {teachers.map((item, index) => (
               <div
+                key={index}
                 className="col-lg-3 col-md-6 wow fadeInUp"
                 data-wow-delay="0.1s"
               >
                 <div className="team-item bg-light">
                   <div className="d-flex justify-content-center">
-                    <img
-                      className="img-fluid"
-                      src={`http://127.0.0.1:9000/${item.image}`}
-                      alt={item.name}
-                    />
+                    <Link to={`/single/${item.id}`}>
+                      <img
+                        className="img-fluid"
+                        src={`http://127.0.0.1:9000/${item.image}`}
+                        alt={item.name}
+                      />
+                    </Link>
                   </div>
-                  {/* <div
+                  <div
                     className="position-relative d-flex justify-content-center"
                     style={{ marginTop: "-23px" }}
                   >
@@ -69,7 +72,7 @@ export default function Team() {
                         <i className="fab fa-instagram"></i>
                       </Link>
                     </div>
-                  </div> */}
+                  </div>
                   <div className="text-center p-4">
                     <h5
                       className="mb-0"
@@ -77,6 +80,10 @@ export default function Team() {
                     >
                       {item.name}
                     </h5>
+                    <small style={{ height: "20px", overflow: "hidden" }}>
+                      {item.subject} Teacher
+                    </small>
+                    <br />
                     <small style={{ height: "20px", overflow: "hidden" }}>
                       {item.email}
                     </small>

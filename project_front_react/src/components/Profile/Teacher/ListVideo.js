@@ -66,40 +66,36 @@ export default function ListVideo({ sectionID, isUpdate, setIsUpdate }) {
   return (
     <>
       {videos.map((video, index) => (
-        <>
-          <ListItem
-            key={index}
-            secondaryAction={
-              <>
-                <EditVideo
-                  video={video}
-                  isUpdate={isUpdate}
-                  setIsUpdate={setIsUpdate}
+        <ListItem
+          key={index}
+          secondaryAction={
+            <>
+              <EditVideo
+                video={video}
+                isUpdate={isUpdate}
+                setIsUpdate={setIsUpdate}
+              />
+              <IconButton edge="end" aria-label="delete">
+                <MdOutlineDeleteForever
+                  color="red"
+                  onClick={() => {
+                    deleteVideo(video.id);
+                  }}
                 />
-                <IconButton edge="end" aria-label="delete">
-                  <MdOutlineDeleteForever
-                    color="red"
-                    onClick={() => {
-                      deleteVideo(video.id);
-                    }}
-                  />
-                </IconButton>
-              </>
+              </IconButton>
+            </>
+          }
+        >
+          <ListItemAvatar>
+            <BiVideo size={24} />
+          </ListItemAvatar>
+          <ListItemText
+            primary={video.videoTitle}
+            secondary={
+              video.videoDescription.length < 50 ? video.videoDescription : null
             }
-          >
-            <ListItemAvatar>
-              <BiVideo size={24} />
-            </ListItemAvatar>
-            <ListItemText
-              primary={video.videoTitle}
-              secondary={
-                video.videoDescription.length < 50
-                  ? video.videoDescription
-                  : null
-              }
-            />
-          </ListItem>
-        </>
+          />
+        </ListItem>
       ))}
       <Snackbar
         open={open}
