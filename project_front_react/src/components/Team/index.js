@@ -32,8 +32,9 @@ export default function Team() {
             <h1 className="mb-5">Expert Instructors</h1>
           </div>
           <div className="row g-4">
-            {teachers.map((item) => (
+            {teachers.map((item, index) => (
               <div
+                key={index}
                 className="col-lg-3 col-md-6 wow fadeInUp"
                 data-wow-delay="0.1s"
               >

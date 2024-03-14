@@ -22,6 +22,7 @@ const LessonSingle = React.lazy(() =>
 const Teachers = React.lazy(() => import("../pages/Teachers/index"));
 const NotFound = React.lazy(() => import("../pages/NotFound"));
 const Stripe = React.lazy(() => import("../pages/payment/PaymentStripe"));
+const PaymentCompleted = React.lazy(() => import("../pages/payment/PaymentCompleted"));
 
 export default function Router() {
   const [isAdmin, setIsAdmin] = useState(false);
@@ -48,17 +49,13 @@ export default function Router() {
             <Route path="/single" element={<SingleInstructor />} />
             <Route path="/Addcourse" element={<Addcourse />} />
             <Route path="/UpdateCourse/:courseID" element={<Updatecourse />} />
-
           </>
-        
-        
-            
-           
         )}
         {/* Auth */}
         <Route path="/login" element={<LoginForm />} />
         <Route path="/register" element={<RegisterForm />} />
         <Route path="/payment/:courseID" element={<Stripe />} />
+        <Route path="/payment/completed" element={<PaymentCompleted />} />
         <Route path="/courses" element={<Courses />} />
         <Route path="/course/:courseID" element={<SingleCourse />} />
         <Route path="/lesson/:courseID" element={<LessonSingle />} />

@@ -23,28 +23,34 @@ class CourseAddSerializer(serializers.ModelSerializer):
     class Meta:
         model = Course
         fields = "__all__"
-        
+        extra_kwargs = {"courseImage": {"required": False}}
+
+
 class RequirementSerializer(serializers.Serializer):
-    #id Automatic Field
-    #courseID=serializers.IntegerField()
-    requirementDescription=serializers.CharField(max_length=50)
+    # id Automatic Field
+    # courseID=serializers.IntegerField()
+    requirementDescription = serializers.CharField(max_length=50)
+
 
 class RequirementAddSerializer(serializers.ModelSerializer):
     class Meta:
-        model=Requirement
-        fields='__all__'
+        model = Requirement
+        fields = "__all__"
+
 
 # What you'll learn
-    
+
+
 class WhatYoullLearnSerializer(serializers.Serializer):
-    #id Automatic Field
-    #courseID=serializers.IntegerField()
-    whatYoullLearnDescription=serializers.CharField(max_length=50)
+    # id Automatic Field
+    # courseID=serializers.IntegerField()
+    whatYoullLearnDescription = serializers.CharField(max_length=50)
+
 
 class WhatYoullLearnAddSerializer(serializers.ModelSerializer):
     class Meta:
-        model=WhatYoullLearn
-        fields='__all__'      
+        model = WhatYoullLearn
+        fields = "__all__"
 
 
 # Video

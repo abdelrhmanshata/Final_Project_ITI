@@ -84,9 +84,9 @@ WSGI_APPLICATION = "project_backend_django.wsgi.application"
 DATABASES = {
     "default": {
         "ENGINE": "django.db.backends.postgresql",
-        "NAME": "e-learningtest",
+        "NAME": "e-learning",
         "USER": "postgres",
-        "PASSWORD": "19991999",
+        "PASSWORD": "120699",
         "HOST": "localhost",
         "PORT": "5432",
     }
