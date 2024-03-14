@@ -3,9 +3,10 @@ import { Route, Routes } from "react-router-dom";
 import Spinner from "../components/Spinner";
 import PaymentStripe from "../pages/payment/PaymentStripe";
 
-
-const SingleInstructor = React.lazy(() => import("../pages/SingleInstructor/index"));
-const Aboutus =React.lazy(() => import("../pages/Aboutus/index"));
+const SingleInstructor = React.lazy(() =>
+  import("../pages/SingleInstructor/index")
+);
+const Aboutus = React.lazy(() => import("../pages/Aboutus/index"));
 const LoginForm = React.lazy(() => import("../pages/LoginForm/index"));
 const RegisterForm = React.lazy(() => import("../pages/RegisterForm/index"));
 const Home = React.lazy(() => import("../pages/Home"));
@@ -40,12 +41,12 @@ export default function Router() {
           <Route path="/admin" element={<Admin />} />
         ) : (
           <>
-          <Route path="/profile" element={<UserProfile />} />
-         
-          <Route path="/Addcourse" element={<Addcourse />} />
-          <Route path="/Aboutus" element={<Aboutus />} />
-          <Route path="/single" element={<SingleInstructor />} />
-          <Route path="/Addcourse" element={<Addcourse />} />
+            <Route path="/profile" element={<UserProfile />} />
+
+            <Route path="/Addcourse" element={<Addcourse />} />
+            <Route path="/Aboutus" element={<Aboutus />} />
+            <Route path="/single" element={<SingleInstructor />} />
+            <Route path="/Addcourse" element={<Addcourse />} />
             <Route path="/UpdateCourse/:courseID" element={<Updatecourse />} />
 
           </>
@@ -60,10 +61,7 @@ export default function Router() {
         <Route path="/payment/:courseID" element={<Stripe />} />
         <Route path="/courses" element={<Courses />} />
         <Route path="/course/:courseID" element={<SingleCourse />} />
-        <Route
-          path="/lesson/:courseID"
-          element={<LessonSingle />}
-        />
+        <Route path="/lesson/:courseID" element={<LessonSingle />} />
 
         <Route path="/teachers" element={<Teachers />} />
 
