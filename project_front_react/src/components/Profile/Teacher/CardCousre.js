@@ -135,7 +135,7 @@ export default function CardCourse({ course, isUpdate, setIsUpdate }) {
         <Typography variant="body2" color="text.secondary">
           {course.courseDescription}
         </Typography>
-        <Accordion className="mt-2" >
+        <Accordion className="mt-2">
           <AccordionSummary
             expandIcon={<ArrowDropDownIcon />}
             aria-controls={`panel-content`}

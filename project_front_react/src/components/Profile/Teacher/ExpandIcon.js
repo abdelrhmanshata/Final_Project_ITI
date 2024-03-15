@@ -60,7 +60,6 @@ export default function ExpandIcon({ courseId }) {
 
   return (
     <div>
-     
       <ListSection
         courseId={courseId}
         isUpdate={isUpdate}

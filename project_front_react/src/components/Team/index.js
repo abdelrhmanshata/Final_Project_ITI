@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom";
 import { useCallback, useEffect, useState } from "react";
 import { axiosInstance } from "api/config";
+import { Rating } from "@mui/material";
 export default function Team() {
   const [teachers, setTeachers] = useState([]);
   const getData = useCallback(async () => {
@@ -76,10 +77,17 @@ export default function Team() {
                   <div className="text-center p-4">
                     <h5
                       className="mb-0"
-                      style={{ height: "50px", overflow: "hidden" }}
+                      style={{ height: "30px", overflow: "hidden" }}
                     >
                       {item.name}
                     </h5>
+                    <div>
+                      <Rating
+                        name="read-only"
+                        value={item.teacher_avg_score}
+                        readOnly
+                      />
+                    </div>
                     <small style={{ height: "20px", overflow: "hidden" }}>
                       {item.subject} Teacher
                     </small>

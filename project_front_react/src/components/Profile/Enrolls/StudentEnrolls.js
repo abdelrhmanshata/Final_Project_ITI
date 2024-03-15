@@ -1,31 +1,29 @@
 import { Snackbar } from "@mui/material";
 import { axiosInstance } from "api/config";
-import React, { useCallback, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import StudentItem from "./StudentItem";
-
+import "../../../styles/teacherList.css";
 export default function StudentEnrolls() {
-  // ${localStorage.getItem("User_ID")}
-
-  const [studentEnrolls, setStudentEnroll] = useState([
-    1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15,
-  ]);
+  const [allStudentEnrolls, setAllStudentEnroll] = useState([]);
+  const [studentEnrolls, setStudentEnroll] = useState([]);
   const [isUpdate, setIsUpdate] = useState(0);
-  const [filter, setFilter] = useState("all");
+  const getData = useCallback(async () => {
+    try {
+      await axiosInstance
+        .get(`review/course/studentEnroll/${localStorage.getItem("User_ID")}`)
+        .then((res) => {
+          setStudentEnroll(res.data);
+          setAllStudentEnroll(res.data);
+        })
+        .catch((err) => console.log(err));
+    } catch (error) {
+      console.log(error);
+    }
+  }, []);
 
-  // const getData = useCallback(async () => {
-  //   try {
-  //     await axiosInstance
-  //       .get(`user/Print_All_Teachers`)
-  //       .then((res) => {})
-  //       .catch((err) => console.log(err));
-  //   } catch (error) {
-  //     console.log(error);
-  //   }
-  // }, []);
-
-  // useEffect(() => {
-  //   // getData();
-  // }, [getData, isUpdate]);
+  useEffect(() => {
+    getData();
+  }, [isUpdate]);
 
   // Snackbar
   const [open, setOpen] = useState(false);
@@ -35,6 +33,26 @@ export default function StudentEnrolls() {
     }
     setOpen(false);
   };
+
+  //
+  const getFilter = (value) => {
+    console.log(value);
+
+    if (value === "all") {
+      setStudentEnroll(allStudentEnrolls);
+    } else if (value === "accepted") {
+      const filteredData = allStudentEnrolls.filter(
+        (item) => item.is_approved === true
+      );
+      setStudentEnroll(filteredData);
+    } else {
+      const filteredData = allStudentEnrolls.filter(
+        (item) => item.is_approved === false
+      );
+      setStudentEnroll(filteredData);
+    }
+  };
+
   return (
     <div>
       <Snackbar
@@ -48,7 +66,7 @@ export default function StudentEnrolls() {
           <h2>Students</h2>
           <select
             onChange={(e) => {
-              setFilter(e.target.value);
+              getFilter(e.target.value);
             }}
           >
             <option value="all">All</option>
@@ -57,8 +75,13 @@ export default function StudentEnrolls() {
           </select>
         </div>
         <div className="list--container">
-          {studentEnrolls.map((student, index) => (
-            <StudentItem index={index} student={student} />
+          {studentEnrolls.map((item, index) => (
+            <StudentItem
+              index={index}
+              data={item}
+              isUpdate={isUpdate}
+              setIsUpdate={setIsUpdate}
+            />
           ))}
         </div>
       </div>

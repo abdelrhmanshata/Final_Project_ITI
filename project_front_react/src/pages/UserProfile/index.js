@@ -1,17 +1,15 @@
 import React, { useCallback, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-
 import "./UserProfile.css";
 import { FaEdit } from "react-icons/fa";
-import { Tab, Tabs } from "@mui/material";
+import { Rating, Tab, Tabs } from "@mui/material";
 import Navbar from "components/Navbar";
 import Footer from "components/Footer";
 import { axiosInstance } from "api/config";
 import ListCourses from "components/Profile/Teacher/ListCourses";
-import CourseItem from "pages/Courses/CourseItem";
 import CourseStudent from "components/Profile/CourseStudent";
 import StudentEnrolls from "components/Profile/Enrolls/StudentEnrolls";
-
+import "../../styles/teacherList.css";
 export default function ProfileUser() {
   const [courses, setCourses] = useState([1, 2, 3]);
   const [user, setUser] = useState({});
@@ -31,22 +29,8 @@ export default function ProfileUser() {
     }
   }, []);
 
-  const getCourses = useCallback(async () => {
-    try {
-      await axiosInstance
-        .get(`user/Get_Specific_User/${localStorage.getItem("User_ID")}`)
-        .then((res) => {
-          // setCourses(res.data.data);
-        })
-        .catch((err) => console.log(err));
-    } catch (error) {
-      console.log(error);
-    }
-  }, []);
-
   useEffect(() => {
     getData();
-    // getCourses();
   }, []);
 
   const handleChange = (e) => {
@@ -96,13 +80,13 @@ export default function ProfileUser() {
       <Navbar />
 
       <div className="BBody">
-        <div className="container rounded bg-white mt-5 mb-5 ">
+        <div className="rounded bg-white">
           <Tabs
             value={selectedTab}
             onChange={handleTabChange}
             indicatorColor="primary"
             textColor="primary"
-            className="tabs"
+            className="tabs bg-light"
             centered
           >
             <Tab label="Profile" className="tabs" />
@@ -115,10 +99,10 @@ export default function ProfileUser() {
             {user.usertype === "teacher" ? (
               <>
                 <div className="col-md-2 border-right">
-                  <div className="d-flex flex-column align-items-center text-center p-3 py-5">
+                  <div className="d-flex flex-column align-items-center text-center py-5">
                     <div style={{ position: "relative" }}>
                       <img
-                        className="rounded-circle mt-20"
+                        className="rounded-circle"
                         width="150px"
                         src={avatar}
                         alt="User Avatar"
@@ -153,6 +137,8 @@ export default function ProfileUser() {
                     <span className="text-black-50">
                       <span>{user.email}</span>
                     </span>
+
+                    <Rating name="read-only" value={4} readOnly />
                   </div>
                 </div>
               </>
@@ -321,27 +307,25 @@ export default function ProfileUser() {
             )}
             {selectedTab === 1 && (
               <div className="col border-right">
-                <div className="p-5 py-8">
-                  <div className="d-flex justify-content-between align-items-center mb-3">
-                    <h4 className="text-right">Courses</h4>
+                <div className="teacher--list">
+                  <div className="list--header">
+                    <h4 className="text-right pt-5 pb-2">Courses</h4>
+                    {user.isApprove ? (
+                      <div className="btn">
+                        <Link to="/Addcourse" className="btn btn-primary">
+                          Add Course
+                        </Link>
+                      </div>
+                    ) : null}
                   </div>
                 </div>
 
                 {user.usertype === "teacher" ? (
                   <div>
                     <ListCourses />
-                    {user.isApprove ? (
-                      <>
-                        <div className="home-page-container">
-                          <Link
-                            to="/Addcourse"
-                            className="btn btn-primary add-course-button"
-                          >
-                            Add Course
-                          </Link>
-                        </div>
-                      </>
-                    ) : null}
+                    <br />
+                    <br />
+                    <br />
                   </div>
                 ) : (
                   <div>
@@ -373,7 +357,7 @@ export default function ProfileUser() {
               </div>
             )}
             {selectedTab === 2 && (
-              <div className="col-md-10 p-3 border-right">
+              <div className="col-md-10 p-5">
                 <StudentEnrolls />
               </div>
             )}
