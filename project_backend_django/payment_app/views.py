@@ -1,7 +1,8 @@
 from django.shortcuts import render, redirect
 from rest_framework.views import APIView
 from rest_framework.generics import RetrieveAPIView
-from .serializers import CourseSerialzer
+from courseListAPI.serializers import CourseSerializer
+from .serializers import PaymentSerialzer
 from .models import Course
 from payment_app.models import Payment_Course
 from user_authentication_app.models import User
@@ -11,13 +12,14 @@ from rest_framework import status
 from django.conf import settings
 import stripe
 from rest_framework.decorators import api_view
+from user_authentication_app.serializers import UserSerializer
 
 # Create your views here.
 stripe.api_key = settings.STRIPE_SECRET_KEY
 
 
 class CoursePreview(RetrieveAPIView):
-    serializer_class = CourseSerialzer
+    serializer_class = CourseSerializer
     permission_classes = [permissions.AllowAny]
 
     def get(self, request, *args, **kwargs):
@@ -68,9 +70,6 @@ class CreateStripeCheckoutSession(APIView):
             obj = Payment_Course.objects.create(
                 paymentID=checkout_session.id, course_model=course, user_model=user
             )
-            # obj.paymentID = checkout_session.id
-            # obj.course_model = course
-            # obj.user_model = user
             obj.save()
             return redirect(checkout_session.url)
         except Exception as e:
@@ -83,9 +82,6 @@ class CreateStripeCheckoutSession(APIView):
             )
 
 
-from courseListAPI.serializers import CourseSerializer
-
-
 @api_view(["GET"])
 def getPaymentCourse(request, userID):
     paymentCourses = Payment_Course.objects.filter(user_model=userID)
@@ -95,4 +91,34 @@ def getPaymentCourse(request, userID):
     if coursesList:
         datajson = CourseSerializer(coursesList, many=True).data
         return Response({"message": datajson})
+    return Response({"message": "Course Not Found."})
+
+
+@api_view(["GET"])
+def checkPayment(request, userID, courseID):
+    paymentCourses = Payment_Course.objects.filter(
+        user_model=userID, course_model=courseID
+    )
+    if paymentCourses:
+        paymentDataJson = PaymentSerialzer(paymentCourses, many=True).data
+
+    courses = []
+    for obj in paymentCourses:
+        courses.append(obj.course_model)
+    if courses:
+        coursesDataJson = CourseSerializer(courses, many=True).data
+
+    users = []
+    for obj in paymentCourses:
+        users.append(obj.user_model)
+    if users:
+        usersDataJson = UserSerializer(users, many=True).data
+
+        return Response(
+            {
+                "payment": paymentDataJson,
+                "course": coursesDataJson,
+                "user": usersDataJson,
+            }
+        )
     return Response({"message": "Course Not Found."})

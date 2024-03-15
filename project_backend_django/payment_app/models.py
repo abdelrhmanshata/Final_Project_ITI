@@ -9,4 +9,4 @@ class Payment_Course(models.Model):
     course_model = models.ForeignKey(Course, on_delete=models.CASCADE)
     user_model = models.ForeignKey(User, on_delete=models.CASCADE)
     paymentID = models.CharField(max_length=255)
-    courseDate = models.DateField(default=timezone.now, null=True)
+    paymentDate = models.DateField(default=timezone.now, null=True)

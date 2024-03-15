@@ -9,6 +9,12 @@ urlpatterns = [
         views.getPaymentCourse,
         name="getTeacherCourses",
     ),
+    
+      path(
+        "checkPayment/<int:userID>/<int:courseID>",
+        views.checkPayment,
+        name="checkPayment",
+    ),
 
 
 ]
