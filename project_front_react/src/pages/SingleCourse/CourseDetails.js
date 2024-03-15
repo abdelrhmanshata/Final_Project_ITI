@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Button, Fab, Paper, Rating } from "@mui/material";
 import { Image } from "react-bootstrap";
 import { BiBookReader, BiSolidRightArrow } from "react-icons/bi";
@@ -6,26 +6,18 @@ import { MdOutlineAccessTime, MdOutlineOndemandVideo } from "react-icons/md";
 import { BsCalendarDate } from "react-icons/bs";
 import { GrCurrency } from "react-icons/gr";
 import { useNavigate } from "react-router-dom";
-import { axiosInstance } from "api/config";
 import { FcRating } from "react-icons/fc";
+import { useState } from "react";
 
 export default function CourseDetails({ data }) {
   const navigate = useNavigate();
-  const checkout = async () => {
-    try {
-      console.log("clicked");
-      const response = await axiosInstance.post(
-        `api/create-checkout-session/${data.id}/`
-      );
-      // Handle success (e.g., show success message to the user)
-      if (response.status === 200) {
-        console.log(response.data.message);
-      }
-    } catch (error) {
-      // Handle error (e.g., display error message to the user
-      console.log(error.message);
-    }
-  };
+
+  const [ratingValue, setRatingValue] = useState(0);
+
+  useEffect(() => {
+    setRatingValue(data.courseReviewScore);
+  }, []);
+
   return (
     <>
       <Paper className="p-2">
@@ -33,8 +25,7 @@ export default function CourseDetails({ data }) {
           <Image
             width={"100%"}
             height={250}
-//            src={`http://127.0.0.1:9000/${data.courseImage}`}
-              src={data.courseImage}
+            src={data.courseImage}
             rounded
             className="border border-2 border-primary"
           />
@@ -98,7 +89,7 @@ export default function CourseDetails({ data }) {
             <FcRating size={20} />
             <span className="w-50">Rating</span>
             <span className="w-50 text-end">
-              <Rating name="read-only" value={data.courseReviewScore} readOnly />
+              <Rating name="read-only" value={ratingValue} readOnly />
             </span>
           </div>
 

@@ -69,10 +69,10 @@ export default function CourseInfoTab({ data }) {
           <Curriculum course={data} isPlay={false} />
         </CustomTabPanel>
         <CustomTabPanel value={value} index={2}>
-          <Instructor course={data}/>
+          <Instructor course={data} />
         </CustomTabPanel>
         <CustomTabPanel value={value} index={3}>
-          <Reviews />
+          <Reviews course={data} />
         </CustomTabPanel>
       </Box>
     </div>

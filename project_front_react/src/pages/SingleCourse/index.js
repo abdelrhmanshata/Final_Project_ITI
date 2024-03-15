@@ -24,12 +24,15 @@ export default function SingleCourse() {
   const [course, setCourse] = useState({});
   const [user, setUser] = useState({});
 
+  const [userReview, setUserReview] = useState(0);
+
   const getCourseData = async () => {
     await axiosInstance
       .get(`course/details/${params.courseID}`)
       .then((res) => {
         setCourse(res.data);
         getUserData(res.data.userID);
+        console.log(res.data.courseReviewScore);
       })
       .catch((err) => console.log(err));
   };
@@ -39,6 +42,7 @@ export default function SingleCourse() {
       .get(`user/Get_Specific_User/${userID}`)
       .then((res) => {
         setUser(res.data.data);
+        setUserReview(res.data.data.teacher_avg_score);
       })
       .catch((err) => console.log(err));
   };
@@ -102,21 +106,15 @@ export default function SingleCourse() {
                         style={{ borderBottom: "none" }}
                         className="d-flex align-items-center gap-2"
                       >
-                        <Rating name="read-only" value={4} readOnly />
-
-                        <Typography variant="span">
-                          9.45 (9.8k+ reviews)
-                        </Typography>
+                        <Rating name="read-only" value={userReview} readOnly />
                       </TableCell>
                     </TableRow>
                   </TableBody>
                 </Table>
               </TableContainer>
             </div>
-
-            {/*  */}
+            {/* Tab Info */}
             <CourseInfoTab data={course} />
-            {/*  */}
           </Grid>
           <Grid item sm={12} md={4}>
             <CourseDetails data={course} />
