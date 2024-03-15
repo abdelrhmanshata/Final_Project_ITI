@@ -33,7 +33,8 @@ export default function CourseDetails({ data }) {
           <Image
             width={"100%"}
             height={250}
-            src={`http://127.0.0.1:9000/${data.courseImage}`}
+//            src={`http://127.0.0.1:9000/${data.courseImage}`}
+              src={data.courseImage}
             rounded
             className="border border-2 border-primary"
           />
@@ -97,7 +98,7 @@ export default function CourseDetails({ data }) {
             <FcRating size={20} />
             <span className="w-50">Rating</span>
             <span className="w-50 text-end">
-              <Rating name="read-only" value={4} readOnly />
+              <Rating name="read-only" value={data.courseReviewScore} readOnly />
             </span>
           </div>
 

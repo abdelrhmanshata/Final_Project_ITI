@@ -26,10 +26,10 @@ export default function SingleCourse() {
 
   const getCourseData = async () => {
     await axiosInstance
-      .get(`course/listAllCourses/${params.courseID}`)
+      .get(`course/details/${params.courseID}`)
       .then((res) => {
-        setCourse(res.data.message[0]);
-        getUserData(res.data.message[0].userID);
+        setCourse(res.data);
+        getUserData(res.data.userID);
       })
       .catch((err) => console.log(err));
   };

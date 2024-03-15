@@ -10,6 +10,7 @@ import { axiosInstance } from "api/config";
 import ListCourses from "components/Profile/Teacher/ListCourses";
 import CourseItem from "pages/Courses/CourseItem";
 import CourseStudent from "components/Profile/CourseStudent";
+import StudentEnrolls from "components/Profile/Enrolls/StudentEnrolls";
 
 export default function ProfileUser() {
   const [courses, setCourses] = useState([1, 2, 3]);
@@ -104,8 +105,11 @@ export default function ProfileUser() {
             className="tabs"
             centered
           >
-            <Tab label="Profile Settings" className="tabs" />
+            <Tab label="Profile" className="tabs" />
             <Tab label="Courses" className="tabs" />
+            {user.usertype === "teacher" && (
+              <Tab label="Enrolls" className="tabs" />
+            )}
           </Tabs>
           <div className="row justify-content-center">
             {user.usertype === "teacher" ? (
@@ -366,6 +370,11 @@ export default function ProfileUser() {
                     </div> */}
                   </div>
                 )}
+              </div>
+            )}
+            {selectedTab === 2 && (
+              <div className="col-md-10 p-3 border-right">
+                <StudentEnrolls />
               </div>
             )}
           </div>

@@ -1,11 +1,14 @@
 from django.shortcuts import render
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
+from rest_framework import generics
 from django.http import HttpResponse
 from .models import *
 from .serializers import *
 from django.views.static import serve
 from django.conf import settings
+from reviews.models import StudentReviewCourse
+from reviews.serializers import StudentReviewCourseSerializer
 
 # Create your views here.
 
@@ -65,6 +68,29 @@ def getACourse(request, courseID):
         datajson = CourseSerializer(data, many=True).data
         return Response({"message": datajson})
     return Response({"message": "Course Not Found."})
+
+class CourseDetailAPIView(generics.RetrieveAPIView):
+    queryset = Course.objects.all()
+    serializer_class = CourseSerializer
+
+    def retrieve(self, request, *args, **kwargs):
+        instance = self.get_object()
+        serializer = self.get_serializer(instance)
+
+        # Retrieve associated reviews for the course
+        reviews = StudentReviewCourse.objects.filter(courseID=instance.id)
+        review_serializer = StudentReviewCourseSerializer(reviews, many=True)
+
+        # Add reviews to the serialized course data
+        data = serializer.data
+        data['reviews'] = review_serializer.data
+
+        return Response(data)
+    # def get_queryset(self):
+    #     queryset = super().get_queryset()
+    #
+    #     queryset = queryset.prefetch_related('reviews')  # Prefetch related reviews
+    #     return queryset
 
 
 @api_view(["GET"])

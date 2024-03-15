@@ -134,4 +134,5 @@ urlpatterns = [
         views.deleteAWhatYoullLearn,
         name="deleteAWhatYoullLearn",
     ),
+    path('details/<int:pk>/', views.CourseDetailAPIView.as_view(), name='course-detail'),
 ]

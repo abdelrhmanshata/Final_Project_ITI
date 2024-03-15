@@ -15,6 +15,7 @@ const AddCourse = () => {
     courseLessons: 0,
     courseHours: 0.0,
     courseImage: null,
+    reviews:{}
   });
 
   const handleSubmit = async (e) => {
