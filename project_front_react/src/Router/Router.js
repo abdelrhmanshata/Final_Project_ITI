@@ -3,10 +3,11 @@ import { Route, Routes } from "react-router-dom";
 import Spinner from "../components/Spinner";
 import PaymentStripe from "../pages/payment/PaymentStripe";
 
-const SingleInstructor = React.lazy(() =>
-  import("../pages/SingleInstructor/index")
-);
-const Aboutus = React.lazy(() => import("../pages/Aboutus/index"));
+const ShopComplete = React.lazy(() => import("../pages/ShopComplete/ShopComplete"));
+const SingleInstructor = React.lazy(() => import("../pages/SingleInstructor/index"));
+const Aboutus =React.lazy(() => import("../pages/Aboutus/index"));
+;
+
 const LoginForm = React.lazy(() => import("../pages/LoginForm/index"));
 const RegisterForm = React.lazy(() => import("../pages/RegisterForm/index"));
 const Home = React.lazy(() => import("../pages/Home"));
@@ -50,7 +51,14 @@ export default function Router() {
             <Route path="/single/:teacherID" element={<SingleInstructor />} />
             <Route path="/Addcourse" element={<Addcourse />} />
             <Route path="/UpdateCourse/:courseID" element={<Updatecourse />} />
-          </>
+            <Route path="/shop" element={< ShopComplete/>} />
+          
+        </>
+        
+        
+            
+           
+         
         )}
         {/* Auth */}
         <Route path="/login" element={<LoginForm />} />

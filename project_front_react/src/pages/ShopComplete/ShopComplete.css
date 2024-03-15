@@ -1,0 +1,104 @@
+/* Add your custom styles here */
+
+.woocommerce-order-received {
+    max-width: 800px;
+    margin: 0 auto;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+   
+  }
+  
+  .centered-content {
+    text-align: center;
+    margin-top: 20px;
+  }
+  
+  .entry-title {
+    font-size: 28px;
+    margin-bottom: 20px;
+    margin-top: 20px;
+  }
+  .icon {
+    font-size: 48px; /* Adjust the size as needed */
+    color: #4a8f9f; /* Adjust the color as needed */
+  }
+  /* Add your custom styles here */
+
+
+  
+  
+
+    .order-details-grid {
+        display: flex;
+        justify-content: space-between;
+        margin-bottom: 20px;
+        border:1px solid #e7e7ec;
+     
+    
+  }
+  .icon{
+    width: 200;
+    height:  200;
+    align-items: center;
+  }
+  .order-detail {
+    border: 1px solid #e7e7ec;
+    padding: 10px;
+    flex:1;
+  }
+  
+  .order-detail h2 {
+    margin-bottom: 5px;
+    font-size: medium;
+  }
+  
+  .order-detail p {
+    margin: 0;
+    font-size: 15px;
+  }
+  
+  .woocommerce-notice {
+    background-color: #d4edda;
+    border-color: #c3e6cb;
+    color: #4a8f9f;
+    padding: .75rem 1.25rem;
+    margin-bottom: 1rem;
+   
+    border-radius: .25rem;
+     text-align: center;
+  }
+  
+
+  .order-details__title {
+    margin-top: 30px;
+    font-size: 20px;
+  }
+  
+  .shop_table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+  
+  .shop_table th,
+  .shop_table td {
+    padding: 8px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+  }
+  
+  .shop_table th {
+    font-weight: bold;
+  }
+  
+  .product-total {
+    text-align: right;
+  }
+  .container{
+    padding: 30px;
+    border: 1px solid #e7e7ec;
+    border-radius: 0.25rem;
+    box-shadow: 0 0.5rem 0.937rem rgba(140,152,164,.1);
+    margin-bottom: 30px;
+  }
+  
