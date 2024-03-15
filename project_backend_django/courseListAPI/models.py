@@ -1,7 +1,7 @@
 from django.db import models
 from django.utils import timezone
 from user_authentication_app.models import *
-
+from reviews import models as reviewModel
 # Create your models here.
 
 
@@ -11,7 +11,7 @@ class Course(models.Model):
     courseName = models.CharField(max_length=50)
     courseDescription = models.CharField(max_length=300)
     coursePrice = models.FloatField()
-    courseReviewScore = models.FloatField()
+    courseReviewScore = models.FloatField(blank=True)
     courseType = models.CharField(max_length=50)
     courseImage = models.ImageField(
         default="default.jpg", upload_to="course_images", blank=True, null=True
@@ -19,6 +19,7 @@ class Course(models.Model):
     courseLessons = models.IntegerField(default=0)
     courseHours = models.FloatField(default=0)
     courseDate = models.DateField(default=timezone.now, null=True)
+    reviews = models.ManyToManyField(reviewModel.StudentReviewCourse, related_name='studcoursereviews', blank=True)
 
     def __str__(self):
         return f"{self.courseName}"

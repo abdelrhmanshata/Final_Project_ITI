@@ -1,23 +1,37 @@
 from rest_framework import serializers
-from courseListAPI.models import *
+from .models import *
 from user_authentication_app.models import *
+from reviews.serializers import StudentReviewCourseSerializer
+from reviews.models import StudentReviewCourse
 
 # Course
 
 
-class CourseSerializer(serializers.Serializer):
-    id = serializers.IntegerField()
-    userID = serializers.PrimaryKeyRelatedField(queryset=User.objects.all())
-    courseName = serializers.CharField(max_length=50)
-    courseDescription = serializers.CharField(max_length=300)
-    coursePrice = serializers.FloatField()
-    courseReviewScore = serializers.FloatField()
-    courseType = serializers.CharField(max_length=50)
-    courseImage = serializers.ImageField()
-    courseLessons = serializers.IntegerField()
-    courseHours = serializers.FloatField()
-    courseDate = serializers.DateField()
+# class CourseSerializer(serializers.Serializer):
+#     id = serializers.IntegerField()
+#     userID = serializers.PrimaryKeyRelatedField(queryset=User.objects.all())
+#     courseName = serializers.CharField(max_length=50)
+#     courseDescription = serializers.CharField(max_length=300)
+#     coursePrice = serializers.FloatField()
+#     courseReviewScore = serializers.FloatField()
+#     courseType = serializers.CharField(max_length=50)
+#     courseImage = serializers.ImageField()
+#     courseLessons = serializers.IntegerField()
+#     courseHours = serializers.FloatField()
+#     courseDate = serializers.DateField()
 
+
+class CourseSerializer(serializers.ModelSerializer):
+    # reviews = StudentReviewCourseSerializer(many=True, read_only=True)
+    reviews = serializers.SerializerMethodField(method_name='get_reviews', read_only=True)
+
+    def get_reviews(self, obj):
+        reviews = obj.reviews.all()
+        serializer = StudentReviewCourseSerializer(reviews, many=True)
+        return serializer.data
+    class Meta:
+        model = Course
+        fields = '__all__'
 
 class CourseAddSerializer(serializers.ModelSerializer):
     class Meta:

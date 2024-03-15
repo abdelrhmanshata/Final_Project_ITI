@@ -54,6 +54,7 @@ class User(AbstractUser):
     objects = UserManager()
 
     # is_staff = models.BooleanField()
+    teacher_avg_score = models.FloatField(default=0)
     isApprove = models.BooleanField(default=False)
     username=None
 
