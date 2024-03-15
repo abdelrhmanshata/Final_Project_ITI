@@ -37,6 +37,7 @@ export default function RegisterForm() {
     image: null,
     description: "",
     subject: "",
+    teacher_avg_score: 0.0,
   });
 
   const [confirmPassword, setConfirmPassword] = useState("");

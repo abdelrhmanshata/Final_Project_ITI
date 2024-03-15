@@ -19,7 +19,7 @@ class Course(models.Model):
     courseLessons = models.IntegerField(default=0)
     courseHours = models.FloatField(default=0)
     courseDate = models.DateField(default=timezone.now, null=True)
-
+    
     def __str__(self):
         return f"{self.courseName}"
     

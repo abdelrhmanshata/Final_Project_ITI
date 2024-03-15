@@ -20,16 +20,17 @@ class UserSerializer(serializers.ModelSerializer):
             "usertype",
             "isApprove",
             "description",
-            "subject"
+            "subject",
+            "teacher_avg_score",
         ]
-        extra_kwargs={
-            'password' : {'write_only':True,'required': False},
-            'image': {'required': False}
+        extra_kwargs = {
+            "password": {"write_only": True, "required": False},
+            "image": {"required": False},
         }
 
     def create(self, validated_data):
-        password=validated_data.pop('password',None)
-        instance= self.Meta.model(**validated_data)
+        password = validated_data.pop("password", None)
+        instance = self.Meta.model(**validated_data)
         if password is not None:
             instance.set_password(password)
         instance.save()
