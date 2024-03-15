@@ -1,6 +1,6 @@
 
 
-import CardCourse from 'components/Profile/CardCousre';
+// import CardCourse from 'components/Profile/CardCousre';
 
 import React, { useState } from 'react';
 import { Tabs, Tab } from 'react-bootstrap';
@@ -29,9 +29,9 @@ const TabsComponent = () => {
                        
                    
                      <div className="component mb-20" style={{ display: 'flex', flexDirection: 'row', gap: '16px' }}>
+                     {/* <CardCourse />
                      <CardCourse />
-                     <CardCourse />
-                    <CardCourse /> 
+                     <CardCourse />  */}
                     
                      </div>
                        

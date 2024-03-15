@@ -2,7 +2,7 @@ import React, { Suspense, useEffect, useState } from "react";
 import { Route, Routes } from "react-router-dom";
 import Spinner from "../components/Spinner";
 
-
+const ShopComplete = React.lazy(() => import("../pages/ShopComplete/ShopComplete"));
 const SingleInstructor = React.lazy(() => import("../pages/SingleInstructor/index"));
 const Aboutus =React.lazy(() => import("../pages/Aboutus/index"));
 const LoginForm = React.lazy(() => import("../pages/LoginForm/index"));
@@ -43,6 +43,7 @@ export default function Router() {
           <Route path="/single" element={<SingleInstructor />} />
           <Route path="/Addcourse" element={<Addcourse />} />
             <Route path="/UpdateCourse/:courseID" element={<Updatecourse />} />
+            <Route path="/shop" element={< ShopComplete/>} />
           
         </>
         
