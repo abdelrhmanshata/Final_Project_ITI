@@ -80,9 +80,6 @@ export default function CourseItem({ data }) {
         </Typography>
         <div style={{ display: "flex", alignItems: "center" }}>
           <Rating name="read-only" value={data.courseReviewScore} readOnly />
-          <small className="mx-auto">
-            {data.courseReviewScore} ( {150} + reviews)
-          </small>
         </div>
         <Grid className="my-0" container spacing={2}>
           <Grid item xs={9}>

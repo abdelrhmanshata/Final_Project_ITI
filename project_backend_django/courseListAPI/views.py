@@ -69,6 +69,7 @@ def getACourse(request, courseID):
         return Response({"message": datajson})
     return Response({"message": "Course Not Found."})
 
+
 class CourseDetailAPIView(generics.RetrieveAPIView):
     queryset = Course.objects.all()
     serializer_class = CourseSerializer
@@ -83,14 +84,9 @@ class CourseDetailAPIView(generics.RetrieveAPIView):
 
         # Add reviews to the serialized course data
         data = serializer.data
-        data['reviews'] = review_serializer.data
+        data["reviews"] = review_serializer.data
 
         return Response(data)
-    # def get_queryset(self):
-    #     queryset = super().get_queryset()
-    #
-    #     queryset = queryset.prefetch_related('reviews')  # Prefetch related reviews
-    #     return queryset
 
 
 @api_view(["GET"])

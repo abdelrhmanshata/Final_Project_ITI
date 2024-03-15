@@ -44,8 +44,7 @@ INSTALLED_APPS = [
     "user_authentication_app",
     "courseListAPI",
     "payment_app",
-    'reviews',
-
+    "reviews",
 ]
 
 MIDDLEWARE = [
@@ -88,7 +87,7 @@ DATABASES = {
         "ENGINE": "django.db.backends.postgresql",
         "NAME": "e-learning",
         "USER": "postgres",
-        "PASSWORD": "password",
+        "PASSWORD": "120699",
         "HOST": "localhost",
         "PORT": "5432",
     }

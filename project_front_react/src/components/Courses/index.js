@@ -82,7 +82,6 @@ export default function Courses() {
                           value={item.courseReviewScore}
                           readOnly
                         />
-                        <small>(152)</small>
                       </div>
                       {/* Title */}
                       <h5

@@ -8,7 +8,7 @@ import { axiosInstance } from "api/config";
 export default function Categories() {
   const [cats] = useState(["Arabic", "Science", "Computer Science", "English"]);
   const [categoryCourses] = useState([]);
-  const getData = useCallback(() => {
+  useEffect(() => {
     cats.forEach(async (item) => {
       try {
         await axiosInstance
@@ -23,10 +23,6 @@ export default function Categories() {
       }
     });
   }, []);
-
-  useEffect(() => {
-    getData();
-  }, [getData]);
 
   return (
     <>
