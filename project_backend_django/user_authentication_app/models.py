@@ -54,8 +54,8 @@ class User(AbstractUser):
     objects = UserManager()
 
     # is_staff = models.BooleanField()
-    isApprove = models.BooleanField()
-    username = None
+    isApprove = models.BooleanField(default=False)
+    username=None
 
     USERNAME_FIELD = "email"
     REQUIRED_FIELDS = []

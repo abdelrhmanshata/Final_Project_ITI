@@ -9,15 +9,15 @@ export default function TeacherItem({ data }) {
   return (
     <Card key={data.id} sx={{ width: 350, maxWidth: 345 }}>
       <CardActionArea>
-      <Link to="/single">
-    <CardMedia
-        component="img"
-        height="250"
-        image={data.image}
-        alt="Instructor Image"
-    />
-</Link>
-      
+        <Link to={`/single/${data.id}`}>
+          <CardMedia
+            component="img"
+            height="250"
+            image={`http://127.0.0.1:9000/${data.image}`}
+            alt="Instructor Image"
+          />
+        </Link>
+
         <CardContent>
           <Typography variant="h6">{data.name}</Typography>
           <Grid className="my-0" container spacing={2}>

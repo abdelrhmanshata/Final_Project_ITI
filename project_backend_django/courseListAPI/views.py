@@ -33,6 +33,16 @@ def getImage(request, courseID):
     return serve(request, image_path, document_root=settings.MEDIA_ROOT)
 
 
+@api_view(["GET"])
+def getAllCoursesByTeacher(request, teacherID):
+    data = Course.objects.filter(userID=teacherID)
+    if data:
+        datajson = data.count()
+        print(datajson)
+        return Response({"message": datajson})
+    return Response({"message": "Requirements Not Found."})
+
+
 @api_view(["POST"])
 def addACourse(request):
     user_id = request.data.get("userID")
@@ -70,16 +80,25 @@ def getTeacherCourse(request, teacherID):
 def updateACourse(request, courseID):
     try:
         selectedCourse = Course.objects.get(id=courseID)
-        datajson = CourseAddSerializer(selectedCourse, data=request.data, partial=True)
+        data = request.data.copy()  # Create a copy of request data
 
-        if "courseImage" in request.FILES:
-            datajson.courseImage = request.FILES["courseImage"]
+        # Check if the 'courseImage' key exists in request data and if it's a file
+        if "courseImage" in data and hasattr(data["courseImage"], "file"):
+            datajson = CourseAddSerializer(
+                instance=selectedCourse, data=data, partial=True
+            )
+        else:
+            # Remove the 'courseImage' key from request data if it's not a file
+            data.pop("courseImage", None)
+            datajson = CourseAddSerializer(
+                instance=selectedCourse, data=data, partial=True
+            )
 
         if datajson.is_valid():
             datajson.save()
             return Response({"message": "Successfully updated the course."})
         else:
-            print(datajson.errors)
+            print("Error : ", datajson.errors)
             return Response({"message": "Invalid data.", "errors": datajson.errors})
     except Course.DoesNotExist:
         return Response({"message": "Not Found."})

@@ -36,12 +36,12 @@ export default function UpdateCourse() {
           },
         }
       );
-      // Handle success (e.g., show success message to the user)
+
       if (response.status === 200) {
+        console.log(response.data.message);
         navigate(`/profile`);
       }
     } catch (error) {
-      // Handle error (e.g., display error message to the user)
       console.log(error.message);
     }
   };
