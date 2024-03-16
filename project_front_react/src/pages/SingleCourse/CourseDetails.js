@@ -34,12 +34,31 @@ export default function CourseDetails({ data, ratingValue }) {
     setOpen(false);
   };
 
+  const checkIsUserPayCourse = async () => {
+    try {
+      await axiosInstance
+        .get(`api/checkPayment/${localStorage.getItem("User_ID")}/${data.id}`)
+        .then((res) => {
+          if (res.data.status) {
+            setMessage("You have purchased that course before");
+            setStatus(false);
+            setOpen(true);
+          } else {
+            navigate(`/payment/${data.id}`);
+          }
+        })
+        .catch((err) => console.log(err));
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   return (
     <>
-      <Snackbar open={open} autoHideDuration={6000} onClose={handleClose}>
+      <Snackbar open={open} autoHideDuration={2000} onClose={handleClose}>
         <Alert
           onClose={handleClose}
-          severity={status?"success":"error"}
+          severity={status ? "success" : "error"}
           variant="filled"
           sx={{ width: "100%" }}
         >
@@ -55,17 +74,17 @@ export default function CourseDetails({ data, ratingValue }) {
             rounded
             className="border border-2 border-primary"
           />
-          <div className="position-absolute top-50 start-50 translate-middle">
+          {/* <div className="position-absolute top-50 start-50 translate-middle">
             <Fab color="primary" onClick={() => navigate(`/lesson/${data.id}`)}>
               <BiSolidRightArrow size={24} />
             </Fab>
-          </div>
+          </div> */}
         </div>
         <div className="d-flex flex-column p-4 gap-3">
           <Button
             className="bg-primary"
             variant="contained"
-            onClick={() => navigate(`/payment/${data.id}`)}
+            onClick={checkIsUserPayCourse}
           >
             Buy Now
           </Button>
