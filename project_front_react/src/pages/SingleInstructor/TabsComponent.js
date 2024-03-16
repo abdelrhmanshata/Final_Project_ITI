@@ -26,7 +26,7 @@ const TabsComponent = ({ teacher }) => {
 
   useEffect(() => {
     getData();
-  }, []);
+  }, [teacher]);
 
   return (
     <div className="container">

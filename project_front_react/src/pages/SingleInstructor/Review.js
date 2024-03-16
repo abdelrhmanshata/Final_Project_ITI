@@ -3,6 +3,8 @@ import React, { useCallback, useEffect, useState } from "react";
 
 export default function ReviewsComponent({ teacher }) {
   const [numCourses, setNumCourses] = useState(0);
+  const [reviewCount, setReviewCount] = useState(0);
+
   const getNumCourses = useCallback(async () => {
     try {
       await axiosInstance
@@ -16,8 +18,22 @@ export default function ReviewsComponent({ teacher }) {
     }
   }, [teacher]);
 
+  const getReviewCount = useCallback(async () => {
+    try {
+      await axiosInstance
+        .get(`review/review_count/${teacher.id}`)
+        .then((res) => {
+          setReviewCount(res.data.review_count);
+        })
+        .catch((err) => console.log(err));
+    } catch (error) {
+      console.log(error);
+    }
+  }, [teacher]);
+
   useEffect(() => {
     getNumCourses();
+    getReviewCount();
   }, [teacher]);
 
   return (
@@ -85,7 +101,7 @@ export default function ReviewsComponent({ teacher }) {
               </defs>
             </svg>
           </div>
-          533 Reviews
+          {reviewCount} Reviews
         </div>
       </div>
       <div className="col-12 col-md-auto mb-3 mb-md-0">
