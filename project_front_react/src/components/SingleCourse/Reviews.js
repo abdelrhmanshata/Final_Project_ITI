@@ -11,8 +11,14 @@ import { ProgressBar } from "react-bootstrap";
 import StudentReviews from "./StudentReviews";
 import HoverRating from "./Lesson/HoverRating";
 import { axiosInstance } from "api/config";
+import { useDispatch, useSelector } from "react-redux";
+import { updateState } from "store/slices/update";
 
 export default function Reviews({ course }) {
+  const dispatch = useDispatch();
+  const isUpdate = useSelector((state) => state.update.isUpdate);
+  // dispatch(updateState(isUpdate+1));
+
   const [value, setValue] = useState(0);
   const [reviewText, setReviewText] = useState("");
   const [ratingRange, setRatingRange] = useState({});
@@ -54,6 +60,7 @@ export default function Reviews({ course }) {
         // navigate(`/profile`);
         setReviewText("");
         setValue(0);
+        dispatch(updateState(isUpdate+1));
       }
     } catch (error) {
       // Handle error (e.g., display error message to the user)

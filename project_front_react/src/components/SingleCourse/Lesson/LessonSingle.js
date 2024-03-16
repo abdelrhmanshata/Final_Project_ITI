@@ -1,10 +1,11 @@
 import React, { useCallback, useEffect, useState } from "react";
-import { Button, Container, Grid, Paper } from "@mui/material";
+import { Button, Container, Grid, Paper, Typography } from "@mui/material";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import Curriculum from "../CourseCurriculum/index";
 import VideoPlayer from "./VideoPlayer";
 import Footer from "components/Footer";
 import { axiosInstance } from "api/config";
+import Questions from "components/Questions";
 
 export default function LessonSingle() {
   const params = useParams();
@@ -60,6 +61,12 @@ export default function LessonSingle() {
           <Grid item xs={8}>
             <Paper className="p-2">
               <VideoPlayer />
+            </Paper>
+            <br />
+            <Typography variant="h4">Questions</Typography>
+
+            <Paper className="p-2">
+              <Questions courseID={params.courseID} />
             </Paper>
           </Grid>
           <Grid item xs={4}>

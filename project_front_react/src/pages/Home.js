@@ -10,6 +10,10 @@ import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 
 export default function Home() {
+  // const dispatch = useDispatch();
+  // const isUpdate = useSelector((state) => state.update.isUpdate);
+  // dispatch(updateState(isUpdate+1));
+
   const navigate = useNavigate();
 
   useEffect(() => {

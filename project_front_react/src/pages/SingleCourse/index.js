@@ -18,8 +18,13 @@ import CourseInfoTab from "./CourseInfoTab";
 import Footer from "components/Footer";
 import CourseDetails from "./CourseDetails";
 import { axiosInstance } from "api/config";
+import { useDispatch, useSelector } from "react-redux";
 
 export default function SingleCourse() {
+  const dispatch = useDispatch();
+  const isUpdate = useSelector((state) => state.update.isUpdate);
+  // dispatch(updateState(isUpdate+1));
+
   const params = useParams();
   const [course, setCourse] = useState({});
   const [user, setUser] = useState({});
@@ -44,7 +49,7 @@ export default function SingleCourse() {
 
   useEffect(() => {
     getData();
-  }, [params.courseID]);
+  }, [params.courseID,isUpdate]);
 
   return (
     <>

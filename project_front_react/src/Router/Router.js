@@ -1,12 +1,8 @@
 import React, { Suspense, useEffect, useState } from "react";
 import { Route, Routes } from "react-router-dom";
 import Spinner from "../components/Spinner";
-import PaymentStripe from "../pages/payment/PaymentStripe";
 
-
-
-
-const Apps =React.lazy(() => import("../pages/Accordion/index"));
+const Apps = React.lazy(() => import("../pages/Accordion/index"));
 
 const SingleInstructor = React.lazy(() =>
   import("../pages/SingleInstructor/index")
@@ -47,16 +43,7 @@ export default function Router() {
         ) : (
           <>
             <Route path="/profile" element={<UserProfile />} />
-
-         
-          
-        </>
-        
-        
-            
-           
-         
-        
+          </>
         )}
         {/* Auth */}
         <Route path="/login" element={<LoginForm />} />
@@ -69,7 +56,7 @@ export default function Router() {
         <Route path="/course/:courseID" element={<SingleCourse />} />
         <Route path="/lesson/:courseID" element={<LessonSingle />} />
         <Route path="/single/:teacherID" element={<SingleInstructor />} />
-        <Route path="/Apps" element={< Apps/>} />
+        <Route path="/Apps" element={<Apps />} />
         <Route path="/payment/:courseID" element={<Stripe />} />
         <Route path="/Aboutus" element={<Aboutus />} />
         <Route path="/teachers" element={<Teachers />} />

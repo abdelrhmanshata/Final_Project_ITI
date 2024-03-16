@@ -1,9 +1,11 @@
 import { configureStore } from "@reduxjs/toolkit";
 import videoSlice from "./slices/video";
+import updateSlice from "./slices/update";
 
 export default configureStore({
   reducer: {
     video: videoSlice,
+    update: updateSlice,
   },
 });
 
