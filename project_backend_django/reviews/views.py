@@ -1,4 +1,4 @@
-from django.db.models import Avg
+from django.db.models import Avg, Count
 from django.http import JsonResponse
 from django.shortcuts import render, get_object_or_404
 from rest_framework import status, generics
@@ -282,3 +282,13 @@ def isApproveEnrollment(request, studentID, courseID, value):
         enrollment.is_approved = False
     enrollment.save()
     return Response({"status": "Update Enrollment successfully"})
+
+
+def teacher_review_count(request, teacherID):
+    try:
+        review_count = StudentReviewTeacher.objects.filter(
+            teacherID=teacherID
+        ).aggregate(review_count=Count("id"))["review_count"]
+        return JsonResponse({"teacherID": teacherID, "review_count": review_count})
+    except Exception as e:
+        return JsonResponse({"error": str(e)}, status=500)

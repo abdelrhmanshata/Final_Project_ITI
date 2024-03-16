@@ -65,4 +65,7 @@ urlpatterns = [
         views.isApproveEnrollment,
         name="approve_enrollment",
     ),
+    path('review_count/<int:teacherID>/',
+         views.teacher_review_count,
+         name='teacher_review_count'),
 ]
