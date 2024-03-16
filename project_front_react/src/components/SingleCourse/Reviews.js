@@ -6,7 +6,7 @@ import {
   TextField,
   Typography,
 } from "@mui/material";
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import { ProgressBar } from "react-bootstrap";
 import StudentReviews from "./StudentReviews";
 import HoverRating from "./Lesson/HoverRating";
@@ -18,7 +18,7 @@ export default function Reviews({ course }) {
   const [ratingRange, setRatingRange] = useState({});
   const [totalRating, setTotalRating] = useState(0);
 
-  useEffect(async () => {
+  const getData = useCallback(async () => {
     await axiosInstance
       .get(`review/course/${course.id}/score/count/`)
       .then((res) => {
@@ -32,9 +32,12 @@ export default function Reviews({ course }) {
       .catch((err) => console.log(err));
   }, [course]);
 
+  useEffect(() => {
+    getData();
+  }, []);
+
   const handleSubmit = async (e) => {
     e.preventDefault();
-
     const review = {
       courseReviewScore: value,
       reviewText: reviewText,
@@ -49,7 +52,6 @@ export default function Reviews({ course }) {
       );
       if (response.status === 200) {
         // navigate(`/profile`);
-        console.log("Done");
         setReviewText("");
         setValue(0);
       }

@@ -1,12 +1,12 @@
 import { axiosInstance } from "api/config";
 import React, { useCallback, useEffect, useState } from "react";
 
-export default function ReviewsComponent({ teacherID }) {
+export default function ReviewsComponent({ teacher }) {
   const [numCourses, setNumCourses] = useState(0);
   const getNumCourses = useCallback(async () => {
     try {
       await axiosInstance
-        .get(`course/${teacherID}/numberOfCourses/`)
+        .get(`course/${teacher.id}/numberOfCourses/`)
         .then((res) => {
           setNumCourses(res.data.message);
         })
@@ -14,11 +14,11 @@ export default function ReviewsComponent({ teacherID }) {
     } catch (error) {
       console.log(error);
     }
-  }, [teacherID]);
+  }, [teacher]);
 
   useEffect(() => {
     getNumCourses();
-  }, [teacherID]);
+  }, [teacher]);
 
   return (
     <div className="row mb-7  justify-content-center align-items-center">
@@ -88,7 +88,6 @@ export default function ReviewsComponent({ teacherID }) {
           533 Reviews
         </div>
       </div>
-
       <div className="col-12 col-md-auto mb-3 mb-md-0">
         <div className="d-flex align-items-center">
           <div className="me-3 d-flex">
@@ -113,7 +112,7 @@ export default function ReviewsComponent({ teacherID }) {
               />
             </svg>
           </div>
-          4.87 rating
+          {teacher.teacher_avg_score} rating
         </div>
       </div>
       <div className="col-12 col-md-auto mb-3 mb-md-0">

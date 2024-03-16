@@ -25,14 +25,15 @@ export default function SingleCourse() {
   const [user, setUser] = useState({});
 
   const [userReview, setUserReview] = useState(0);
+  const [ratingValue, setRatingValue] = useState(0);
 
   const getCourseData = async () => {
     await axiosInstance
       .get(`course/details/${params.courseID}`)
       .then((res) => {
         setCourse(res.data);
+        setRatingValue(res.data.courseReviewScore);
         getUserData(res.data.userID);
-        console.log(res.data.courseReviewScore);
       })
       .catch((err) => console.log(err));
   };
@@ -117,7 +118,7 @@ export default function SingleCourse() {
             <CourseInfoTab data={course} />
           </Grid>
           <Grid item sm={12} md={4}>
-            <CourseDetails data={course} />
+            <CourseDetails data={course} ratingValue={ratingValue} />
           </Grid>
         </Grid>
       </Container>

@@ -3,6 +3,7 @@ from django.urls import path, include
 from . import views
 
 urlpatterns = [
+#    Review
     path(
         "review_for_course/<int:student_id>/<int:course_id>/",
         views.create_review,
@@ -23,6 +24,7 @@ urlpatterns = [
         views.delete_review_for_teacher,
         name="delete_review_for_teacher",
     ),
+#    
     path(
         "students/<int:student_id>/enroll/<int:course_id>/",
         views.enroll_student,

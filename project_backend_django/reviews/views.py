@@ -163,16 +163,35 @@ def create_review_for_teacher(request, student_id, teacher_id):
 
 @api_view(["POST"])
 def enroll_student(request, student_id, course_id):
+
     student = get_object_or_404(User, id=student_id)
     course = get_object_or_404(Course, id=course_id)
 
-    enrollment = StudentEnrollsInCourse(
-        student=student, course=course, teacherID=course.userID
+    isStudentEnroll = StudentEnrollsInCourse.objects.filter(
+        studentID=student_id, courseID=course_id
     )
-    enrollment.save()
 
+    if isStudentEnroll:
+        return Response(
+            {
+                "message": "You have register for this course before",
+                "status": False,
+            }
+        )
+    else:
+        enrollment = StudentEnrollsInCourse(
+            studentID=student,
+            courseID=course,
+            teacherID=course.userID.id,
+            is_approved=False,
+        )
+        enrollment.save()
     return Response(
-        {"message": "Student enrolled in course"}, status=status.HTTP_201_CREATED
+        {
+            "message": "Student enrolled in course",
+            "status": True,
+        },
+        status=status.HTTP_201_CREATED,
     )
 
 
@@ -230,7 +249,7 @@ def count_students_by_score_range(request, id):
         "1-2": (1, 2),
         "2-3": (2, 3),
         "3-4": (3, 4),
-        "4-5": (4, 5),
+        "4-5": (4, 6),
     }
     count_by_range = {range_key: 0 for range_key in score_ranges}
 
