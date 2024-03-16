@@ -67,14 +67,14 @@ export default function Sidebar() {
             <BiChalkboard className="icon" />
             Courses
           </Link>
-          <Link
+          {/* <Link
             to=""
             className={isActive === 4 ? "item active--item" : "item"}
             onClick={() => setItemActive(4)}
           >
             <BiCreditCard className="icon" />
             Payment
-          </Link>
+          </Link> */}
         </div>
       </div>
     </>

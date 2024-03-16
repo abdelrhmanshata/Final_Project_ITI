@@ -93,7 +93,7 @@ export default function StudentList() {
       />
 
       <div className="student--content">
-        <div className="content" style={{ width: "70%" }}>
+        <div className="content" style={{ width: "40%" }}>
           <div className="student--list">
             <div className="list--header">
               <h2>Students</h2>
