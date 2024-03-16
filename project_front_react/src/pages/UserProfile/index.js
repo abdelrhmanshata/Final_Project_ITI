@@ -7,11 +7,10 @@ import Navbar from "components/Navbar";
 import Footer from "components/Footer";
 import { axiosInstance } from "api/config";
 import ListCourses from "components/Profile/Teacher/ListCourses";
-import CourseStudent from "components/Profile/CourseStudent";
 import StudentEnrolls from "components/Profile/Enrolls/StudentEnrolls";
 import "../../styles/teacherList.css";
+import ListStudentCourses from "components/Profile/Student/ListStudentCourses";
 export default function ProfileUser() {
-  const [courses, setCourses] = useState([1, 2, 3]);
   const [user, setUser] = useState({});
   const [avatar, setAvatar] = useState("");
 
@@ -84,8 +83,6 @@ export default function ProfileUser() {
           <Tabs
             value={selectedTab}
             onChange={handleTabChange}
-            indicatorColor="primary"
-            textColor="primary"
             className="tabs bg-light"
             centered
           >
@@ -307,17 +304,15 @@ export default function ProfileUser() {
             )}
             {selectedTab === 1 && (
               <div className="col border-right">
-                <div className="teacher--list">
-                  <div className="list--header">
-                    <h4 className="text-right pt-5 pb-2">Courses</h4>
-                    {user.isApprove ? (
-                      <div className="btn">
-                        <Link to="/Addcourse" className="btn btn-primary">
-                          Add Course
-                        </Link>
-                      </div>
-                    ) : null}
-                  </div>
+                <div className="container list--header">
+                  <h4 className="text-right">Courses</h4>
+                  {user.isApprove ? (
+                    <div className="btn">
+                      <Link to="/Addcourse" className="btn btn-primary">
+                        Add Course
+                      </Link>
+                    </div>
+                  ) : null}
                 </div>
 
                 {user.usertype === "teacher" ? (
@@ -329,29 +324,10 @@ export default function ProfileUser() {
                   </div>
                 ) : (
                   <div>
-                    <div className="container p-5">
-                      <div
-                        className="d-flex flex-wrap gap-4"
-                        style={{ justifyContent: "space-around" }}
-                      >
-                        {courses.map((item) => (
-                          <CourseStudent data={item} />
-                          // <CourseItem data={item} />
-                        ))}
-                      </div>
-                    </div>
-
-                    {/* <div
-                      className="component"
-                      style={{
-                        display: "flex",
-                        flexDirection: "row",
-                        gap: "16px",
-                      }}
-                    >
-                      <CourseStudent />
-                      <CourseStudent />
-                    </div> */}
+                    <ListStudentCourses />
+                    <br />
+                    <br />
+                    <br />
                   </div>
                 )}
               </div>
