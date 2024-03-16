@@ -3,10 +3,12 @@ import { Route, Routes } from "react-router-dom";
 import Spinner from "../components/Spinner";
 import PaymentStripe from "../pages/payment/PaymentStripe";
 
+
 const ShopComplete = React.lazy(() => import("../pages/ShopComplete/ShopComplete"));
 const SingleInstructor = React.lazy(() => import("../pages/SingleInstructor/index"));
 const Aboutus =React.lazy(() => import("../pages/Aboutus/index"));
 ;
+const Apps =React.lazy(() => import("../pages/Accordion/index"));
 
 const LoginForm = React.lazy(() => import("../pages/LoginForm/index"));
 const RegisterForm = React.lazy(() => import("../pages/RegisterForm/index"));
@@ -52,6 +54,8 @@ export default function Router() {
             <Route path="/Addcourse" element={<Addcourse />} />
             <Route path="/UpdateCourse/:courseID" element={<Updatecourse />} />
             <Route path="/shop" element={< ShopComplete/>} />
+            <Route path="/Apps" element={< Apps/>} />
+
           
         </>
         
