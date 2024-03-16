@@ -23,15 +23,19 @@ from reviews.models import StudentReviewCourse
 
 class CourseSerializer(serializers.ModelSerializer):
     # reviews = StudentReviewCourseSerializer(many=True, read_only=True)
-    reviews = serializers.SerializerMethodField(method_name='get_reviews', read_only=True)
+    reviews = serializers.SerializerMethodField(
+        method_name="get_reviews", read_only=True
+    )
 
     def get_reviews(self, obj):
         reviews = obj.reviews.all()
         serializer = StudentReviewCourseSerializer(reviews, many=True)
         return serializer.data
+
     class Meta:
         model = Course
-        fields = '__all__'
+        fields = "__all__"
+
 
 class CourseAddSerializer(serializers.ModelSerializer):
     class Meta:
@@ -122,8 +126,8 @@ class QuestionSerializer(serializers.Serializer):
     # id Automatic Field
     sectionID = serializers.IntegerField()
     questionHead = serializers.CharField(max_length=50)
-    questionAnswer = serializers.CharField(max_length=50)
-    questionImage = serializers.ImageField()
+    # questionAnswer = serializers.CharField(max_length=50)
+    # questionImage = serializers.ImageField()
 
 
 class QuestionAddSerializer(serializers.ModelSerializer):
@@ -134,9 +138,10 @@ class QuestionAddSerializer(serializers.ModelSerializer):
 
 class QuestionGetSerializer(serializers.Serializer):
     # id Automatic Field
+    id = serializers.IntegerField()
     questionHead = serializers.CharField(max_length=50)
-    questionAnswer = serializers.CharField(max_length=50)
-    questionImage = serializers.ImageField()
+    # questionAnswer = serializers.CharField(max_length=50)
+    # questionImage = serializers.ImageField()
 
 
 # Answer
@@ -157,6 +162,7 @@ class AnswerAddSerializer(serializers.ModelSerializer):
 
 class AnswerGetSerializer(serializers.Serializer):
     # id Automatic Field
-    questionID = serializers.IntegerField()
+    id = serializers.IntegerField()
+    # questionID = serializers.IntegerField()
     answerText = serializers.CharField(max_length=50)
     isAnswer = serializers.BooleanField()

@@ -4,12 +4,14 @@ import Spinner from "../components/Spinner";
 import PaymentStripe from "../pages/payment/PaymentStripe";
 
 
-const ShopComplete = React.lazy(() => import("../pages/ShopComplete/ShopComplete"));
-const SingleInstructor = React.lazy(() => import("../pages/SingleInstructor/index"));
-const Aboutus =React.lazy(() => import("../pages/Aboutus/index"));
-;
+
+
 const Apps =React.lazy(() => import("../pages/Accordion/index"));
 
+const SingleInstructor = React.lazy(() =>
+  import("../pages/SingleInstructor/index")
+);
+const Aboutus = React.lazy(() => import("../pages/Aboutus/index"));
 const LoginForm = React.lazy(() => import("../pages/LoginForm/index"));
 const RegisterForm = React.lazy(() => import("../pages/RegisterForm/index"));
 const Home = React.lazy(() => import("../pages/Home"));
@@ -25,9 +27,7 @@ const LessonSingle = React.lazy(() =>
 const Teachers = React.lazy(() => import("../pages/Teachers/index"));
 const NotFound = React.lazy(() => import("../pages/NotFound"));
 const Stripe = React.lazy(() => import("../pages/payment/PaymentStripe"));
-const PaymentCompleted = React.lazy(() =>
-  import("../pages/payment/PaymentCompleted")
-);
+const ShopComplete = React.lazy(() => import("../pages/payment/ShopComplete"));
 
 export default function Router() {
   const [isAdmin, setIsAdmin] = useState(false);
@@ -48,14 +48,7 @@ export default function Router() {
           <>
             <Route path="/profile" element={<UserProfile />} />
 
-            <Route path="/Addcourse" element={<Addcourse />} />
-            <Route path="/Aboutus" element={<Aboutus />} />
-            <Route path="/single/:teacherID" element={<SingleInstructor />} />
-            <Route path="/Addcourse" element={<Addcourse />} />
-            <Route path="/UpdateCourse/:courseID" element={<Updatecourse />} />
-            <Route path="/shop" element={< ShopComplete/>} />
-            <Route path="/Apps" element={< Apps/>} />
-
+         
           
         </>
         
@@ -63,16 +56,27 @@ export default function Router() {
             
            
          
+        
         )}
         {/* Auth */}
         <Route path="/login" element={<LoginForm />} />
         <Route path="/register" element={<RegisterForm />} />
-        <Route path="/payment/:courseID" element={<Stripe />} />
-        <Route path="/payment/completed" element={<PaymentCompleted />} />
+
+        {/*  Course */}
+        <Route path="/Addcourse" element={<Addcourse />} />
+        <Route path="/UpdateCourse/:courseID" element={<Updatecourse />} />
         <Route path="/courses" element={<Courses />} />
         <Route path="/course/:courseID" element={<SingleCourse />} />
         <Route path="/lesson/:courseID" element={<LessonSingle />} />
+        <Route path="/single/:teacherID" element={<SingleInstructor />} />
+        <Route path="/Apps" element={< Apps/>} />
+        <Route path="/payment/:courseID" element={<Stripe />} />
+        <Route path="/Aboutus" element={<Aboutus />} />
         <Route path="/teachers" element={<Teachers />} />
+        <Route
+          path="/payment/completed/:userID/:courseID"
+          element={<ShopComplete />}
+        />
         <Route path="*" element={<NotFound />} />
       </Routes>
     </Suspense>

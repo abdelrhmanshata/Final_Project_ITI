@@ -13,6 +13,7 @@ const TabsComponent = ({ teacher }) => {
         .then((res) => {
           if (typeof res.data.message != "string") {
             setCourses(res.data.message);
+            console.log("List" + res.data.message);
           } else {
             setCourses([]);
           }
@@ -21,11 +22,11 @@ const TabsComponent = ({ teacher }) => {
     } catch (error) {
       console.log(error);
     }
-  }, []);
+  }, [teacher]);
 
   useEffect(() => {
     getData();
-  }, []);
+  }, [teacher]);
 
   return (
     <div className="container">

@@ -1,25 +1,70 @@
-import React, { useEffect } from "react";
-import { Button, Fab, Paper, Rating } from "@mui/material";
+import React, { useState } from "react";
+import { Alert, Button, Fab, Paper, Rating, Snackbar } from "@mui/material";
 import { Image } from "react-bootstrap";
-import { BiBookReader, BiSolidRightArrow } from "react-icons/bi";
+import { BiSolidRightArrow, BiStar } from "react-icons/bi";
 import { MdOutlineAccessTime, MdOutlineOndemandVideo } from "react-icons/md";
 import { BsCalendarDate } from "react-icons/bs";
 import { GrCurrency } from "react-icons/gr";
 import { useNavigate } from "react-router-dom";
-import { FcRating } from "react-icons/fc";
-import { useState } from "react";
+import { axiosInstance } from "api/config";
 
-export default function CourseDetails({ data }) {
+export default function CourseDetails({ data, ratingValue }) {
   const navigate = useNavigate();
+  const [open, setOpen] = useState(false);
+  const [status, setStatus] = useState(true);
+  const [message, setMessage] = useState("");
+  const enrollCourse = async () => {
+    //
+    await axiosInstance
+      .post(
+        `review/students/${localStorage.getItem("User_ID")}/enroll/${data.id}/`
+      )
+      .then((res) => {
+        setMessage(res.data.message);
+        setStatus(res.data.status);
+        setOpen(true);
+      })
+      .catch((err) => console.log(err));
+  };
 
-  const [ratingValue, setRatingValue] = useState(0);
+  const handleClose = (event, reason) => {
+    if (reason === "clickaway") {
+      return;
+    }
+    setOpen(false);
+  };
 
-  useEffect(() => {
-    setRatingValue(data.courseReviewScore);
-  }, []);
+  const checkIsUserPayCourse = async () => {
+    try {
+      await axiosInstance
+        .get(`api/checkPayment/${localStorage.getItem("User_ID")}/${data.id}`)
+        .then((res) => {
+          if (res.data.status) {
+            setMessage("You have purchased that course before");
+            setStatus(false);
+            setOpen(true);
+          } else {
+            navigate(`/payment/${data.id}`);
+          }
+        })
+        .catch((err) => console.log(err));
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   return (
     <>
+      <Snackbar open={open} autoHideDuration={2000} onClose={handleClose}>
+        <Alert
+          onClose={handleClose}
+          severity={status ? "success" : "error"}
+          variant="filled"
+          sx={{ width: "100%" }}
+        >
+          {message}
+        </Alert>
+      </Snackbar>
       <Paper className="p-2">
         <div className="position-relative">
           <Image
@@ -39,15 +84,11 @@ export default function CourseDetails({ data }) {
           <Button
             className="bg-primary"
             variant="contained"
-            onClick={() => navigate(`/payment/${data.id}`)}
+            onClick={checkIsUserPayCourse}
           >
             Buy Now
           </Button>
-          <Button
-            variant="contained"
-            color="warning"
-            onClick={() => navigate(`/payment/completed`)}
-          >
+          <Button variant="contained" color="warning" onClick={enrollCourse}>
             Enroll
           </Button>
         </div>
@@ -81,38 +122,12 @@ export default function CourseDetails({ data }) {
           </div>
 
           <div className="d-flex align-items-center gap-2">
-            <BiBookReader size={20} />
-            <span className="w-50">Enrolled</span>
-            <span className="w-50 text-end">1982 students</span>
-          </div>
-          <div className="d-flex align-items-center gap-2">
-            <FcRating size={20} />
+            <BiStar size={20} />
             <span className="w-50">Rating</span>
             <span className="w-50 text-end">
               <Rating name="read-only" value={ratingValue} readOnly />
             </span>
           </div>
-
-          {/* <div className="d-flex align-items-center gap-2">
-            <MdOutlineGTranslate size={20} />
-            <span className="w-50">Language</span>
-            <span className="w-50 text-end">English</span>
-          </div> */}
-          {/* <div className="d-flex align-items-center gap-2">
-            <VscSettings size={20} />
-            <span className="w-50">Skill level</span>
-            <span className="w-50 text-end">beginner</span>
-          </div> */}
-          {/* <div className="d-flex align-items-center gap-2">
-            <BsCalendarDate size={20} />
-            <span className="w-50">Deadline</span>
-            <span className="w-50 text-end">06 April 2020</span>
-          </div> */}
-          {/* <div className="d-flex align-items-center gap-2">
-            <TbCertificate size={20} />
-            <span className="w-50">Certificate</span>
-            <span className="w-50 text-end">Yes</span>
-          </div> */}
         </div>
       </Paper>
     </>

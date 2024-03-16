@@ -14,7 +14,7 @@ export default function Categories() {
         await axiosInstance
           .get(`course/listCategoryCourses/${item}`)
           .then((res) => {
-            console.log(res.data.message.length);
+            // console.log(res.data.message.length);
             categoryCourses.push(res.data.message.length);
           })
           .catch((err) => console.log(err));
