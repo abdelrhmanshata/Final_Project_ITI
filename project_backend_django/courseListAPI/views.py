@@ -70,6 +70,11 @@ def getACourse(request, courseID):
     return Response({"message": "Course Not Found."})
 
 
+from user_authentication_app.models import *
+from user_authentication_app.serializers import *
+from django.shortcuts import get_object_or_404
+
+
 class CourseDetailAPIView(generics.RetrieveAPIView):
     queryset = Course.objects.all()
     serializer_class = CourseSerializer
@@ -82,9 +87,13 @@ class CourseDetailAPIView(generics.RetrieveAPIView):
         reviews = StudentReviewCourse.objects.filter(courseID=instance.id)
         review_serializer = StudentReviewCourseSerializer(reviews, many=True)
 
+        user = get_object_or_404(User, id=instance.userID.id)
+        teacher_serializer = UserSerializer(user)
+
         # Add reviews to the serialized course data
         data = serializer.data
         data["reviews"] = review_serializer.data
+        data["teacher"] = teacher_serializer.data
 
         return Response(data)
 

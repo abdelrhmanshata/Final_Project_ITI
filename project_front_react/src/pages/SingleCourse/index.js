@@ -23,34 +23,20 @@ export default function SingleCourse() {
   const params = useParams();
   const [course, setCourse] = useState({});
   const [user, setUser] = useState({});
-
   const [userReview, setUserReview] = useState(0);
   const [ratingValue, setRatingValue] = useState(0);
 
-  const getCourseData = async () => {
-    await axiosInstance
-      .get(`course/details/${params.courseID}`)
-      .then((res) => {
-        setCourse(res.data);
-        setRatingValue(res.data.courseReviewScore);
-        getUserData(res.data.userID);
-      })
-      .catch((err) => console.log(err));
-  };
-
-  const getUserData = async (userID) => {
-    await axiosInstance
-      .get(`user/Get_Specific_User/${userID}`)
-      .then((res) => {
-        setUser(res.data.data);
-        setUserReview(res.data.data.teacher_avg_score);
-      })
-      .catch((err) => console.log(err));
-  };
-
   const getData = useCallback(async () => {
     try {
-      getCourseData();
+      await axiosInstance
+        .get(`course/details/${params.courseID}`)
+        .then((res) => {
+          setCourse(res.data);
+          setUser(res.data.teacher);
+          setRatingValue(res.data.courseReviewScore);
+          setUserReview(res.data.teacher.teacher_avg_score);
+        })
+        .catch((err) => console.log(err));
     } catch (error) {
       console.log(error);
     }
@@ -58,7 +44,7 @@ export default function SingleCourse() {
 
   useEffect(() => {
     getData();
-  }, [getData]);
+  }, [params.courseID]);
 
   return (
     <>
