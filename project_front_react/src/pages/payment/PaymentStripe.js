@@ -71,7 +71,9 @@ export default function PaymentStripe() {
             </div>
             <div className="d-flex justify-content-center m-2 ">
               <form
-                action={`http://127.0.0.1:9000/api/create-checkout-session/${course.id}/${localStorage.getItem("User_ID")}`}
+                action={`http://127.0.0.1:9000/api/create-checkout-session/${
+                  course.id
+                }/${localStorage.getItem("User_ID")}`}
                 method="POST"
               >
                 <Button
