@@ -142,7 +142,7 @@ export default function CardCourse({ course, isUpdate, setIsUpdate }) {
             id={`panel-header`}
           >
             <div style={{ position: "relative", width: "100%" }}>
-              <Typography>Other...</Typography>
+              <Typography>Requirement...</Typography>
             </div>
           </AccordionSummary>
           <AccordionDetails>
