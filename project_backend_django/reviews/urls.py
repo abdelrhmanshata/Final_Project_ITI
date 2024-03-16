@@ -68,4 +68,10 @@ urlpatterns = [
     path('review_count/<int:teacherID>/',
          views.teacher_review_count,
          name='teacher_review_count'),
+    
+    path(
+        "enrollCourses/<int:userID>",
+        views.getEnrollCourse,
+        name="getEnrollCourses",
+    ),
 ]

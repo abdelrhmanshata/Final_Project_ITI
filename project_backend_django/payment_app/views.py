@@ -101,24 +101,23 @@ def checkPayment(request, userID, courseID):
     )
     if paymentCourses:
         paymentDataJson = PaymentSerialzer(paymentCourses, many=True).data
-
-    courses = []
-    for obj in paymentCourses:
-        courses.append(obj.course_model)
-    if courses:
-        coursesDataJson = CourseSerializer(courses, many=True).data
-
-    users = []
-    for obj in paymentCourses:
-        users.append(obj.user_model)
-    if users:
-        usersDataJson = UserSerializer(users, many=True).data
+        courses = []
+        for obj in paymentCourses:
+            courses.append(obj.course_model)
+        if courses:
+            coursesDataJson = CourseSerializer(courses, many=True).data
+        users = []
+        for obj in paymentCourses:
+            users.append(obj.user_model)
+        if users:
+            usersDataJson = UserSerializer(users, many=True).data
 
         return Response(
             {
                 "payment": paymentDataJson,
                 "course": coursesDataJson,
                 "user": usersDataJson,
+                "status": True,
             }
         )
-    return Response({"message": "Course Not Found."})
+    return Response({"message": "Course Not Found.", "status": False})

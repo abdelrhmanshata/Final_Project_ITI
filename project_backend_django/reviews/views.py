@@ -284,6 +284,7 @@ def isApproveEnrollment(request, studentID, courseID, value):
     return Response({"status": "Update Enrollment successfully"})
 
 
+@api_view(["GET"])
 def teacher_review_count(request, teacherID):
     try:
         review_count = StudentReviewTeacher.objects.filter(
@@ -292,3 +293,16 @@ def teacher_review_count(request, teacherID):
         return JsonResponse({"teacherID": teacherID, "review_count": review_count})
     except Exception as e:
         return JsonResponse({"error": str(e)}, status=500)
+
+
+@api_view(["GET"])
+def getEnrollCourse(request, userID):
+    enrollCourses = StudentEnrollsInCourse.objects.filter(studentID=userID)
+    coursesList = []
+    for obj in enrollCourses:
+        if obj.is_approved:
+            coursesList.append(obj.courseID)
+    if coursesList:
+        datajson = CourseSerializer(coursesList, many=True).data
+        return Response({"message": datajson})
+    return Response({"message": "Course Not Found."})

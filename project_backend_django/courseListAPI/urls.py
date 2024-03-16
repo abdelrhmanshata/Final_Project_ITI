@@ -59,7 +59,7 @@ urlpatterns = [
     ),
     # Questions
     path(
-        "section/<int:sectionID>/questions/all/",
+        "<int:courseID>/questions/all/",
         views.getAllQuestions,
         name="getAllQuestions",
     ),
@@ -68,22 +68,20 @@ urlpatterns = [
         views.getAQuestion,
         name="getAQuestion",
     ),
-    path(
-        "section/<int:sectionID>/addAQuestion/", views.addAQuestion, name="addAQuestion"
-    ),
+    path("<int:courseID>/addAQuestion/", views.addAQuestion, name="addAQuestion"),
     path(
         "section/<int:sectionID>/updateAQuestion/",
         views.updateAQuestion,
         name="updateAQuestion",
     ),
     path(
-        "section/<int:sectionID>/deleteAQuestion/",
+        "deleteAQuestion/<int:questionID>/",
         views.deleteAQuestion,
         name="deleteAQuestion",
     ),
     # Answers
     path(
-        "section/<int:sectionID>/<int:questionID>/addAnAnswer/",
+        "addAnAnswer/<int:questionID>/",
         views.addAnAnswer,
         name="addAnAnswer",
     ),
@@ -91,6 +89,11 @@ urlpatterns = [
         "section/<int:sectionID>/<int:questionID>/getAllAnswers/",
         views.getAllAnswers,
         name="getAllAnswers",
+    ),
+    path(
+        "deleteAnswer/<int:answerID>/",
+        views.deleteAnswer,
+        name="deleteAnswer",
     ),
     # Requirements
     path(
@@ -134,5 +137,7 @@ urlpatterns = [
         views.deleteAWhatYoullLearn,
         name="deleteAWhatYoullLearn",
     ),
-    path('details/<int:pk>/', views.CourseDetailAPIView.as_view(), name='course-detail'),
+    path(
+        "details/<int:pk>/", views.CourseDetailAPIView.as_view(), name="course-detail"
+    ),
 ]
