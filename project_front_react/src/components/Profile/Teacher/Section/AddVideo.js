@@ -10,8 +10,13 @@ import DialogContentText from "@mui/material/DialogContentText";
 import DialogTitle from "@mui/material/DialogTitle";
 import { Snackbar } from "@mui/material";
 import { axiosInstance } from "api/config";
+import { useDispatch, useSelector } from "react-redux";
+import { updateState } from "store/slices/update";
 
-export default function AddVideo({ sectionID, isUpdate, setIsUpdate }) {
+export default function AddVideo({ sectionID }) {
+  const dispatch = useDispatch();
+  const isUpdate = useSelector((state) => state.update.isUpdate);
+  // dispatch(updateState(isUpdate + 1));
   const [video, setVideo] = useState({
     sectionID: sectionID,
     videoTitle: "",
@@ -42,7 +47,7 @@ export default function AddVideo({ sectionID, isUpdate, setIsUpdate }) {
         setMessage(response.data.message);
         handleCloseDialog();
         setOpen(true);
-        setIsUpdate(isUpdate + 1);
+        dispatch(updateState(isUpdate + 1));
       }
     } catch (error) {
       // Handle error (e.g., display error message to the user)

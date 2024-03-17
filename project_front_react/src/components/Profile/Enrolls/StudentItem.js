@@ -52,7 +52,7 @@ export default function StudentItem({ index, data, isUpdate, setIsUpdate }) {
   return (
     <Paper elevation={5} className="p-2 mt-2">
       <div className="row align-items-center ">
-        <div className="col-md-2 col-12   d-flex  flex-md-row  flex-column  justify-content-center align-items-center gap-2">
+        <div className="col-md-2 col-12 d-flex  flex-md-row  flex-column  justify-content-center align-items-center gap-2">
           <Avatar
             alt={course.name}
             src={course.courseImage}
@@ -62,17 +62,17 @@ export default function StudentItem({ index, data, isUpdate, setIsUpdate }) {
             {course.courseName}
           </Typography>
         </div>
-        <div className="col-md-3 col-6   d-flex justify-content-center align-items-center gap-2">
+        <div className="col-md-3 col-6 d-flex justify-content-center align-items-center gap-2">
           <Typography variant="body1" component="div">
             {student.name}
           </Typography>
         </div>
-        <div className="col-md-3 col-6   d-flex justify-content-center align-items-center gap-2">
+        <div className="col-md-3 col-6 d-flex justify-content-center align-items-center gap-2">
           <Typography variant="body1" component="div">
             {student.email}
           </Typography>
         </div>
-        <div className="col-md-2 col-6   d-flex justify-content-center align-items-center">
+        <div className="col-md-2 col-6 d-flex justify-content-center align-items-center">
           <span style={{ color: data.is_approved ? "green" : "red" }}>
             {data.is_approved ? (
               <BiCheckCircle fontSize={"20"} />
@@ -82,7 +82,7 @@ export default function StudentItem({ index, data, isUpdate, setIsUpdate }) {
             Approve
           </span>
         </div>
-        <div className="col-md-2 col-6   justify-content-center action--button">
+        <div className="col-md-2 col-6 justify-content-center action--button">
           {data.is_approved ? (
             <Button
               variant="contained"

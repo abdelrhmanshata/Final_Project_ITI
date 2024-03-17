@@ -7,11 +7,17 @@ import DialogContent from "@mui/material/DialogContent";
 import DialogTitle from "@mui/material/DialogTitle";
 import { axiosInstance } from "api/config";
 import { MdAddchart } from "react-icons/md";
+import { useDispatch, useSelector } from "react-redux";
+import { updateState } from "store/slices/update";
 
-export default function YouLearn({ courseId }) {
-  const [youLearn, setYouLearn] = useState({
+export default function AddRequirement({ courseId }) {
+  const dispatch = useDispatch();
+  const isUpdate = useSelector((state) => state.update.isUpdate);
+  // dispatch(updateState(isUpdate + 1));
+
+  const [requirement, setRequirement] = useState({
     courseID: courseId,
-    whatYoullLearnDescription: "",
+    requirementDescription: "",
   });
   const [isDialogOpen, setDialogOpen] = useState(false);
 
@@ -19,12 +25,13 @@ export default function YouLearn({ courseId }) {
     e.preventDefault();
     try {
       const response = await axiosInstance.post(
-        `course/${courseId}/addAWhatYoullLearn/`,
-        youLearn
+        `course/${courseId}/addARequirement/`,
+        requirement
       );
       if (response.status === 200) {
         console.log(response.data.message);
         handleDialogClose();
+        dispatch(updateState(isUpdate + 1));
       }
     } catch (error) {
       console.log(error.message);
@@ -40,9 +47,9 @@ export default function YouLearn({ courseId }) {
   };
 
   const handleChange = (event) => {
-    setYouLearn({
-      ...youLearn,
-      whatYoullLearnDescription: event.target.value,
+    setRequirement({
+      ...requirement,
+      requirementDescription: event.target.value,
     });
   };
 
@@ -58,9 +65,9 @@ export default function YouLearn({ courseId }) {
       </Button>
 
       <Dialog open={isDialogOpen} onClose={handleDialogClose}>
-        <DialogTitle>Add Skills Learn</DialogTitle>
+        <DialogTitle>Add Requirement</DialogTitle>
         <DialogContent>
-          <TextField label="Skills Learn" onChange={handleChange} />
+          <TextField label="Requirement" onChange={handleChange} />
         </DialogContent>
         <DialogActions>
           <Button onClick={handleDialogClose} color="secondary">

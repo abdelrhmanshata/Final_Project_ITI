@@ -7,11 +7,17 @@ import DialogContent from "@mui/material/DialogContent";
 import DialogTitle from "@mui/material/DialogTitle";
 import { axiosInstance } from "api/config";
 import { MdAddchart } from "react-icons/md";
+import { useDispatch, useSelector } from "react-redux";
+import { updateState } from "store/slices/update";
 
-export default function AddRequirement({ courseId }) {
-  const [requirement, setRequirement] = useState({
+export default function YouLearn({ courseId }) {
+  const dispatch = useDispatch();
+  const isUpdate = useSelector((state) => state.update.isUpdate);
+  // dispatch(updateState(isUpdate + 1));
+
+  const [youLearn, setYouLearn] = useState({
     courseID: courseId,
-    requirementDescription: "",
+    whatYoullLearnDescription: "",
   });
   const [isDialogOpen, setDialogOpen] = useState(false);
 
@@ -19,12 +25,13 @@ export default function AddRequirement({ courseId }) {
     e.preventDefault();
     try {
       const response = await axiosInstance.post(
-        `course/${courseId}/addARequirement/`,
-        requirement
+        `course/${courseId}/addAWhatYoullLearn/`,
+        youLearn
       );
       if (response.status === 200) {
         console.log(response.data.message);
         handleDialogClose();
+        dispatch(updateState(isUpdate + 1));
       }
     } catch (error) {
       console.log(error.message);
@@ -40,9 +47,9 @@ export default function AddRequirement({ courseId }) {
   };
 
   const handleChange = (event) => {
-    setRequirement({
-      ...requirement,
-      requirementDescription: event.target.value,
+    setYouLearn({
+      ...youLearn,
+      whatYoullLearnDescription: event.target.value,
     });
   };
 
@@ -58,9 +65,9 @@ export default function AddRequirement({ courseId }) {
       </Button>
 
       <Dialog open={isDialogOpen} onClose={handleDialogClose}>
-        <DialogTitle>Add Requirement</DialogTitle>
+        <DialogTitle>Add Skills Learn</DialogTitle>
         <DialogContent>
-          <TextField label="Requirement" onChange={handleChange} />
+          <TextField label="Skills Learn" onChange={handleChange} />
         </DialogContent>
         <DialogActions>
           <Button onClick={handleDialogClose} color="secondary">

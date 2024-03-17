@@ -8,14 +8,18 @@ import { axiosInstance } from "api/config";
 import React, { useEffect, useState } from "react";
 import { BiCheckCircle } from "react-icons/bi";
 import { MdOutlineCancel, MdOutlineDeleteForever } from "react-icons/md";
+import { useDispatch, useSelector } from "react-redux";
+import { updateState } from "store/slices/update";
 
-export default function ListAnswer({ question, isUpdate, setIsUpdate }) {
+export default function ListAnswer({ question }) {
+  const dispatch = useDispatch();
+  const isUpdate = useSelector((state) => state.update.isUpdate);
+  // dispatch(updateState(isUpdate + 1));
   const [answers, setAnswers] = useState([]);
 
   useEffect(() => {
     setAnswers(question.answers);
-    console.log(question.answers);
-  }, [question]);
+  }, [question, isUpdate]);
 
   const deleteAnswer = async (id) => {
     console.log(id);
@@ -23,7 +27,7 @@ export default function ListAnswer({ question, isUpdate, setIsUpdate }) {
       await axiosInstance
         .delete(`/course/deleteAnswer/${id}`)
         .then((res) => {
-          setIsUpdate(isUpdate + 1);
+          dispatch(updateState(isUpdate + 1));
         })
         .catch((err) => console.log(err));
     } catch (error) {

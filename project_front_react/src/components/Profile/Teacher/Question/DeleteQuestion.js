@@ -4,8 +4,13 @@ import IconButton from "@mui/material/IconButton";
 import Tooltip from "@mui/material/Tooltip";
 import { axiosInstance } from "api/config";
 import { Snackbar } from "@mui/material";
+import { useDispatch, useSelector } from "react-redux";
+import { updateState } from "store/slices/update";
 
-export default function DeleteSection({ questionID, isUpdate, setIsUpdate }) {
+export default function DeleteQuestion({ questionID }) {
+  const dispatch = useDispatch();
+  const isUpdate = useSelector((state) => state.update.isUpdate);
+  // dispatch(updateState(isUpdate + 1));
   const [message, setMessage] = useState("");
   const [open, setOpen] = useState(false);
   const handleDelete = async () => {
@@ -15,7 +20,7 @@ export default function DeleteSection({ questionID, isUpdate, setIsUpdate }) {
         .then((res) => {
           setMessage(res.data.message);
           setOpen(true);
-          setIsUpdate(isUpdate + 1);
+          dispatch(updateState(isUpdate + 1));
         })
         .catch((err) => console.log(err));
     } catch (error) {

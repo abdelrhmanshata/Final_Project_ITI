@@ -8,8 +8,14 @@ import DialogContent from "@mui/material/DialogContent";
 import DialogContentText from "@mui/material/DialogContentText";
 import DialogTitle from "@mui/material/DialogTitle";
 import { axiosInstance } from "api/config";
+import { useDispatch, useSelector } from "react-redux";
+import { updateState } from "store/slices/update";
 
-export default function EditVideo({ video, isUpdate, setIsUpdate }) {
+export default function EditVideo({ video }) {
+  const dispatch = useDispatch();
+  const isUpdate = useSelector((state) => state.update.isUpdate);
+  // dispatch(updateState(isUpdate + 1));
+
   const [updateVideo, setUpdateVideo] = useState(video);
   const [isDialogOpen, setDialogOpen] = useState(false);
 
@@ -31,7 +37,7 @@ export default function EditVideo({ video, isUpdate, setIsUpdate }) {
       if (response.status === 200) {
         console.log(response.data.message);
         handleCloseDialog();
-        setIsUpdate(isUpdate + 1);
+        dispatch(updateState(isUpdate + 1));
       }
     } catch (error) {
       // Handle error (e.g., display error message to the user)

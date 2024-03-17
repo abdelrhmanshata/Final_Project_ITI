@@ -11,8 +11,14 @@ import {
 import AddAnswer from "./AddAnswer";
 import ListAnswer from "./ListAnswer";
 import { MdOutlineDeleteForever } from "react-icons/md";
+import { useDispatch, useSelector } from "react-redux";
+import { updateState } from "store/slices/update";
 
-export default function ListQuestions({ isUpdate, setIsUpdate, courseId }) {
+export default function ListQuestions({ courseId }) {
+  const dispatch = useDispatch();
+  const isUpdate = useSelector((state) => state.update.isUpdate);
+  // dispatch(updateState(isUpdate + 1));
+
   const [questions, setQuestions] = useState([]);
   const getData = useCallback(async () => {
     try {
@@ -40,7 +46,7 @@ export default function ListQuestions({ isUpdate, setIsUpdate, courseId }) {
       await axiosInstance
         .delete(`/course/deleteAQuestion/${id}`)
         .then((res) => {
-          setIsUpdate(isUpdate + 1);
+          dispatch(updateState(isUpdate + 1));
         })
         .catch((err) => console.log(err));
     } catch (error) {
@@ -73,11 +79,7 @@ export default function ListQuestions({ isUpdate, setIsUpdate, courseId }) {
                   width: "25%",
                 }}
               >
-                <AddAnswer
-                  questionID={item.question.id}
-                  isUpdate={isUpdate}
-                  setIsUpdate={setIsUpdate}
-                />
+                <AddAnswer questionID={item.question.id} />
 
                 <IconButton edge="end" aria-label="delete">
                   <MdOutlineDeleteForever
@@ -92,11 +94,7 @@ export default function ListQuestions({ isUpdate, setIsUpdate, courseId }) {
             </div>
           </AccordionSummary>
           <AccordionDetails>
-            <ListAnswer
-              question={item}
-              isUpdate={isUpdate}
-              setIsUpdate={setIsUpdate}
-            />
+            <ListAnswer question={item} />
           </AccordionDetails>
         </Accordion>
       ))}
