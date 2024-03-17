@@ -33,8 +33,11 @@ def create_review(request, student_id, course_id):
     studentID = get_object_or_404(User, id=student_id)
     courseID = get_object_or_404(Course, id=course_id)
     data = request.data
+
+    review = StudentReviewCourse()
     review = courseID.studcoursereviews.filter(studentID=studentID).first()
-    review.studentName = studentID.name
+    if review:
+        review.studentName = studentID.name
 
     if data["courseReviewScore"] <= 0 or data["courseReviewScore"] > 5:
         return Response(

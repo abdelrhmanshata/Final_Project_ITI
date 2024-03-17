@@ -179,7 +179,7 @@ def updateARequirement(request):
         return Response({"message": "Not Found."})
 
 
-@api_view(["POST", "GET", "DELETE"])
+@api_view(["DELETE"])
 def deleteARequirement(request, requirementID):
     try:
         selectedRequirement = Requirement.objects.get(id=requirementID)
@@ -231,7 +231,7 @@ def updateAWhatYoullLearn(request):
         return Response({"message": "Not Found."})
 
 
-@api_view(["POST", "GET", "DELETE"])
+@api_view(["DELETE"])
 def deleteAWhatYoullLearn(request, whatYoullLearnID):
     try:
         selectedWhatYoullLearn = WhatYoullLearn.objects.get(id=whatYoullLearnID)

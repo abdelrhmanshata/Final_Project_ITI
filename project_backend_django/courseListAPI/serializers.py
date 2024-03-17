@@ -47,6 +47,7 @@ class CourseAddSerializer(serializers.ModelSerializer):
 class RequirementSerializer(serializers.Serializer):
     # id Automatic Field
     # courseID=serializers.IntegerField()
+    id = serializers.IntegerField()
     requirementDescription = serializers.CharField(max_length=50)
 
 
@@ -62,6 +63,7 @@ class RequirementAddSerializer(serializers.ModelSerializer):
 class WhatYoullLearnSerializer(serializers.Serializer):
     # id Automatic Field
     # courseID=serializers.IntegerField()
+    id = serializers.IntegerField()
     whatYoullLearnDescription = serializers.CharField(max_length=50)
 
 

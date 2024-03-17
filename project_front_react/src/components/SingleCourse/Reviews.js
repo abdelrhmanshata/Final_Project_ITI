@@ -31,9 +31,15 @@ export default function Reviews({ course }) {
         setRatingRange(res.data.count_by_range);
         const sumValues = Object.values(res.data.count_by_range).reduce(
           (acc, value) => acc + value,
-          1
+          0
         );
-        setTotalRating(sumValues);
+        console.log(typeof sumValues);
+        console.log(sumValues);
+        if (sumValues == 0) {
+          setTotalRating(1);
+        } else {
+          setTotalRating(sumValues);
+        }
       })
       .catch((err) => console.log(err));
   }, [course]);

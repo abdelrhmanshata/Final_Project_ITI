@@ -112,7 +112,7 @@ urlpatterns = [
         name="updateARequirement",
     ),
     path(
-        "course/<int:courseID>/deleteARequirement/<int:requirementID>",
+        "deleteARequirement/<int:requirementID>",
         views.deleteARequirement,
         name="deleteARequirement",
     ),
@@ -133,7 +133,7 @@ urlpatterns = [
         name="updateAWhatYoullLearn",
     ),
     path(
-        "course/<int:courseID>/deleteAWhatYoullLearn/<int:WhatYoullLearnID>",
+        "deleteAWhatYoullLearn/<int:whatYoullLearnID>",
         views.deleteAWhatYoullLearn,
         name="deleteAWhatYoullLearn",
     ),
