@@ -77,6 +77,7 @@ export default function StudentEnrolls() {
         <div className="list--container">
           {studentEnrolls.map((item, index) => (
             <StudentItem
+              key={item.id}
               index={index}
               data={item}
               isUpdate={isUpdate}

@@ -50,80 +50,66 @@ export default function StudentItem({ index, data, isUpdate, setIsUpdate }) {
   };
 
   return (
-    <div key={index}>
-      <Paper elevation={5} className="p-2 mt-2">
-        <div className="d-flex flex-row align-items-center ">
-          <div
-            className="d-flex flex-row align-items-center gap-2"
-            style={{ width: "20%" }}
-          >
-            <Avatar
-              alt={course.name}
-              src={course.courseImage}
-              sx={{ width: 35, height: 35 }}
-            />
-            <Typography variant="body1" component="div">
-              {course.courseName}
-            </Typography>
-          </div>
-          <div
-            className="d-flex flex-row align-items-center gap-2"
-            style={{ width: "30%" }}
-          >
-            <Typography variant="body1" component="div">
-              {student.name}
-            </Typography>
-          </div>
-          <div
-            className="d-flex flex-row align-items-center gap-2"
-            style={{ width: "30%" }}
-          >
-            <Typography variant="body1" component="div">
-              {student.email}
-            </Typography>
-          </div>
-          <div
-            className="d-flex flex-row align-items-center"
-            style={{ width: "10%" }}
-          >
-            <span style={{ color: data.is_approved ? "green" : "red" }}>
-              {data.is_approved ? (
-                <BiCheckCircle fontSize={"20"} />
-              ) : (
-                <BiXCircle fontSize={"20"} />
-              )}
-              Approve
-            </span>
-          </div>
-          <div style={{ width: "10%" }} className="action--button">
-            {data.is_approved ? (
-              <Button
-                variant="contained"
-                color="error"
-                size="sm"
-                style={{ width: "100px" }}
-                onClick={() => {
-                  isApproveStudent("False");
-                }}
-              >
-                Block
-              </Button>
-            ) : (
-              <Button
-                variant="contained"
-                color="primary"
-                size="sm"
-                style={{ width: "100px" }}
-                onClick={() => {
-                  isApproveStudent("True");
-                }}
-              >
-                Approve
-              </Button>
-            )}
-          </div>
+    <Paper elevation={5} className="p-2 mt-2">
+      <div className="row align-items-center ">
+        <div className="col-md-2 col-12   d-flex  flex-md-row  flex-column  justify-content-center align-items-center gap-2">
+          <Avatar
+            alt={course.name}
+            src={course.courseImage}
+            sx={{ width: 35, height: 35 }}
+          />
+          <Typography variant="body1" component="div">
+            {course.courseName}
+          </Typography>
         </div>
-      </Paper>
-    </div>
+        <div className="col-md-3 col-6   d-flex justify-content-center align-items-center gap-2">
+          <Typography variant="body1" component="div">
+            {student.name}
+          </Typography>
+        </div>
+        <div className="col-md-3 col-6   d-flex justify-content-center align-items-center gap-2">
+          <Typography variant="body1" component="div">
+            {student.email}
+          </Typography>
+        </div>
+        <div className="col-md-2 col-6   d-flex justify-content-center align-items-center">
+          <span style={{ color: data.is_approved ? "green" : "red" }}>
+            {data.is_approved ? (
+              <BiCheckCircle fontSize={"20"} />
+            ) : (
+              <BiXCircle fontSize={"20"} />
+            )}
+            Approve
+          </span>
+        </div>
+        <div className="col-md-2 col-6   justify-content-center action--button">
+          {data.is_approved ? (
+            <Button
+              variant="contained"
+              color="error"
+              size="sm"
+              style={{ width: "100px" }}
+              onClick={() => {
+                isApproveStudent("False");
+              }}
+            >
+              Block
+            </Button>
+          ) : (
+            <Button
+              variant="contained"
+              color="primary"
+              size="sm"
+              style={{ width: "100px" }}
+              onClick={() => {
+                isApproveStudent("True");
+              }}
+            >
+              Approve
+            </Button>
+          )}
+        </div>
+      </div>
+    </Paper>
   );
 }

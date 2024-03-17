@@ -31,7 +31,7 @@ export default function Reviews({ course }) {
         setRatingRange(res.data.count_by_range);
         const sumValues = Object.values(res.data.count_by_range).reduce(
           (acc, value) => acc + value,
-          0
+          1
         );
         setTotalRating(sumValues);
       })
@@ -60,7 +60,7 @@ export default function Reviews({ course }) {
         // navigate(`/profile`);
         setReviewText("");
         setValue(0);
-        dispatch(updateState(isUpdate+1));
+        dispatch(updateState(isUpdate + 1));
       }
     } catch (error) {
       // Handle error (e.g., display error message to the user)

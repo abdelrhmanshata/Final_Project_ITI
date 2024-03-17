@@ -74,11 +74,11 @@ export default function CourseDetails({ data, ratingValue }) {
             rounded
             className="border border-2 border-primary"
           />
-          <div className="position-absolute top-50 start-50 translate-middle">
+          {/* <div className="position-absolute top-50 start-50 translate-middle">
             <Fab color="primary" onClick={() => navigate(`/lesson/${data.id}`)}>
               <BiSolidRightArrow size={24} />
             </Fab>
-          </div>
+          </div> */}
         </div>
         <div className="d-flex flex-column p-4 gap-3">
           <Button

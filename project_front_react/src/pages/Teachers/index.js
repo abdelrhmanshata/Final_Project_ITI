@@ -9,6 +9,8 @@ import FormControlLayout from "components/Layout/FormControlLayout";
 import { axiosInstance } from "api/config";
 
 export default function TeachersPage() {
+  const [numPage, setNumPage] = useState(0);
+  const [limit] = useState(10);
   const [allTeachers, setAllTeachers] = useState([]);
   const [teachers, setTeachers] = useState([]);
   const [category, setCategory] = useState("");
@@ -18,8 +20,9 @@ export default function TeachersPage() {
       await axiosInstance
         .get(`user/Print_All_Teachers`)
         .then((res) => {
-          setTeachers(res.data.data);
           setAllTeachers(res.data.data);
+          setTeachers(res.data.data.slice(0, limit));
+          setNumPage(Math.ceil(res.data.data.length / limit));
         })
         .catch((err) => console.log(err));
     } catch (error) {
@@ -46,6 +49,16 @@ export default function TeachersPage() {
     setTeachers(filteredData);
   };
 
+  const handelPagination = (event, value) => {
+    showTeachers(value);
+  };
+
+  const showTeachers = (page) => {
+    const start = (page - 1) * limit;
+    const end = limit + (page - 1) * limit;
+    setTeachers(allTeachers.slice(start, end));
+  };
+
   return (
     <>
       <Navbar active={"Teachers"} />
@@ -67,18 +80,22 @@ export default function TeachersPage() {
           style={{ justifyContent: "space-around" }}
         >
           {teachers.map((item) => (
-            <TeacherItem data={item} />
+            <TeacherItem key={item.id} data={item} />
           ))}
         </div>
       </div>
 
       {/* Pagination */}
-      {/* <div
-        className="container d-flex p-5"
+      <div
+        className="container d-flex my-5"
         style={{ justifyContent: "center" }}
       >
-        <Pagination count={10} color="primary" />
-      </div> */}
+        <Pagination
+          count={numPage}
+          color="primary"
+          onChange={handelPagination}
+        />
+      </div>
 
       {/* Footer */}
       <Footer />

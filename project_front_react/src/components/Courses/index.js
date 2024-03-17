@@ -1,10 +1,12 @@
-import { Link } from "react-router-dom";
 import { useCallback, useEffect, useState } from "react";
 import { axiosInstance } from "api/config";
-import { Rating } from "@mui/material";
 import ShowItemCourse from "./ShowItemCourse";
+import { useDispatch, useSelector } from "react-redux";
 
 export default function Courses() {
+  // const dispatch = useDispatch();
+  const isUpdate = useSelector((state) => state.update.isUpdate);
+  // dispatch(updateState(isUpdate+1));
   const [courses, setCourses] = useState([]);
   const getData = useCallback(async () => {
     try {
@@ -24,11 +26,10 @@ export default function Courses() {
 
   useEffect(() => {
     getData();
-  }, []);
+  }, [isUpdate]);
 
   return (
     <>
-      {/* <!-- Courses Start --> */}
       <div className="container-xxl py-5">
         <div className="container">
           <div className="text-center fadeInUp" data-wow-delay="0.1s">
@@ -44,7 +45,6 @@ export default function Courses() {
           </div>
         </div>
       </div>
-      {/* <!-- Courses End --> */}
     </>
   );
 }

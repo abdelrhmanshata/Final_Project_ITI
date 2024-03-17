@@ -56,7 +56,7 @@ export default function CourseItem({ data }) {
   }, [getUserData]);
 
   return (
-    <Card key={"" + data.id} sx={{ maxWidth: 345 }}>
+    <Card sx={{ maxWidth: 345 }}>
       <CardHeader
         avatar={
           <Avatar
@@ -96,9 +96,6 @@ export default function CourseItem({ data }) {
         </Grid>
       </CardContent>
       <CardActions disableSpacing>
-        {/* <IconButton aria-label="share">
-          <ShareIcon />
-        </IconButton> */}
         <IconButton
           aria-label="visibility course"
           onClick={() => {

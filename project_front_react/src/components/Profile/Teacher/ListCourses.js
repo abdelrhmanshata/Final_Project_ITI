@@ -27,10 +27,7 @@ export default function ListCourses() {
   }, [isUpdate]);
 
   return (
-    <div
-      className="d-flex flex-wrap gap-2"
-      style={{ justifyContent: "space-around" }}
-    >
+    <div className="d-flex flex-wrap gap-5 p-2" style={{ margin: "auto" }}>
       {courses.map((item) => (
         <CardCourse
           course={item}

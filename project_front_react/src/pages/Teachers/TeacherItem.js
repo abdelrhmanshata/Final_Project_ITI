@@ -7,7 +7,7 @@ import { Link } from "react-router-dom";
 
 export default function TeacherItem({ data }) {
   return (
-    <Card key={data.id} sx={{ width: 350, maxWidth: 345 }}>
+    <Card sx={{ width: 350, maxWidth: 345 }}>
       <CardActionArea>
         <Link to={`/single/${data.id}`}>
           <CardMedia

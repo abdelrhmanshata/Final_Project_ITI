@@ -4,19 +4,16 @@ import avatar2 from "../../assets/img/avatar-2.jpg";
 import avatar3 from "../../assets/img/avatar-3.jpg";
 
 export default function TestimonialsSection() {
-  function TestimonialCard({ avatar, name, role, delay }) {
+  function TestimonialCard({ avatar, name, role }) {
     return (
-      <div
-        className="card border shadow p-6 lift-md"
-        style={{ marginLeft: `${delay}px` }}
-      >
+      <div className="card border shadow p-1 lift-md">
         <div className="card-zoom">
           <div className="d-flex align-items-center">
-            <div className="avatar avatar-custom me-5">
+            <div className="avatar avatar-custom">
               <img
                 src={avatar}
                 alt={name}
-                className="avatar-img rounded-circle m-3 pl-3"
+                className="avatar-img rounded-circle m-3 "
                 style={{ width: "65px", height: "65px" }}
               />
             </div>
@@ -45,25 +42,28 @@ export default function TestimonialsSection() {
           </p>
         </div>
 
-        <div className="mx-n4" style={{ display: "flex" }}>
-          <TestimonialCard
-            avatar={avatar1}
-            name="Albert Cole"
-            role="Designer"
-            delay={0}
-          />
-          <TestimonialCard
-            avatar={avatar2}
-            name="Alison Dawn"
-            role="WordPress Developer"
-            delay={20}
-          />
-          <TestimonialCard
-            avatar={avatar3}
-            name="Daniel Parker"
-            role="Front-end Developer"
-            delay={40}
-          />
+        <div className="row gap-2" style={{ display: "flex" }}>
+          <div className="col-md-4 col-12  m-1">
+            <TestimonialCard
+              avatar={avatar1}
+              name="Albert Cole"
+              role="Designer"
+            />
+          </div>
+          <div className="col-md-4 col-12  m-1">
+            <TestimonialCard
+              avatar={avatar2}
+              name="Alison Dawn"
+              role="WordPress Developer"
+            />
+          </div>
+          <div className="col-md-4 col-12  m-1">
+            <TestimonialCard
+              avatar={avatar3}
+              name="Daniel Parker"
+              role="Front-end Developer"
+            />
+          </div>
         </div>
       </div>
     </section>
