@@ -13,6 +13,7 @@ export default function CourseDetails({ data, ratingValue }) {
   const [open, setOpen] = useState(false);
   const [status, setStatus] = useState(true);
   const [message, setMessage] = useState("");
+  
   const enrollCourse = async () => {
     //
     await axiosInstance
@@ -92,7 +93,13 @@ export default function CourseDetails({ data, ratingValue }) {
             Enroll
           </Button>
         </div>
+
         <div className="d-flex flex-column p-4 gap-3">
+          <div className="d-flex align-items-center gap-2">
+            <GrCurrency size={20} />
+            <span className="w-50">Price</span>
+            <span className="w-50 text-end">{data.coursePrice} $</span>
+          </div>
           <div className="d-flex align-items-center gap-2">
             <MdOutlineAccessTime size={20} />
             <span className="w-50">Duration</span>
@@ -103,24 +110,11 @@ export default function CourseDetails({ data, ratingValue }) {
             <span className="w-50">Lectures</span>
             <span className="w-50 text-end">{data.courseLessons}</span>
           </div>
-
           <div className="d-flex align-items-center gap-2">
             <BsCalendarDate size={20} />
             <span className="w-50">Created</span>
             <span className="w-50 text-end">{data.courseDate}</span>
           </div>
-          <div className="d-flex align-items-center gap-2">
-            <GrCurrency size={20} />
-            <span className="w-50">Price</span>
-            <span className="w-50 text-end">{data.coursePrice} $</span>
-          </div>
-
-          <div className="d-flex align-items-center gap-2">
-            <BsCalendarDate size={20} />
-            <span className="w-50">Created</span>
-            <span className="w-50 text-end">{data.courseDate}</span>
-          </div>
-
           <div className="d-flex align-items-center gap-2">
             <BiStar size={20} />
             <span className="w-50">Rating</span>

@@ -85,7 +85,7 @@ export default function Reviews({ course }) {
           Student feedback
         </Typography>
         <Grid container spacing={2}>
-          <Grid item xs={4}>
+          <Grid item  md={4} xs={12} >
             <Paper
               elevation={5}
               className="d-flex flex-column align-items-center justify-content-center p-4"
@@ -103,7 +103,7 @@ export default function Reviews({ course }) {
               />
             </Paper>
           </Grid>
-          <Grid item xs={8}>
+          <Grid item md={8} xs={12} >
             <Paper elevation={5} className="p-1">
               <div className="d-flex flex-row align-items-center justify-content-space-between">
                 <div className="w-50">
