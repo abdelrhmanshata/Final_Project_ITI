@@ -5,7 +5,7 @@ import { MdAdminPanelSettings } from "react-icons/md";
 import { Button, Menu, MenuItem } from "@mui/material";
 import { useDispatch, useSelector } from "react-redux";
 import { updateState } from "store/slices/update";
-export default function Navbar({ active }) {
+export default function Navbar({ active, data }) {
   const isUpdate = useSelector((state) => state.update.isUpdate);
   const dispatch = useDispatch();
   // dispatch(updateState(isUpdate+1));
@@ -106,6 +106,14 @@ export default function Navbar({ active }) {
             >
               About
             </Link>
+            {active === "Back" && (
+              <Link
+                to={`/course/${data.id}`}
+                className={"nav-item nav-link active"}
+              >
+                Back
+              </Link>
+            )}
           </div>
           {isUserAuth ? (
             <>
