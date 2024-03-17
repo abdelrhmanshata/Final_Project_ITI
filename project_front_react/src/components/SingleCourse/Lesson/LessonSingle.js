@@ -6,6 +6,7 @@ import VideoPlayer from "./VideoPlayer";
 import Footer from "components/Footer";
 import { axiosInstance } from "api/config";
 import Questions from "components/Questions";
+import Navbar from "components/Navbar";
 
 export default function LessonSingle() {
   const params = useParams();
@@ -32,51 +33,32 @@ export default function LessonSingle() {
   return (
     <>
       {/* Navbar */}
-      <div className="d-flex flex-wrap bg-dark p-4 align-items-center">
-        <div className="col-md-3 col-12 text-center">
-          <Link to="/" className="navbar-brand d-flex align-items-center px-4">
-            <h2 className="m-0 text-light">
-              <i className="fa fa-book me-3"></i>E-LEARNING
-            </h2>
-          </Link>
-        </div>
-        <div className="col-md-6 col-12 text-center">
-          <h3 className="text-light">{data.courseName}</h3>
-        </div>
-        <div className="col-md-3 col-12 text-end">
-          <Button
-            variant="contained"
-            onClick={() => {
-              navigate(`/course/${data.id}`);
-            }}
-          >
-            Back To Course
-          </Button>
-        </div>
-      </div>
-
-      {/*  */}
-      <Container fixed className="mt-5 mb-5 ">
+      <Navbar active={"Back"} data={data} />
+      <br />
+      <Container fixed>
         <Grid container spacing={3}>
-          <Grid item xs={8}>
-            <Paper className="p-2">
+          <Grid item md={8} xs={12}>
+            <Paper>
               <VideoPlayer />
             </Paper>
-            <br />
-            <Typography variant="h4">Questions</Typography>
-
-            <Paper className="p-2">
-              <Questions courseID={params.courseID} />
-            </Paper>
           </Grid>
-          <Grid item xs={4}>
+          <Grid item md={4} xs={12}>
             <Paper className="p-2">
               <Curriculum course={data} isPlay={true} />
             </Paper>
           </Grid>
         </Grid>
+        <Grid container spacing={3} marginTop={2}>
+          <Grid item md={8} xs={12}>
+            <Paper className="p-2">
+              <Typography variant="h4">Questions</Typography>
+              <Questions courseID={params.courseID} />
+            </Paper>
+          </Grid>
+        </Grid>
       </Container>
-
+      <br />
+      <br />
       {/* Footer */}
       <Footer />
     </>
