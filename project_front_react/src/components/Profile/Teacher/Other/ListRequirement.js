@@ -1,11 +1,12 @@
 import React, { useCallback, useEffect, useState } from "react";
 import { axiosInstance } from "api/config";
 import { useDispatch, useSelector } from "react-redux";
-import { IconButton } from "@mui/material";
+import { IconButton, Typography } from "@mui/material";
 import { MdOutlineDeleteForever } from "react-icons/md";
 import { updateState } from "store/slices/update";
+import { FaRegHandPointRight } from "react-icons/fa";
 
-const ListRequirement = ({ courseId }) => {
+export default function ListRequirement({ courseId }) {
   const dispatch = useDispatch();
   const isUpdate = useSelector((state) => state.update.isUpdate);
   // dispatch(updateState(isUpdate + 1));
@@ -47,11 +48,14 @@ const ListRequirement = ({ courseId }) => {
   return (
     <div>
       {requirements.length > 0 && (
-        <>
+        <div>
           <h5>Requirement</h5>
           {requirements.map((item, index) => (
             <div key={index} className="row" style={{ alignItems: "center" }}>
-              <li className="col-10">{item.requirementDescription}</li>
+              <FaRegHandPointRight className="col-2" />
+              <Typography className="col-8">
+                {item.requirementDescription}
+              </Typography>
               <IconButton className="col-2" edge="end" aria-label="delete">
                 <MdOutlineDeleteForever
                   color="red"
@@ -62,10 +66,8 @@ const ListRequirement = ({ courseId }) => {
               </IconButton>
             </div>
           ))}
-        </>
+        </div>
       )}
     </div>
   );
-};
-
-export default ListRequirement;
+}
