@@ -1,6 +1,7 @@
 import React, { Suspense, useEffect, useState } from "react";
-import { Route, Routes } from "react-router-dom";
+import { Route, Routes, useNavigate } from "react-router-dom";
 import Spinner from "../components/Spinner";
+import { useSelector } from "react-redux";
 
 const Apps = React.lazy(() => import("../pages/Accordion/index"));
 
@@ -26,14 +27,30 @@ const Stripe = React.lazy(() => import("../pages/payment/PaymentStripe"));
 const ShopComplete = React.lazy(() => import("../pages/payment/ShopComplete"));
 
 export default function Router() {
+  const navigate = useNavigate();
+  const isUpdate = useSelector((state) => state.update.isUpdate);
+  // const dispatch = useDispatch();
+  // dispatch(updateState(isUpdate+1));
+
   const [isAdmin, setIsAdmin] = useState(false);
+  const [userType, setUserType] = useState("");
+
   useEffect(() => {
+    const currentUrl = new URL(window.location.href).pathname;
     if (localStorage.getItem("User_ID") !== null) {
       if (localStorage.getItem("isAdmin") !== null) {
         setIsAdmin(localStorage.getItem("isAdmin") === "true");
       }
+      setUserType(localStorage.getItem("User_Type"));
+
+      const isAuth = localStorage.getItem("User_ID").length > 0;
+      if ((currentUrl === "/login" || currentUrl === "/register") && isAuth) {
+        if (isAdmin) navigate("/admin");
+        else navigate("/profile");
+      }
     }
-  }, []);
+  }, [isUpdate]);
+
   return (
     <Suspense fallback={<Spinner />}>
       <Routes>
@@ -43,15 +60,23 @@ export default function Router() {
         ) : (
           <>
             <Route path="/profile" element={<UserProfile />} />
+            {userType === "teacher" && (
+              <>
+                <Route path="/Addcourse" element={<Addcourse />} />
+                <Route
+                  path="/UpdateCourse/:courseID"
+                  element={<Updatecourse />}
+                />
+              </>
+            )}
           </>
         )}
+
         {/* Auth */}
         <Route path="/login" element={<LoginForm />} />
         <Route path="/register" element={<RegisterForm />} />
 
         {/*  Course */}
-        <Route path="/Addcourse" element={<Addcourse />} />
-        <Route path="/UpdateCourse/:courseID" element={<Updatecourse />} />
         <Route path="/courses" element={<Courses />} />
         <Route path="/course/:courseID" element={<SingleCourse />} />
         <Route path="/lesson/:courseID" element={<LessonSingle />} />
