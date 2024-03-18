@@ -23,4 +23,5 @@ pip install django-crispy-forms==1.13.0
 pip install Pillow
     
 
-
+pip install https://github.com/darklow/django-suit/tarball/v2
+pip install -U django-jazzmin
