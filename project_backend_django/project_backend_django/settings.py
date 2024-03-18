@@ -44,6 +44,7 @@ INSTALLED_APPS = [
     "user_authentication_app",
     "courseListAPI",
     "payment_app",
+    "realtime_chat",
 ]
 
 MIDDLEWARE = [
@@ -156,9 +157,11 @@ CORS_ALLOWED_ORIGINS=[
 STRIPE_SECRET_KEY='sk_test_51OrsuJCHZYVjk4rBeXg61P4NgVxEjl7x2sSN6oRja9upEnQni8xXbh5nqyLKqT1yjEfCywLkBMx8vVi8ZWm3IGK4002I6yn4n9'
 STRIPE_PUBLIC_KEY='pk_test_51OrsuJCHZYVjk4rB3OeNDa1qNmZcLgbEYs9ajUmJdjDgr516U1I1HKvqxs0SNHGnQEDvIdp32WnFJjDwvQbb8fUj00oRGHusxN'
 SITE_URL='http://localhost:3000/'
-# EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
-# EMAIL_HOST = "smtp.gmail.com"
-# EMAIL_PORT = 587
-# EMAIL_USE_TLS = True
-# EMAIL_HOST_USER = os.environ.get("EMAIL_USER", "abdelrhmanmohamedshata@gmail.com")
-# EMAIL_HOST_PASSWORD = os.environ.get("EMAIL_PASS", "vkrdrgrbegzmkfds")
+
+
+EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
+EMAIL_HOST = "smtp.gmail.com"
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
+EMAIL_HOST_USER = os.environ.get("EMAIL_USER", "abdelrhmanmohamedshata@gmail.com")
+EMAIL_HOST_PASSWORD = os.environ.get("EMAIL_PASS", "vkrdrgrbegzmkfds")
