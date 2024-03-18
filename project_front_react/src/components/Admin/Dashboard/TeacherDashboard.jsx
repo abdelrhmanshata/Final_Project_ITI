@@ -52,60 +52,58 @@ export default function TeacherDashboard() {
   };
   const teacherItem = (teacher, index) => {
     return (
-      <>
-        <div key={index} className="item-list">
-          <div
-            className="d-flex w-25 justify-content-start teacher--detail"
-            style={{}}
-          >
-            <img
-              src={`http://127.0.0.1:9000/${teacher.image}`}
-              alt={teacher.name}
-            />
-            <span>{teacher.name}</span>
-          </div>
-          <div className="w-25">
-            <span>{teacher.email}</span>
-          </div>
-
-          <div style={{ width: "150px" }}>
-            <span style={{ color: teacher.isApprove ? "green" : "red" }}>
-              {teacher.isApprove ? (
-                <BiCheckCircle fontSize={"20"} />
-              ) : (
-                <BiXCircle fontSize={"20"} />
-              )}
-              Approve
-            </span>
-          </div>
-
-          <div style={{ width: "100px" }} className="action--button">
-            {teacher.isApprove ? (
-              <Button
-                variant="danger"
-                size="sm"
-                style={{ width: "100px" }}
-                onClick={() => {
-                  activeUser(teacher.id, 0);
-                }}
-              >
-                Block
-              </Button>
-            ) : (
-              <Button
-                variant="primary"
-                size="sm"
-                style={{ width: "100px" }}
-                onClick={() => {
-                  activeUser(teacher.id, 1);
-                }}
-              >
-                Approve
-              </Button>
-            )}
-          </div>
+      <div key={index} className="item-list">
+        <div
+          className="d-flex w-25 justify-content-start teacher--detail"
+          style={{}}
+        >
+          <img
+            src={`http://127.0.0.1:9000/${teacher.image}`}
+            alt={teacher.name}
+          />
+          <span>{teacher.name}</span>
         </div>
-      </>
+        <div className="w-25">
+          <span>{teacher.email}</span>
+        </div>
+
+        <div style={{ width: "150px" }}>
+          <span style={{ color: teacher.isApprove ? "green" : "red" }}>
+            {teacher.isApprove ? (
+              <BiCheckCircle fontSize={"20"} />
+            ) : (
+              <BiXCircle fontSize={"20"} />
+            )}
+            Approve
+          </span>
+        </div>
+
+        <div style={{ width: "100px" }} className="action--button">
+          {teacher.isApprove ? (
+            <Button
+              variant="danger"
+              size="sm"
+              style={{ width: "100px" }}
+              onClick={() => {
+                activeUser(teacher.id, 0);
+              }}
+            >
+              Block
+            </Button>
+          ) : (
+            <Button
+              variant="primary"
+              size="sm"
+              style={{ width: "100px" }}
+              onClick={() => {
+                activeUser(teacher.id, 1);
+              }}
+            >
+              Approve
+            </Button>
+          )}
+        </div>
+      </div>
     );
   };
   const getCoursesByCategory = (value) => {
