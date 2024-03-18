@@ -18,34 +18,30 @@ import CourseInfoTab from "./CourseInfoTab";
 import Footer from "components/Footer";
 import CourseDetails from "./CourseDetails";
 import { axiosInstance } from "api/config";
+import { useDispatch, useSelector } from "react-redux";
 
 export default function SingleCourse() {
+  // const dispatch = useDispatch();
+  const isUpdate = useSelector((state) => state.update.isUpdate);
+  // dispatch(updateState(isUpdate+1));
+
   const params = useParams();
   const [course, setCourse] = useState({});
   const [user, setUser] = useState({});
-
-  const getCourseData = async () => {
-    await axiosInstance
-      .get(`course/listAllCourses/${params.courseID}`)
-      .then((res) => {
-        setCourse(res.data.message[0]);
-        getUserData(res.data.message[0].userID);
-      })
-      .catch((err) => console.log(err));
-  };
-
-  const getUserData = async (userID) => {
-    await axiosInstance
-      .get(`user/Get_Specific_User/${userID}`)
-      .then((res) => {
-        setUser(res.data.data);
-      })
-      .catch((err) => console.log(err));
-  };
+  const [userReview, setUserReview] = useState(0);
+  const [ratingValue, setRatingValue] = useState(0);
 
   const getData = useCallback(async () => {
     try {
-      getCourseData();
+      await axiosInstance
+        .get(`course/details/${params.courseID}`)
+        .then((res) => {
+          setCourse(res.data);
+          setUser(res.data.teacher);
+          setRatingValue(res.data.courseReviewScore);
+          setUserReview(res.data.teacher.teacher_avg_score);
+        })
+        .catch((err) => console.log(err));
     } catch (error) {
       console.log(error);
     }
@@ -53,7 +49,7 @@ export default function SingleCourse() {
 
   useEffect(() => {
     getData();
-  }, [getData]);
+  }, [params.courseID, isUpdate]);
 
   return (
     <>
@@ -69,57 +65,58 @@ export default function SingleCourse() {
                 Explore the Foundations of {course.courseName}
               </Typography>
             </div>
-            <div className="d-flex mb-3 gap-2 align-items-center">
-              <Avatar
-                alt={user.name}
-                src={`http://127.0.0.1:9000/${user.image}`}
-                sx={{ width: 80, height: 80 }}
-              />
-              <TableContainer>
-                <Table aria-label="simple table">
-                  <TableHead>
-                    <TableRow>
-                      <TableCell>
-                        <Typography variant="h6">Created by</Typography>
-                      </TableCell>
-                      <TableCell>
-                        <Typography variant="h6">Subject</Typography>
-                      </TableCell>
-                      <TableCell>
-                        <Typography variant="h6">Review</Typography>
-                      </TableCell>
-                    </TableRow>
-                  </TableHead>
-                  <TableBody>
-                    <TableRow style={{ borderBottom: "none" }}>
-                      <TableCell style={{ borderBottom: "none" }}>
-                        {user.name}
-                      </TableCell>
-                      <TableCell style={{ borderBottom: "none" }}>
-                        {user.subject}
-                      </TableCell>
-                      <TableCell
-                        style={{ borderBottom: "none" }}
-                        className="d-flex align-items-center gap-2"
-                      >
-                        <Rating name="read-only" value={4} readOnly />
+            <div className="row d-flex mb-3 align-items-center">
+              <div className="col-md-2 col-12 mb-3  d-flex justify-content-center">
+                <Avatar
+                  alt={user.name}
+                  src={`http://127.0.0.1:9000/${user.image}`}
+                  sx={{ width: 100, height: 100 }}
+                />
+              </div>
 
-                        <Typography variant="span">
-                          9.45 (9.8k+ reviews)
-                        </Typography>
-                      </TableCell>
-                    </TableRow>
-                  </TableBody>
-                </Table>
-              </TableContainer>
+              <div
+                className="col-md-3 col-12 d-flex flex-md-column"
+                style={{ alignItems: "center" }}
+              >
+                <Typography variant="h6">Created</Typography>
+                <Typography
+                  className="text-center "
+                  style={{ flex: 1 }}
+                  variant="body1"
+                >
+                  {user.name}
+                </Typography>
+              </div>
+
+              <div
+                className="col-md-4 col-12 d-flex flex-md-column"
+                style={{ alignItems: "center" }}
+              >
+                <Typography variant="h6">Subject</Typography>
+                <Typography
+                  variant="body1"
+                  className="text-center"
+                  style={{ flex: 1 }}
+                >
+                  {user.subject}
+                </Typography>
+              </div>
+
+              <div
+                className="col-md-3 col-12 d-flex flex-md-column"
+                style={{ alignItems: "center" }}
+              >
+                <Typography variant="h6">Review</Typography>
+                <div className="d-flex flex-grow-1 justify-content-center">
+                  <Rating name="read-only" value={userReview} readOnly />
+                </div>
+              </div>
             </div>
-
-            {/*  */}
+            {/* Tab Info */}
             <CourseInfoTab data={course} />
-            {/*  */}
           </Grid>
           <Grid item sm={12} md={4}>
-            <CourseDetails data={course} />
+            <CourseDetails data={course} ratingValue={ratingValue} />
           </Grid>
         </Grid>
       </Container>

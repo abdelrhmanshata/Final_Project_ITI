@@ -56,7 +56,7 @@ export default function CourseItem({ data }) {
   }, [getUserData]);
 
   return (
-    <Card key={"" + data.id} sx={{ maxWidth: 345 }}>
+    <Card sx={{ maxWidth: 345 }}>
       <CardHeader
         avatar={
           <Avatar
@@ -80,9 +80,6 @@ export default function CourseItem({ data }) {
         </Typography>
         <div style={{ display: "flex", alignItems: "center" }}>
           <Rating name="read-only" value={data.courseReviewScore} readOnly />
-          <small className="mx-auto">
-            {data.courseReviewScore} ( {150} + reviews)
-          </small>
         </div>
         <Grid className="my-0" container spacing={2}>
           <Grid item xs={9}>
@@ -99,9 +96,6 @@ export default function CourseItem({ data }) {
         </Grid>
       </CardContent>
       <CardActions disableSpacing>
-        {/* <IconButton aria-label="share">
-          <ShareIcon />
-        </IconButton> */}
         <IconButton
           aria-label="visibility course"
           onClick={() => {

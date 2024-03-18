@@ -45,6 +45,7 @@ INSTALLED_APPS = [
     "courseListAPI",
     "payment_app",
     "realtime_chat",
+    "reviews",
 ]
 
 MIDDLEWARE = [
@@ -85,9 +86,9 @@ WSGI_APPLICATION = "project_backend_django.wsgi.application"
 DATABASES = {
     "default": {
         "ENGINE": "django.db.backends.postgresql",
-        "NAME": "e-learningtest",
+        "NAME": "e-learning",
         "USER": "postgres",
-        "PASSWORD": "19991999",
+        "PASSWORD": "120699",
         "HOST": "localhost",
         "PORT": "5432",
     }
@@ -147,12 +148,10 @@ AUTH_USER_MODEL = "user_authentication_app.User"
 CORS_ORIGIN_ALLOW_ALL = True
 CORS_ALLOW_CREDENTIALS = True
 
-EMAIL_HOST = 'localhost'
+EMAIL_HOST = "localhost"
 EMAIL_PORT = 1025
 
-CORS_ALLOWED_ORIGINS=[
-    'http://localhost:3000'
-]
+CORS_ALLOWED_ORIGINS = ["http://localhost:3000"]
 
 STRIPE_SECRET_KEY='sk_test_51OrsuJCHZYVjk4rBeXg61P4NgVxEjl7x2sSN6oRja9upEnQni8xXbh5nqyLKqT1yjEfCywLkBMx8vVi8ZWm3IGK4002I6yn4n9'
 STRIPE_PUBLIC_KEY='pk_test_51OrsuJCHZYVjk4rB3OeNDa1qNmZcLgbEYs9ajUmJdjDgr516U1I1HKvqxs0SNHGnQEDvIdp32WnFJjDwvQbb8fUj00oRGHusxN'

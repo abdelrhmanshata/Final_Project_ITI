@@ -16,13 +16,19 @@ import {
 import { axiosInstance } from "api/config";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import AddRequirement from "./AddRequirement";
-import YouLearn from "./YouLearn";
-import ListRequirement from "./ListRequirement";
-import ListSkillsWillLearn from "./ListSkillsWillLearn";
+import AddRequirement from "./Other/AddRequirement";
+import YouLearn from "./Other/YouLearn";
+import ListRequirement from "./Other/ListRequirement";
+import ListSkillsWillLearn from "./Other/ListSkillsWillLearn";
 import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
+import { useDispatch, useSelector } from "react-redux";
+import { updateState } from "store/slices/update";
 
-export default function CardCourse({ course, isUpdate, setIsUpdate }) {
+export default function CardCourse({ course }) {
+  const dispatch = useDispatch();
+  const isUpdate = useSelector((state) => state.update.isUpdate);
+  // dispatch(updateState(isUpdate + 1));
+
   const navigate = useNavigate();
   const [message, setMessage] = useState("");
   const [open, setOpen] = useState(false);
@@ -40,7 +46,7 @@ export default function CardCourse({ course, isUpdate, setIsUpdate }) {
         .then((res) => {
           setMessage(res.data.message);
           setOpen(true);
-          setIsUpdate(isUpdate + 1);
+          dispatch(updateState(isUpdate + 1));
         })
         .catch((err) => console.log(err));
     } catch (error) {
@@ -73,21 +79,6 @@ export default function CardCourse({ course, isUpdate, setIsUpdate }) {
             >
               <AddRequirement courseId={course.id} />
             </IconButton>
-
-            <IconButton
-              style={{ width: "50px", height: "50px" }}
-              color="light bg-light"
-              aria-label="search"
-            >
-              <MdRemoveRedEye
-                color="blue"
-                fontSize={24}
-                onClick={() => {
-                  navigate(`/course/${course.id}`);
-                }}
-              />
-            </IconButton>
-
             <IconButton
               style={{ width: "50px", height: "50px" }}
               color="light bg-light"
@@ -98,6 +89,19 @@ export default function CardCourse({ course, isUpdate, setIsUpdate }) {
                 fontSize={24}
                 onClick={() => {
                   navigate(`/UpdateCourse/${course.id}`);
+                }}
+              />
+            </IconButton>
+            <IconButton
+              style={{ width: "50px", height: "50px" }}
+              color="light bg-light"
+              aria-label="search"
+            >
+              <MdRemoveRedEye
+                color="blue"
+                fontSize={24}
+                onClick={() => {
+                  navigate(`/course/${course.id}`);
                 }}
               />
             </IconButton>
@@ -135,14 +139,14 @@ export default function CardCourse({ course, isUpdate, setIsUpdate }) {
         <Typography variant="body2" color="text.secondary">
           {course.courseDescription}
         </Typography>
-        <Accordion className="mt-2" >
+        <Accordion className="mt-2">
           <AccordionSummary
             expandIcon={<ArrowDropDownIcon />}
             aria-controls={`panel-content`}
             id={`panel-header`}
           >
             <div style={{ position: "relative", width: "100%" }}>
-              <Typography>Other...</Typography>
+              <Typography>Requirement...</Typography>
             </div>
           </AccordionSummary>
           <AccordionDetails>

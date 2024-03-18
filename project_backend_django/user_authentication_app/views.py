@@ -212,14 +212,20 @@ def Update_User(request, id):
     except User.DoesNotExist:
         return Response({"msg": "User Not Found"}, status=404)
 
-    print(updateobj)
-    serialized_user = UserSerializer(instance=updateobj, data=request.data)
+    data = request.data.copy()  # Create a copy of request data
+
+    if "image" in data and hasattr(data["image"], "file"):
+        serialized_user = UserSerializer(instance=updateobj, data=data, partial=True)
+    else:
+        # Remove the 'image' key from request data if it's not a file
+        data.pop("image", None)
+        serialized_user = UserSerializer(instance=updateobj, data=data, partial=True)
 
     if serialized_user.is_valid():
         serialized_user.save()
         return Response(data=serialized_user.data)
     else:
-        print(serialized_user.errors)
+        print("Error : ", serialized_user.errors)
         return Response(serialized_user.errors, status=400)
 
 

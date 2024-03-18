@@ -19,6 +19,12 @@ urlpatterns = [
         name="getTeacherCourses",
     ),
     path("get_image/<int:courseID>", views.getImage, name="get_image"),
+    # Get number of courses by a teacher
+    path(
+        "<int:teacherID>/numberOfCourses/",
+        views.getAllCoursesByTeacher,
+        name="getAllCoursesByTeacher",
+    ),
     # Sections
     path("<int:courseID>/sections/all/", views.getAllSections, name="getAllSections"),
     path("<int:courseID>/<int:sectionID>/", views.getASection, name="getASection"),
@@ -53,7 +59,7 @@ urlpatterns = [
     ),
     # Questions
     path(
-        "section/<int:sectionID>/questions/all/",
+        "<int:courseID>/questions/all/",
         views.getAllQuestions,
         name="getAllQuestions",
     ),
@@ -62,22 +68,20 @@ urlpatterns = [
         views.getAQuestion,
         name="getAQuestion",
     ),
-    path(
-        "section/<int:sectionID>/addAQuestion/", views.addAQuestion, name="addAQuestion"
-    ),
+    path("<int:courseID>/addAQuestion/", views.addAQuestion, name="addAQuestion"),
     path(
         "section/<int:sectionID>/updateAQuestion/",
         views.updateAQuestion,
         name="updateAQuestion",
     ),
     path(
-        "section/<int:sectionID>/deleteAQuestion/",
+        "deleteAQuestion/<int:questionID>/",
         views.deleteAQuestion,
         name="deleteAQuestion",
     ),
     # Answers
     path(
-        "section/<int:sectionID>/<int:questionID>/addAnAnswer/",
+        "addAnAnswer/<int:questionID>/",
         views.addAnAnswer,
         name="addAnAnswer",
     ),
@@ -85,6 +89,11 @@ urlpatterns = [
         "section/<int:sectionID>/<int:questionID>/getAllAnswers/",
         views.getAllAnswers,
         name="getAllAnswers",
+    ),
+    path(
+        "deleteAnswer/<int:answerID>/",
+        views.deleteAnswer,
+        name="deleteAnswer",
     ),
     # Requirements
     path(
@@ -103,7 +112,7 @@ urlpatterns = [
         name="updateARequirement",
     ),
     path(
-        "course/<int:courseID>/deleteARequirement/<int:requirementID>",
+        "deleteARequirement/<int:requirementID>",
         views.deleteARequirement,
         name="deleteARequirement",
     ),
@@ -124,8 +133,11 @@ urlpatterns = [
         name="updateAWhatYoullLearn",
     ),
     path(
-        "course/<int:courseID>/deleteAWhatYoullLearn/<int:WhatYoullLearnID>",
+        "deleteAWhatYoullLearn/<int:whatYoullLearnID>",
         views.deleteAWhatYoullLearn,
         name="deleteAWhatYoullLearn",
+    ),
+    path(
+        "details/<int:pk>/", views.CourseDetailAPIView.as_view(), name="course-detail"
     ),
 ]

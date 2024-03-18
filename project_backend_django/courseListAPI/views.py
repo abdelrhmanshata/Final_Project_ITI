@@ -1,11 +1,14 @@
 from django.shortcuts import render
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
+from rest_framework import generics
 from django.http import HttpResponse
 from .models import *
 from .serializers import *
 from django.views.static import serve
 from django.conf import settings
+from reviews.models import StudentReviewCourse
+from reviews.serializers import StudentReviewCourseSerializer
 
 # Create your views here.
 
@@ -33,6 +36,16 @@ def getImage(request, courseID):
     return serve(request, image_path, document_root=settings.MEDIA_ROOT)
 
 
+@api_view(["GET"])
+def getAllCoursesByTeacher(request, teacherID):
+    data = Course.objects.filter(userID=teacherID)
+    if data:
+        datajson = data.count()
+        print(datajson)
+        return Response({"message": datajson})
+    return Response({"message": "Requirements Not Found."})
+
+
 @api_view(["POST"])
 def addACourse(request):
     user_id = request.data.get("userID")
@@ -57,6 +70,34 @@ def getACourse(request, courseID):
     return Response({"message": "Course Not Found."})
 
 
+from user_authentication_app.models import *
+from user_authentication_app.serializers import *
+from django.shortcuts import get_object_or_404
+
+
+class CourseDetailAPIView(generics.RetrieveAPIView):
+    queryset = Course.objects.all()
+    serializer_class = CourseSerializer
+
+    def retrieve(self, request, *args, **kwargs):
+        instance = self.get_object()
+        serializer = self.get_serializer(instance)
+
+        # Retrieve associated reviews for the course
+        reviews = StudentReviewCourse.objects.filter(courseID=instance.id)
+        review_serializer = StudentReviewCourseSerializer(reviews, many=True)
+
+        user = get_object_or_404(User, id=instance.userID.id)
+        teacher_serializer = UserSerializer(user)
+
+        # Add reviews to the serialized course data
+        data = serializer.data
+        data["reviews"] = review_serializer.data
+        data["teacher"] = teacher_serializer.data
+
+        return Response(data)
+
+
 @api_view(["GET"])
 def getTeacherCourse(request, teacherID):
     data = Course.objects.filter(userID=teacherID)
@@ -70,16 +111,25 @@ def getTeacherCourse(request, teacherID):
 def updateACourse(request, courseID):
     try:
         selectedCourse = Course.objects.get(id=courseID)
-        datajson = CourseAddSerializer(selectedCourse, data=request.data, partial=True)
+        data = request.data.copy()  # Create a copy of request data
 
-        if "courseImage" in request.FILES:
-            datajson.courseImage = request.FILES["courseImage"]
+        # Check if the 'courseImage' key exists in request data and if it's a file
+        if "courseImage" in data and hasattr(data["courseImage"], "file"):
+            datajson = CourseAddSerializer(
+                instance=selectedCourse, data=data, partial=True
+            )
+        else:
+            # Remove the 'courseImage' key from request data if it's not a file
+            data.pop("courseImage", None)
+            datajson = CourseAddSerializer(
+                instance=selectedCourse, data=data, partial=True
+            )
 
         if datajson.is_valid():
             datajson.save()
             return Response({"message": "Successfully updated the course."})
         else:
-            print(datajson.errors)
+            print("Error : ", datajson.errors)
             return Response({"message": "Invalid data.", "errors": datajson.errors})
     except Course.DoesNotExist:
         return Response({"message": "Not Found."})
@@ -129,7 +179,7 @@ def updateARequirement(request):
         return Response({"message": "Not Found."})
 
 
-@api_view(["POST", "GET", "DELETE"])
+@api_view(["DELETE"])
 def deleteARequirement(request, requirementID):
     try:
         selectedRequirement = Requirement.objects.get(id=requirementID)
@@ -181,7 +231,7 @@ def updateAWhatYoullLearn(request):
         return Response({"message": "Not Found."})
 
 
-@api_view(["POST", "GET", "DELETE"])
+@api_view(["DELETE"])
 def deleteAWhatYoullLearn(request, whatYoullLearnID):
     try:
         selectedWhatYoullLearn = WhatYoullLearn.objects.get(id=whatYoullLearnID)
@@ -304,9 +354,11 @@ def deleteASection(request, sectionID):
 
 
 @api_view(["POST"])
-def addAQuestion(request):
-    obj = QuestionAddSerializer(data=request.data)
-    print(obj)
+def addAQuestion(request, courseID):
+    course = Course.objects.get(id=courseID)
+    obj = QuestionAddSerializer(data=request.data, context={"courseID": course})
+    obj.courseID = course
+    obj.questionHead = request.data.get("questionHead")
     if obj.is_valid():
         obj.save()
         return Response({"message": "Question added."})
@@ -316,11 +368,17 @@ def addAQuestion(request):
 @api_view(["GET"])
 def getAllQuestions(request, courseID):
     data = Question.objects.filter(courseID=courseID)
-    print(data)
-    if data:
-        datajson = QuestionGetSerializer(data, many=True).data
-        return Response({"message": datajson})
-    return Response({"message": "Video Not Found."})
+    questionDataJson = QuestionGetSerializer(data, many=True).data
+    listQuestion = []
+    for question in questionDataJson:
+        answers = Answer.objects.filter(questionID=question["id"])
+        answerDataJson = AnswerGetSerializer(answers, many=True).data
+        obj = {"question": question, "answers": answerDataJson}
+        listQuestion.append(obj)
+
+    if listQuestion:
+        return Response({"message": listQuestion})
+    return Response({"message": "Questions Not Found."})
 
 
 @api_view(["GET"])
@@ -345,8 +403,8 @@ def updateAQuestion(request):
         return Response({"message": "Not Found."})
 
 
-@api_view(["POST", "GET", "DELETE"])
-def deleteAQuestion(request, courseID, questionID):
+@api_view(["DELETE"])
+def deleteAQuestion(request, questionID):
     try:
         selectedQuestion = Question.objects.get(id=questionID)
         selectedQuestion.delete()
@@ -359,9 +417,10 @@ def deleteAQuestion(request, courseID, questionID):
 
 
 @api_view(["POST"])
-def addAnAnswer(request):
-    obj = AnswerAddSerializer(data=request.data)
-    print(obj)
+def addAnAnswer(request, questionID):
+    question = Question.objects.get(id=questionID)
+    obj = AnswerAddSerializer(data=request.data, context={"questionID": question})
+    obj.questionID = question
     if obj.is_valid():
         obj.save()
         return Response({"message": "Answer added."})
@@ -376,3 +435,13 @@ def getAllAnswers(request, questionID):
         datajson = AnswerGetSerializer(data, many=True).data
         return Response({"message": datajson})
     return Response({"message": "Video Not Found."})
+
+
+@api_view(["DELETE"])
+def deleteAnswer(request, answerID):
+    try:
+        selectedAnswer = Answer.objects.get(id=answerID)
+        selectedAnswer.delete()
+        return Response({"message": "Successfully deleted."})
+    except Section.DoesNotExist:
+        return Response({"message": "Not Found."})

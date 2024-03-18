@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { axiosInstance } from "api/config";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { Button } from "@mui/material";
 
 const AddCourse = () => {
   const navigate = useNavigate();
@@ -15,6 +16,7 @@ const AddCourse = () => {
     courseLessons: 0,
     courseHours: 0.0,
     courseImage: null,
+    reviews: {},
   });
 
   const handleSubmit = async (e) => {

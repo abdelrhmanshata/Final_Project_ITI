@@ -10,23 +10,22 @@
   justify-content: center;
   align-items: center;
   min-height: 100vh;
-  background: url("../../assets/logo2.png");
-  background-size:cover;
-   background-position: center; 
+  background-color: #fff;
+  background-size: cover;
+  background-position: center;
 }
 
 .wrapper {
   width: 420px;
   background: transparent;
-  border:2px solid rgba(255, 255, 255, 0.2);
-  backdrop-filter: blur(30px);
+  border: 2px solid rgba(255, 255, 255, 0.2);
   color: black;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
   border-radius: 10px;
   padding: 30px 40px;
   margin-top: 50px;
   margin-bottom: 50px;
-  
+  background-color: #06bbcc;
 }
 .wrapper h1 {
   font-size: 36px;
@@ -45,7 +44,7 @@
   background: transparent;
 
   font-size: 16px;
-  color:#FFF;
+  color: #fff;
   outline: none;
   border: 4px solid rgba(255, 255, 255, 0.2);
   border-radius: 40px;
@@ -104,18 +103,16 @@
 .register-link p a:hover {
   text-decoration: underline;
 }
-.submit-container{
+.submit-container {
   display: flex;
   gap: 30px;
-  
- 
 }
-.submit{
+.submit {
   display: flex;
   justify-content: center;
-  align-items:  center;
-  width:220px;
-  height:  29px;
+  align-items: center;
+  width: 220px;
+  height: 29px;
   color: #333;
   background-color: #fff;
   border-radius: 50px;
@@ -123,9 +120,8 @@
   font-weight: 700;
   cursor: pointer;
 }
-.gray{
-  background-color:#D0D0D0;
- 
+.gray {
+  background-color: #d0d0d0;
 }
 /* Styles for the select dropdown */
 .select-dropdown {
@@ -133,18 +129,18 @@
   padding: 10px;
   border: 4px solid rgba(255, 255, 255, 0.2);
   border-radius: 40px;
- 
-  appearance:none;
+
+  appearance: none;
   -webkit-appearance: none;
   -moz-appearance: none;
-  color:black;
+  color: black;
   cursor: pointer;
- background: transparent;
+  background: transparent;
 }
 
 /* Styling the arrow icon */
 .select-dropdown::after {
-  content: '\25BC'; /* Unicode character for a down arrow */
+  content: "\25BC"; /* Unicode character for a down arrow */
   position: absolute;
   top: 50%;
   right: 10px;
@@ -157,19 +153,19 @@
   padding: 10px;
   background-color: blanchedalmond;
 }
-.input-box .file{
+.input-box .file {
   width: 100%;
   padding: 10px;
   border: 4px solid rgba(255, 255, 255, 0.2);
   border-radius: 50px;
-  appearance:none;
+  appearance: none;
   -webkit-appearance: none;
   -moz-appearance: none;
-  color:black;
+  color: black;
   bottom: 50%;
   cursor: pointer;
- background: transparent;
- align-items: center;
+  background: transparent;
+  align-items: center;
 }
 .top-left-button {
   position: absolute;
@@ -178,8 +174,8 @@
 }
 
 .to-home-button {
-  background-color:#fff;
-  color: skyblue;
+  background-color: #06bbcc;
+  color: white;
   border: none;
   border-radius: 5px;
   padding: 10px 20px;

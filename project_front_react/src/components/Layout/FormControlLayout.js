@@ -26,7 +26,6 @@ export default function FormControlLayout({ text, value, select }) {
               <MenuItem value={"Arabic"}>Arabic</MenuItem>
               <MenuItem value={"English"}>English</MenuItem>
               <MenuItem value={"Computer Science"}>Computer Science</MenuItem>
-              <MenuItem value={"Computer Science"}>Computer Science</MenuItem>
               <MenuItem value={"History"}>History</MenuItem>
               <MenuItem value={"Geography"}>Geography</MenuItem>
               <MenuItem value={"Science"}>Science</MenuItem>

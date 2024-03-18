@@ -7,13 +7,18 @@ import {
   AccordionSummary,
   Typography,
 } from "@mui/material";
-import EditSection from "./EditSection";
-import DeleteSection from "./DeleteSection";
-import Video from "./AddVideo";
-import ListVideo from "./ListVideo";
-import AddVideo from "./AddVideo";
+import EditSection from "./Section/EditSection";
+import DeleteSection from "./Section/DeleteSection";
+import Video from "./Section/AddVideo";
+import ListVideo from "./Section/ListVideo";
+import AddVideo from "./Section/AddVideo";
+import { useDispatch, useSelector } from "react-redux";
 
-const ListSection = ({ isUpdate, setIsUpdate, courseId }) => {
+const ListSection = ({ courseId }) => {
+  const dispatch = useDispatch();
+  const isUpdate = useSelector((state) => state.update.isUpdate);
+  // dispatch(updateState(isUpdate + 1));
+
   const [sections, setSections] = useState([]);
   const getData = useCallback(async () => {
     try {
@@ -38,51 +43,27 @@ const ListSection = ({ isUpdate, setIsUpdate, courseId }) => {
 
   return (
     <div>
-      {sections.length > 0 && (
-        <>
-          {" "}
-          <Typography>Sections...</Typography>
-          {sections.map((item) => (
-            <Accordion key={item.id}>
-              <AccordionSummary
-                expandIcon={<ArrowDropDownIcon />}
-                aria-controls={`panel${item.id}-content`}
-                id={`panel${item.id}-header`}
-              >
-                <div style={{ position: "relative", width: "100%" }}>
-                  <Typography>{item.sectionName}</Typography>
-                  <div style={{ position: "absolute", top: 0, right: 0 }}>
-                    <AddVideo
-                      sectionID={item.id}
-                      isUpdate={isUpdate}
-                      setIsUpdate={setIsUpdate}
-                    />
-
-                    <EditSection
-                      section={item}
-                      isUpdate={isUpdate}
-                      setIsUpdate={setIsUpdate}
-                    />
-
-                    <DeleteSection
-                      sectionID={item.id}
-                      isUpdate={isUpdate}
-                      setIsUpdate={setIsUpdate}
-                    />
-                  </div>
-                </div>
-              </AccordionSummary>
-              <AccordionDetails>
-                <ListVideo
-                  sectionID={item.id}
-                  isUpdate={isUpdate}
-                  setIsUpdate={setIsUpdate}
-                />
-              </AccordionDetails>
-            </Accordion>
-          ))}
-        </>
-      )}
+      {sections.map((item) => (
+        <Accordion key={item.id}>
+          <AccordionSummary
+            expandIcon={<ArrowDropDownIcon />}
+            aria-controls={`panel${item.id}-content`}
+            id={`panel${item.id}-header`}
+          >
+            <div style={{ position: "relative", width: "100%" }}>
+              <Typography>{item.sectionName}</Typography>
+              <div style={{ position: "absolute", top: 0, right: 0 }}>
+                <AddVideo sectionID={item.id} />
+                <EditSection section={item} />
+                <DeleteSection sectionID={item.id} />
+              </div>
+            </div>
+          </AccordionSummary>
+          <AccordionDetails>
+            <ListVideo sectionID={item.id} />
+          </AccordionDetails>
+        </Accordion>
+      ))}
     </div>
   );
 };

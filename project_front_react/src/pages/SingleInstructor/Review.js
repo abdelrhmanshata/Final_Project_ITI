@@ -1,6 +1,41 @@
-import React from "react";
+import { axiosInstance } from "api/config";
+import React, { useCallback, useEffect, useState } from "react";
 
-export default function ReviewsComponent() {
+export default function ReviewsComponent({ teacher }) {
+  const [numCourses, setNumCourses] = useState(0);
+  const [reviewCount, setReviewCount] = useState(0);
+
+  const getNumCourses = useCallback(async () => {
+    try {
+      await axiosInstance
+        .get(`course/${teacher.id}/numberOfCourses/`)
+        .then((res) => {
+          setNumCourses(res.data.message);
+        })
+        .catch((err) => console.log(err));
+    } catch (error) {
+      console.log(error);
+    }
+  }, [teacher]);
+
+  const getReviewCount = useCallback(async () => {
+    try {
+      await axiosInstance
+        .get(`review/review_count/${teacher.id}`)
+        .then((res) => {
+          setReviewCount(res.data.review_count);
+        })
+        .catch((err) => console.log(err));
+    } catch (error) {
+      console.log(error);
+    }
+  }, [teacher]);
+
+  useEffect(() => {
+    getNumCourses();
+    getReviewCount();
+  }, [teacher]);
+
   return (
     <div className="row mb-7  justify-content-center align-items-center">
       <div className="col-12 col-md-auto mb-3 mb-md-0 ">
@@ -66,10 +101,9 @@ export default function ReviewsComponent() {
               </defs>
             </svg>
           </div>
-          533 Reviews
+          {reviewCount} Reviews
         </div>
       </div>
-
       <div className="col-12 col-md-auto mb-3 mb-md-0">
         <div className="d-flex align-items-center">
           <div className="me-3 d-flex">
@@ -94,7 +128,7 @@ export default function ReviewsComponent() {
               />
             </svg>
           </div>
-          4.87 rating
+          {teacher.teacher_avg_score} rating
         </div>
       </div>
       <div className="col-12 col-md-auto mb-3 mb-md-0">
@@ -208,7 +242,7 @@ export default function ReviewsComponent() {
               />
             </svg>
           </div>
-          29 courses
+          {numCourses} courses
         </div>
       </div>
     </div>

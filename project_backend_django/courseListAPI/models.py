@@ -1,6 +1,7 @@
 from django.db import models
 from django.utils import timezone
 from user_authentication_app.models import *
+from reviews import models as reviewModel
 
 # Create your models here.
 
@@ -11,7 +12,7 @@ class Course(models.Model):
     courseName = models.CharField(max_length=50)
     courseDescription = models.CharField(max_length=300)
     coursePrice = models.FloatField()
-    courseReviewScore = models.FloatField()
+    courseReviewScore = models.FloatField(blank=True)
     courseType = models.CharField(max_length=50)
     courseImage = models.ImageField(
         default="default.jpg", upload_to="course_images", blank=True, null=True
@@ -20,23 +21,24 @@ class Course(models.Model):
     courseHours = models.FloatField(default=0)
     courseDate = models.DateField(default=timezone.now, null=True)
 
+    reviews = models.ManyToManyField(
+        reviewModel.StudentReviewCourse, related_name="studcoursereviews", blank=True
+    )
+
     def __str__(self):
         return f"{self.courseName}"
-    
-    
-    
+
+
 class Requirement(models.Model):
-    #id Automatic Field
-    courseID=models.ForeignKey(Course, on_delete=models.CASCADE)
-    requirementDescription=models.CharField(max_length=50)
+    # id Automatic Field
+    courseID = models.ForeignKey(Course, on_delete=models.CASCADE)
+    requirementDescription = models.CharField(max_length=50)
+
 
 class WhatYoullLearn(models.Model):
-    #id Automatic Field
-    courseID=models.ForeignKey(Course, on_delete=models.CASCADE)
-    whatYoullLearnDescription=models.CharField(max_length=50)    
-    
-    
-    
+    # id Automatic Field
+    courseID = models.ForeignKey(Course, on_delete=models.CASCADE)
+    whatYoullLearnDescription = models.CharField(max_length=50)
 
 
 class Section(models.Model):
@@ -50,10 +52,11 @@ class Section(models.Model):
 
 class Question(models.Model):
     # id Automatic Field
-    sectionID = models.ForeignKey(Section, on_delete=models.CASCADE)
+    # sectionID = models.ForeignKey(Section, on_delete=models.CASCADE)
+    courseID = models.ForeignKey(Course, on_delete=models.CASCADE)
     questionHead = models.CharField(max_length=50)
-    questionAnswer = models.CharField(max_length=50)
-    questionImage = models.ImageField(blank=True)
+    # questionAnswer = models.CharField(max_length=50)
+    # questionImage = models.ImageField(blank=True)
 
     def __str__(self):
         return f"{self.questionHead}"
@@ -65,8 +68,8 @@ class Answer(models.Model):
     answerText = models.CharField(max_length=50)
     isAnswer = models.BooleanField(default=False)
 
-    def __str__(self):
-        return f"{self.answerText} : {self.isAnswer}"
+    # def __str__(self):
+    #     return f"{self.answerText} : {self.isAnswer}"
 
 
 class Video(models.Model):

@@ -3,34 +3,9 @@ import image1 from "../../assets/img/cat-1.jpg";
 import image2 from "../../assets/img/cat-5.jpg";
 import image3 from "../../assets/img/cat-3.jpg";
 import image4 from "../../assets/img/cat-4.jpg";
-import { useCallback, useEffect, useState } from "react";
-import { axiosInstance } from "api/config";
 export default function Categories() {
-  const [cats] = useState(["Arabic", "Science", "Computer Science", "English"]);
-  const [categoryCourses] = useState([]);
-  const getData = useCallback(() => {
-    cats.forEach(async (item) => {
-      try {
-        await axiosInstance
-          .get(`course/listCategoryCourses/${item}`)
-          .then((res) => {
-            console.log(res.data.message.length);
-            categoryCourses.push(res.data.message.length);
-          })
-          .catch((err) => console.log(err));
-      } catch (error) {
-        console.log(error);
-      }
-    });
-  }, []);
-
-  useEffect(() => {
-    getData();
-  }, [getData]);
-
   return (
     <>
-      {/* <!-- Categories Start --> */}
       <div className="container-xxl py-5 category">
         <div className="container">
           <div className="text-center wow fadeInUp" data-wow-delay="0.1s">
@@ -56,9 +31,6 @@ export default function Categories() {
                       style={{ margin: "1px" }}
                     >
                       <h5 className="m-0">Arabic</h5>
-                      <small className="text-primary">
-                        {categoryCourses[0]} Courses
-                      </small>
                     </div>
                   </Link>
                 </div>
@@ -76,10 +48,6 @@ export default function Categories() {
                       style={{ margin: "1px" }}
                     >
                       <h5 className="m-0">Science</h5>
-                      <small className="text-primary">
-                        {" "}
-                        {categoryCourses[1]} Courses
-                      </small>
                     </div>
                   </Link>
                 </div>
@@ -97,10 +65,6 @@ export default function Categories() {
                       style={{ margin: "1px" }}
                     >
                       <h5 className="m-0">Computer Science</h5>
-                      <small className="text-primary">
-                        {" "}
-                        {categoryCourses[2]} Courses
-                      </small>
                     </div>
                   </Link>
                 </div>
@@ -126,17 +90,12 @@ export default function Categories() {
                   style={{ margin: "1px" }}
                 >
                   <h5 className="m-0">English</h5>
-                  <small className="text-primary">
-                    {" "}
-                    {categoryCourses[3]} Courses
-                  </small>
                 </div>
               </Link>
             </div>
           </div>
         </div>
       </div>
-      {/* <!-- Categories Start --> */}
     </>
   );
 }

@@ -10,20 +10,21 @@
   justify-content: center;
   align-items: center;
   min-height: 100vh;
-  background: url("../../assets/logo2.png");
+  background-color: #fff;
   background-size: cover;
   background-position: center;
 }
-
 .wrapper {
   width: 420px;
   background: transparent;
   border: 2px solid rgba(255, 255, 255, 0.2);
-  backdrop-filter: blur(30px);
   color: black;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
   border-radius: 10px;
   padding: 30px 40px;
+  margin-top: 50px;
+  margin-bottom: 50px;
+  background-color: #06bbcc;
 }
 .wrapper h1 {
   font-size: 36px;
@@ -108,8 +109,8 @@
 }
 
 .to-home-button {
-  background-color: #fff;
-  color: skyblue;
+  background-color: #06bbcc;
+  color: white;
   border: none;
   border-radius: 5px;
   padding: 10px 20px;

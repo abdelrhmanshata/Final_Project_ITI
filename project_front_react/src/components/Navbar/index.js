@@ -3,7 +3,13 @@ import { BiUserCircle } from "react-icons/bi";
 import { useEffect, useState } from "react";
 import { MdAdminPanelSettings } from "react-icons/md";
 import { Button, Menu, MenuItem } from "@mui/material";
-export default function Navbar({ active }) {
+import { useDispatch, useSelector } from "react-redux";
+import { updateState } from "store/slices/update";
+export default function Navbar({ active, data }) {
+  const isUpdate = useSelector((state) => state.update.isUpdate);
+  const dispatch = useDispatch();
+  // dispatch(updateState(isUpdate+1));
+
   const navigate = useNavigate();
   const [isUserAuth, setIsUserAuth] = useState(false);
   const [isAdmin, setIsAdmin] = useState(false);
@@ -17,7 +23,7 @@ export default function Navbar({ active }) {
         setIsAdmin(localStorage.getItem("isAdmin") === "true");
       }
     }
-  }, []);
+  }, [isUpdate]);
 
   const [anchorEl, setAnchorEl] = useState(null);
   const open = Boolean(anchorEl);
@@ -34,6 +40,7 @@ export default function Navbar({ active }) {
     localStorage.setItem("isAdmin", "");
     localStorage.setItem("User_JWT", "");
     localStorage.setItem("User_Type", "");
+    dispatch(updateState(isUpdate + 1));
     window.location.reload();
   };
 
@@ -99,6 +106,14 @@ export default function Navbar({ active }) {
             >
               About
             </Link>
+            {active === "Back" && (
+              <Link
+                to={`/course/${data.id}`}
+                className={"nav-item nav-link active"}
+              >
+                Back
+              </Link>
+            )}
           </div>
           {isUserAuth ? (
             <>

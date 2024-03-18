@@ -2,28 +2,24 @@ import { useState } from "react";
 import Carousel from "react-bootstrap/Carousel";
 import Image from "react-bootstrap/Image";
 import { Link } from "react-router-dom";
-import carousel_1 from "../../assets/img/carousel-2.jpg";
 export default function CarouselSlider() {
   const [list] = useState([
     {
-      image:
-        "https://images.rawpixel.com/image_800/czNmcy1wcml2YXRlL3Jhd3BpeGVsX2ltYWdlcy93ZWJzaXRlX2NvbnRlbnQvbHIvdjU0NmJhdGNoMy1teW50LTM0LWJhZGdld2F0ZXJjb2xvcl8xLmpwZw.jpg",
+      image: require("../../assets/img/learing1.jpg"),
       title1: "Best Online Courses",
       title2: "The Best Online Learning Platform",
       description:
         "Vero elitr justo clita lorem. Ipsum dolor at sed stet sit diam no. Kasd rebum ipsum et diam justo clita et kasd rebum sea sanctus eirmod elitr.",
     },
     {
-      image:
-        "https://images.rawpixel.com/image_800/czNmcy1wcml2YXRlL3Jhd3BpeGVsX2ltYWdlcy93ZWJzaXRlX2NvbnRlbnQvbHIvdjU0NmJhdGNoMy1teW50LTM0LWJhZGdld2F0ZXJjb2xvcl8xLmpwZw.jpg",
+      image: require("../../assets/img/learing2.jpg"),
       title1: "Best Online Courses",
       title2: "The Best Online Learning Platform",
       description:
         "Vero elitr justo clita lorem. Ipsum dolor at sed stet sit diam no. Kasd rebum ipsum et diam justo clita et kasd rebum sea sanctus eirmod elitr.",
     },
     {
-      image:
-        "https://images.rawpixel.com/image_800/czNmcy1wcml2YXRlL3Jhd3BpeGVsX2ltYWdlcy93ZWJzaXRlX2NvbnRlbnQvbHIvdjU0NmJhdGNoMy1teW50LTM0LWJhZGdld2F0ZXJjb2xvcl8xLmpwZw.jpg",
+      image: require("../../assets/img/learing3.jpg"),
       title1: "Best Online Courses",
       title2: "The Best Online Learning Platform",
       description:
@@ -40,9 +36,9 @@ export default function CarouselSlider() {
             className="owl-carousel-item position-relative"
           >
             <Image
-              src={carousel_1}
+              src={item.image}
               className="img-fluid"
-              style={{ height: "80vh", width: "100vw" }}
+              style={{ height: "85vh", width: "100vw" }}
               alt="..."
             />
             <div
@@ -62,16 +58,16 @@ export default function CarouselSlider() {
                       {item.description}
                     </p>
                     <Link
-                      to="/"
+                      to="/Aboutus"
                       className="btn btn-primary py-md-3 px-md-5 me-3 animated slideInLeft"
                     >
                       Read More
                     </Link>
                     <Link
-                      to="/"
+                      to="/courses"
                       className="btn btn-light py-md-3 px-md-5 animated slideInRight"
                     >
-                      Join Now
+                      List All
                     </Link>
                   </div>
                 </div>
