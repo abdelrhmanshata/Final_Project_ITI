@@ -7,6 +7,7 @@ from .models import *
 from .serializers import *
 from django.views.static import serve
 from django.conf import settings
+
 from reviews.models import StudentReviewCourse
 from reviews.serializers import StudentReviewCourseSerializer
 

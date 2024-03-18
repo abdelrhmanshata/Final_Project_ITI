@@ -21,6 +21,32 @@ pip install django-bootstrap4
 pip install crispy-bootstrap4
 pip install django-crispy-forms==1.13.0
 pip install Pillow
-    
+
+
+//
+python manage.py makemigrations courseListAPI --empty
+python manage.py makemigrations reviews --empty
+python manage.py migrate
+
+//
+python manage.py makemigrations user_authentication_app
+python manage.py migrate user_authentication_app
+
+python manage.py makemigrations courseListAPI --empty
+python manage.py makemigrations reviews --empty
+python manage.py migrate
+
+python manage.py makemigrations payment_app
+python manage.py migrate payment_app
+
+python manage.py makemigrations realtime_chat
+python manage.py migrate realtime_chat
+
+
+
+
+
+
+
 
 

@@ -52,11 +52,9 @@ class User(AbstractUser):
     subject = models.CharField(null=True)
     teacher_avg_score = models.FloatField(default=0)
     objects = UserManager()
-
     # is_staff = models.BooleanField()
-    teacher_avg_score = models.FloatField(default=0)
     isApprove = models.BooleanField(default=False)
-    username=None
+    username = None
 
     USERNAME_FIELD = "email"
     REQUIRED_FIELDS = []

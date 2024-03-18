@@ -23,6 +23,7 @@ from reviews.models import StudentReviewCourse
 
 class CourseSerializer(serializers.ModelSerializer):
     # reviews = StudentReviewCourseSerializer(many=True, read_only=True)
+    
     reviews = serializers.SerializerMethodField(
         method_name="get_reviews", read_only=True
     )
