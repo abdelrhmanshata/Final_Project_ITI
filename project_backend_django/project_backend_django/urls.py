@@ -27,7 +27,6 @@ from user_authentication_app.views import LogoutView
 urlpatterns = [
     path("", views.apiConnection, name="get_category"),
     path("admin/", admin.site.urls),
-    path('admin/logout/', LogoutView.as_view(), name='admin_logout'),
     path("user/", include("user_authentication_app.urls")),
     path("course/", include("courseListAPI.urls")),
     path("api/",include('payment_app.urls')),
