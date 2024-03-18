@@ -48,10 +48,8 @@ export default function Aboutus() {
       </div>
 
       <Service />
-
       <About />
-      <TestimonialsSection />
-
+      {/* <TestimonialsSection /> */}
       <Footer />
     </>
   );

@@ -8,56 +8,21 @@ import Avatar from "@mui/material/Avatar";
 import Typography from "@mui/material/Typography";
 import { Rating } from "@mui/material";
 
-export default function StudentReviews() {
-  const listReviews = [
-    {
-      image: require("../../assets/img/team-0.jpg"),
-      name: "AbdElrhman",
-      review: 4,
-      comment:
-        "This course was well organized and covered a lot more details han any other Figma courses.",
-    },
-    {
-      image: require("../../assets/img/team-1.jpg"),
-      name: "Yossif",
-      review: 3,
-      comment:
-        "This course was well organized and covered a lot more details han any other Figma courses.",
-    },
-    {
-      image: require("../../assets/img/team-2.jpg"),
-      name: "Mona",
-      review: 5,
-      comment:
-        "This course was well organized and covered a lot more details han any other Figma courses.",
-    },
-    {
-      image: require("../../assets/img/team-3.jpg"),
-      name: "Mohamed",
-      review: 2,
-      comment:
-        "This course was well organized and covered a lot more details han any other Figma courses.",
-    },
-    {
-      image: require("../../assets/img/team-4.jpg"),
-      name: "Yara",
-      review: 5,
-      comment:
-        "This course was well organized and covered a lot more details han any other Figma courses.",
-    },
-  ];
-
+export default function StudentReviews({ course }) {
   return (
     <List className="w-100" sx={{ bgcolor: "background.paper" }}>
-      {listReviews.map((item, index) => (
+      {course.reviews.map((item, index) => (
         <>
           <ListItem key={index} alignItems="flex-start">
             <ListItemAvatar>
-              <Avatar alt={item.name} src={item.image} />
+              <Avatar
+                alt={item.courseID}
+                src={require("../../assets/img/avatar-1.jpg")}
+              />
             </ListItemAvatar>
 
             <ListItemText
-              primary={item.name}
+              primary={item.studentName}
               secondary={
                 <React.Fragment>
                   <Typography
@@ -66,12 +31,12 @@ export default function StudentReviews() {
                     variant="body2"
                     color="text.primary"
                   >
-                    {item.comment}
+                    {item.reviewText}
                   </Typography>
                 </React.Fragment>
               }
             />
-            <Rating name="read-only" value={item.review} readOnly />
+            <Rating name="read-only" value={item.courseReviewScore} readOnly />
           </ListItem>
           <Divider variant="inset" component="li" />
         </>

@@ -20,8 +20,10 @@ export default function VideoPlayer() {
           style={{ minHeight: "360" }}
           onReady={onReady}
         />
-        <Typography variant="h4">{dataVideo.videoTitle}</Typography>
-        <Typography variant="body2">{dataVideo.videoDescription}</Typography>
+        <div className="p-2">
+          <Typography variant="h4">{dataVideo.videoTitle}</Typography>
+          <Typography variant="body2">{dataVideo.videoDescription}</Typography>
+        </div>
       </div>
     </>
   );

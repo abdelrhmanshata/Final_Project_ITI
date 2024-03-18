@@ -37,11 +37,11 @@ export default function SingleInstructor() {
       <div class="container pt-8 pt-md-11">
         <div className="row">
           <div className="col-xl-8 mx-xl-auto">
-            <Socialprofile avatar={avatar} />
+            <Socialprofile avatar={avatar} teacher={user} />
             <h1 className="text-center mb-1">{user.name}</h1>
             <div className="text-center mb-7">{user.subject} Teacher</div>
             <br />
-            <ReviewsComponent teacherID={user.id} />
+            <ReviewsComponent teacher={user} />
             <br />
             <br />
           </div>

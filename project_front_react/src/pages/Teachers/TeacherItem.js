@@ -7,7 +7,7 @@ import { Link } from "react-router-dom";
 
 export default function TeacherItem({ data }) {
   return (
-    <Card key={data.id} sx={{ width: 350, maxWidth: 345 }}>
+    <Card sx={{ width: 350, maxWidth: 345 }}>
       <CardActionArea>
         <Link to={`/single/${data.id}`}>
           <CardMedia
@@ -20,14 +20,21 @@ export default function TeacherItem({ data }) {
 
         <CardContent>
           <Typography variant="h6">{data.name}</Typography>
+          <Typography variant="body2">{data.phonenumber}</Typography>
           <Grid className="my-0" container spacing={2}>
             <Grid item xs={6}>
               <div className="d-flex align-items-center ">
-                <small className="overflow-hidden">{data.classroom}</small>
+                <small className="overflow-hidden">
+                  {data.subject} Teacher
+                </small>
               </div>
             </Grid>
             <Grid item xs={6}>
-              <Rating name="read-only" value={4} readOnly />
+              <Rating
+                name="read-only"
+                value={data.teacher_avg_score}
+                readOnly
+              />
             </Grid>
           </Grid>
         </CardContent>

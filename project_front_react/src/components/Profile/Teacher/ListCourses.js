@@ -1,9 +1,13 @@
 import React, { useCallback, useEffect, useState } from "react";
 import CardCourse from "./CardCousre";
 import { axiosInstance } from "api/config";
+import { useDispatch, useSelector } from "react-redux";
 
 export default function ListCourses() {
-  const [isUpdate, setIsUpdate] = useState(0);
+  // const dispatch = useDispatch();
+  const isUpdate = useSelector((state) => state.update.isUpdate);
+  // dispatch(updateState(isUpdate + 1));
+
   const [courses, setCourses] = useState([]);
   const getData = useCallback(async () => {
     try {
@@ -27,19 +31,10 @@ export default function ListCourses() {
   }, [isUpdate]);
 
   return (
-    <div className="container">
-      <div
-        className="d-flex flex-wrap gap-2"
-        style={{ justifyContent: "space-around" }}
-      >
-        {courses.map((item) => (
-          <CardCourse
-            course={item}
-            isUpdate={isUpdate}
-            setIsUpdate={setIsUpdate}
-          />
-        ))}
-      </div>
+    <div className="d-flex flex-wrap gap-5 p-2" style={{ margin: "auto" }}>
+      {courses.map((item) => (
+        <CardCourse key={item.id} course={item} />
+      ))}
     </div>
   );
 }

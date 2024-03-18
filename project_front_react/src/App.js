@@ -17,7 +17,6 @@ function App() {
     activeItem: 0,
   });
 
-
   return (
     <>
       {loading ? <Spinner /> : null}
@@ -27,7 +26,6 @@ function App() {
           <Router />
         </BrowserRouter>
       </AdminContext.Provider>
-
     </>
   );
 }

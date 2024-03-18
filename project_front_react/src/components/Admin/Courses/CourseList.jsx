@@ -35,17 +35,16 @@ export default function CourseList() {
   };
   return (
     <>
-      <div className="d-flex text-center gap-5 p-2">
+      <div className="d-flex w-100 text-center gap-3 p-0">
         <div
-          className="d-flex flex-wrap p-2 w-75 gap-2"
+          className="d-flex flex-wrap p-2 gap-2"
           style={{
-            overflowY: "scroll",
+            width: "70%",
+            // overflowY: "scroll",
           }}
         >
           {courses.map((item, index) => (
-            <>
-              <CourseCard data={item} onSelect={selectCourse} />
-            </>
+            <CourseCard key={item.id} data={item} onSelect={selectCourse} />
           ))}
         </div>
 

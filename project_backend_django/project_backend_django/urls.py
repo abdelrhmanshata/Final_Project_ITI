@@ -28,7 +28,8 @@ urlpatterns = [
     path("admin/", admin.site.urls),
     path("user/", include("user_authentication_app.urls")),
     path("course/", include("courseListAPI.urls")),
-    path("api/",include('payment_app.urls'))
+    path("api/",include('payment_app.urls')),
+    path('review/', include('reviews.urls')),
 
 ]
 if settings.DEBUG:
