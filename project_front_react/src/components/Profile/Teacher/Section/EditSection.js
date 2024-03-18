@@ -9,8 +9,13 @@ import DialogContentText from "@mui/material/DialogContentText";
 import DialogTitle from "@mui/material/DialogTitle";
 import { Snackbar } from "@mui/material";
 import { axiosInstance } from "api/config";
+import { useDispatch, useSelector } from "react-redux";
+import { updateState } from "store/slices/update";
 
-export default function EditSection({ section, isUpdate, setIsUpdate }) {
+export default function EditSection({ section }) {
+  const dispatch = useDispatch();
+  const isUpdate = useSelector((state) => state.update.isUpdate);
+  // dispatch(updateState(isUpdate + 1));
   const [updateSection, setUpdateSection] = useState(section);
   const [message, setMessage] = useState("");
   const [open, setOpen] = useState(false);
@@ -37,7 +42,7 @@ export default function EditSection({ section, isUpdate, setIsUpdate }) {
         setMessage(response.data.message);
         handleCloseDialog();
         setOpen(true);
-        setIsUpdate(isUpdate + 1);
+        dispatch(updateState(isUpdate + 1));
       }
     } catch (error) {
       // Handle error (e.g., display error message to the user)

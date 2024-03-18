@@ -3,11 +3,11 @@ import Accordion from "@mui/material/Accordion";
 import AccordionSummary from "@mui/material/AccordionSummary";
 import AccordionDetails from "@mui/material/AccordionDetails";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
-import { List } from "@mui/material";
+import { List, Typography } from "@mui/material";
 import { axiosInstance } from "api/config";
 import Section from "./Section";
 
-export default function Curriculum({ course,isPlay }) {
+export default function Curriculum({ course, isPlay }) {
   const [dense] = useState(true);
   const [sections, setSections] = useState([]);
   const getData = useCallback(async () => {
@@ -32,7 +32,9 @@ export default function Curriculum({ course,isPlay }) {
   }, [getData]);
 
   return (
-    <div className="d-flex flex-column py-4 gap-2">
+    <div className="d-flex flex-column gap-2">
+      <Typography variant="h4">Sections</Typography>
+
       {sections.map((item, index) => (
         // defaultExpanded
         <>

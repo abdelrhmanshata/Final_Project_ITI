@@ -11,8 +11,14 @@ import { ProgressBar } from "react-bootstrap";
 import StudentReviews from "./StudentReviews";
 import HoverRating from "./Lesson/HoverRating";
 import { axiosInstance } from "api/config";
+import { useDispatch, useSelector } from "react-redux";
+import { updateState } from "store/slices/update";
 
 export default function Reviews({ course }) {
+  const dispatch = useDispatch();
+  const isUpdate = useSelector((state) => state.update.isUpdate);
+  // dispatch(updateState(isUpdate+1));
+
   const [value, setValue] = useState(0);
   const [reviewText, setReviewText] = useState("");
   const [ratingRange, setRatingRange] = useState({});
@@ -27,7 +33,13 @@ export default function Reviews({ course }) {
           (acc, value) => acc + value,
           0
         );
-        setTotalRating(sumValues);
+        console.log(typeof sumValues);
+        console.log(sumValues);
+        if (sumValues == 0) {
+          setTotalRating(1);
+        } else {
+          setTotalRating(sumValues);
+        }
       })
       .catch((err) => console.log(err));
   }, [course]);
@@ -54,6 +66,7 @@ export default function Reviews({ course }) {
         // navigate(`/profile`);
         setReviewText("");
         setValue(0);
+        dispatch(updateState(isUpdate + 1));
       }
     } catch (error) {
       // Handle error (e.g., display error message to the user)
@@ -72,7 +85,7 @@ export default function Reviews({ course }) {
           Student feedback
         </Typography>
         <Grid container spacing={2}>
-          <Grid item xs={4}>
+          <Grid item  md={4} xs={12} >
             <Paper
               elevation={5}
               className="d-flex flex-column align-items-center justify-content-center p-4"
@@ -90,7 +103,7 @@ export default function Reviews({ course }) {
               />
             </Paper>
           </Grid>
-          <Grid item xs={8}>
+          <Grid item md={8} xs={12} >
             <Paper elevation={5} className="p-1">
               <div className="d-flex flex-row align-items-center justify-content-space-between">
                 <div className="w-50">

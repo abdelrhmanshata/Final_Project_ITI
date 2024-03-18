@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import PropTypes from "prop-types";
 import Tabs from "@mui/material/Tabs";
 import Tab from "@mui/material/Tab";
@@ -42,20 +42,25 @@ function a11yProps(index) {
 }
 
 export default function CourseInfoTab({ data }) {
-  const [value, setValue] = React.useState(0);
+  const [value, setValue] = useState(0);
   const handleChange = (event, newValue) => {
     setValue(newValue);
   };
 
   return (
     <div className="d-flex mb-3 gap-2 align-items-center">
-      <Box sx={{ width: "100%" }}>
-        <Box sx={{ borderBottom: 1, borderColor: "divider" }}>
+      <Box sx={{ flexGrow: 1 }}>
+        <Box
+          sx={{ maxWidth: { xs: 320, sm: 480 }, bgcolor: "background.paper" }}
+        >
           <Tabs
             value={value}
             onChange={handleChange}
-            aria-label="basic tabs example"
-            variant="fullWidth"
+          
+            
+            variant="scrollable"
+            scrollButtons="auto"
+            aria-label="scrollable auto tabs example"
           >
             <Tab label="Overview" {...a11yProps(0)} />
             <Tab label="Curriculum" {...a11yProps(1)} />
@@ -63,18 +68,21 @@ export default function CourseInfoTab({ data }) {
             <Tab label="Reviews" {...a11yProps(3)} />
           </Tabs>
         </Box>
-        <CustomTabPanel value={value} index={0}>
-          <Overview course={data} />
-        </CustomTabPanel>
-        <CustomTabPanel value={value} index={1}>
-          <Curriculum course={data} isPlay={false} />
-        </CustomTabPanel>
-        <CustomTabPanel value={value} index={2}>
-          <Instructor course={data} />
-        </CustomTabPanel>
-        <CustomTabPanel value={value} index={3}>
-          <Reviews course={data} />
-        </CustomTabPanel>
+
+        <div className="tab-content">
+          <CustomTabPanel value={value} index={0}>
+            <Overview course={data} />
+          </CustomTabPanel>
+          <CustomTabPanel value={value} index={1}>
+            <Curriculum course={data} isPlay={false} />
+          </CustomTabPanel>
+          <CustomTabPanel value={value} index={2}>
+            <Instructor course={data} />
+          </CustomTabPanel>
+          <CustomTabPanel value={value} index={3}>
+            <Reviews course={data} />
+          </CustomTabPanel>
+        </div>
       </Box>
     </div>
   );

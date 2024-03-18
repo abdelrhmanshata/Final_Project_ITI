@@ -8,8 +8,13 @@ import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import Chat from "./Chating/Chat";
 
 export default function Home() {
+  // const dispatch = useDispatch();
+  // const isUpdate = useSelector((state) => state.update.isUpdate);
+  // dispatch(updateState(isUpdate+1));
+
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -32,6 +37,7 @@ export default function Home() {
       <Courses />
       <Team />
       <Footer />
+      {/* <Chat /> */}
     </>
   );
 }

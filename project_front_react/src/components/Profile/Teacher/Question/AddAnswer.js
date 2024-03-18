@@ -9,8 +9,14 @@ import DialogContentText from "@mui/material/DialogContentText";
 import DialogTitle from "@mui/material/DialogTitle";
 import { axiosInstance } from "api/config";
 import { Checkbox, FormControlLabel } from "@mui/material";
+import { useDispatch, useSelector } from "react-redux";
+import { updateState } from "store/slices/update";
 
-export default function AddAnswer({ questionID, isUpdate, setIsUpdate }) {
+export default function AddAnswer({ questionID }) {
+  const dispatch = useDispatch();
+  const isUpdate = useSelector((state) => state.update.isUpdate);
+  // dispatch(updateState(isUpdate + 1));
+
   const [answerText, setAnswerText] = useState("");
   const [isChecked, setIsChecked] = useState(false);
   const [isDialogOpen, setDialogOpen] = useState(false);
@@ -40,7 +46,7 @@ export default function AddAnswer({ questionID, isUpdate, setIsUpdate }) {
       if (response.status === 200) {
         console.log(response.data.message);
         handleCloseDialog();
-        setIsUpdate(isUpdate + 1);
+        dispatch(updateState(isUpdate + 1));
       }
     } catch (error) {
       console.log(error.message);

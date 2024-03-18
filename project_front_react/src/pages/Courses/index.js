@@ -8,6 +8,8 @@ import FormControlLayout from "components/Layout/FormControlLayout";
 import { axiosInstance } from "api/config";
 
 export default function CoursesPage() {
+  const [numPage, setNumPage] = useState(0);
+  const [limit] = useState(10);
   const [allCourses, setAllCourses] = useState([]);
   const [courses, setCourses] = useState([]);
   const [category, setCategory] = useState("");
@@ -16,8 +18,9 @@ export default function CoursesPage() {
       await axiosInstance
         .get(`course/listAllCourses`)
         .then((res) => {
-          setCourses(res.data.message);
           setAllCourses(res.data.message);
+          setCourses(res.data.message.slice(0, limit));
+          setNumPage(Math.ceil(res.data.message.length / limit));
         })
         .catch((err) => console.log(err));
     } catch (error) {
@@ -44,6 +47,16 @@ export default function CoursesPage() {
     setCourses(filteredData);
   };
 
+  const handelPagination = (event, value) => {
+    showCourses(value);
+  };
+
+  const showCourses = (page) => {
+    const start = (page - 1) * limit;
+    const end = limit + (page - 1) * limit;
+    setCourses(allCourses.slice(start, end));
+  };
+
   return (
     <>
       <Navbar active={"Courses"} />
@@ -58,26 +71,28 @@ export default function CoursesPage() {
         select={getCoursesByCategory}
       />
       {/* Content */}
-      <div className="container p-5">
+      <div className="container p-5 ">
         <div
           className="d-flex flex-wrap gap-4"
-          style={{ justifyContent: "space-around" }}
+          style={{ justifyContent: "center" }}
         >
           {courses.map((item, index) => (
-            <div key={index}>
-              <CourseItem data={item} />
-            </div>
+            <CourseItem key={item.id} data={item} />
           ))}
         </div>
       </div>
 
       {/* Pagination */}
-      {/* <div
-        className="container d-flex p-5"
+      <div
+        className="container d-flex my-5"
         style={{ justifyContent: "center" }}
       >
-        <Pagination count={10} color="primary" />
-      </div> */}
+        <Pagination
+          count={numPage}
+          color="primary"
+          onChange={handelPagination}
+        />
+      </div>
 
       {/* Footer */}
       <Footer />

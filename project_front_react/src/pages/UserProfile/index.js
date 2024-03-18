@@ -2,7 +2,7 @@ import React, { useCallback, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import "./UserProfile.css";
 import { FaEdit } from "react-icons/fa";
-import { Rating, Tab, Tabs } from "@mui/material";
+import { Alert, Rating, Snackbar, Tab, Tabs } from "@mui/material";
 import Navbar from "components/Navbar";
 import Footer from "components/Footer";
 import { axiosInstance } from "api/config";
@@ -13,7 +13,27 @@ import ListStudentCourses from "components/Profile/Student/ListStudentCourses";
 import FormDialog from "./UpdateProfile";
 import ConfirmDialog from "./Alert";
 export default function ProfileUser() {
-  const [user, setUser] = useState({});
+  const [open, setOpen] = useState(false);
+  const [status, setStatus] = useState(true);
+  const [message, setMessage] = useState("");
+
+  const [user, setUser] = useState({
+    id: 0,
+    name: "",
+    email: "",
+    phonenumber: "",
+    classroom: "",
+    gradelevels: "",
+    image: "",
+    address: "",
+    identificationcard: "",
+    educationstage: "",
+    usertype: "",
+    isApprove: "",
+    description: "",
+    subject: "",
+    teacher_avg_score: 0.0,
+  });
   const [avatar, setAvatar] = useState("");
 
   const getData = useCallback(async () => {
@@ -69,9 +89,10 @@ export default function ProfileUser() {
           },
         }
       );
-      console.log("Update Successfully" + response);
+      setMessage("Update Successfully");
+      setStatus(true);
+      setOpen(true);
     } catch (error) {
-      // Handle error (e.g., display error message to the user)
       console.log("Error : " + error);
     }
   };
@@ -85,23 +106,28 @@ export default function ProfileUser() {
    
   };
 
+  const handleClose = (event, reason) => {
+    if (reason === "clickaway") {
+      return;
+    }
+    setOpen(false);
+  };
+
   return (
     <>
       <Navbar />
 
       <div className="BBody">
-        <div className="rounded bg-white">
+        <div className="bg-white">
           <Tabs
             value={selectedTab}
             onChange={handleTabChange}
-            className="tabs bg-light"
+            className="bg-light"
             centered
           >
-            <Tab label="Profile" className="tabs" />
-            <Tab label="Courses" className="tabs" />
-            {user.usertype === "teacher" && (
-              <Tab label="Enrolls" className="tabs" />
-            )}
+            <Tab label="Profile" />
+            <Tab label="Courses" />
+            {user.usertype === "teacher" && <Tab label="Enrolls" />}
           </Tabs>
           <div className="row justify-content-center">
             {user.usertype === "teacher" ? (
@@ -157,10 +183,11 @@ export default function ProfileUser() {
                 </div>
                
               </>
+          
             ) : null}
             {selectedTab === 0 && (
               <div className="col-md-10 border-right">
-                <div className="p-5 py-8">
+                <div className="p-5">
                   <div className="d-flex justify-content-between align-items-center mb-3">
                     <h4 className="text-right">Profile Settings</h4>
                   </div>
@@ -171,7 +198,7 @@ export default function ProfileUser() {
                         type="text"
                         className="form-control"
                         placeholder="Name"
-                        value={user.name}
+                        value={user?.name}
                         name="name"
                         onChange={handleChange}
                       />
@@ -182,7 +209,7 @@ export default function ProfileUser() {
                         type="text"
                         className="form-control"
                         placeholder="Email"
-                        value={user.email}
+                        value={user?.email}
                         name="email"
                         onChange={handleChange}
                       />
@@ -195,39 +222,39 @@ export default function ProfileUser() {
                         type="text"
                         className="form-control"
                         placeholder="Phone Number"
-                        value={user.phonenumber}
+                        value={user?.phonenumber}
                         name="phonenumber"
                         onChange={handleChange}
                       />
                     </div>
-                    <div className="col-md-12">
+                    <div className="col-md-12 mt-3">
                       <label className="labels">Address</label>
                       <input
                         type="text"
                         className="form-control"
                         placeholder="Address"
-                        value={user.address}
+                        value={user?.address}
                         name="address"
                         onChange={handleChange}
                       />
                     </div>
                     {user.usertype === "teacher" ? (
-                      <div className=" row mt-3">
-                        <div className="col-md-12">
-                          <label className="labels">identification card</label>
+                      <div>
+                        <div className="col-md-12 mt-3">
+                          <label className="labels">Identification Card</label>
                           <input
                             type="number"
                             className="form-control"
                             placeholder="ID card"
-                            value={user.identificationcard}
+                            value={user?.identificationcard}
                             name="identificationcard"
                             onChange={handleChange}
                           />
                         </div>
-                        <div className="col-md-12">
+                        <div className="col-md-12 mt-3">
                           <label className="labels">Grade Level</label>
                           <select
-                            value={user.gradelevels}
+                            value={user?.gradelevels}
                             name="gradelevels"
                             className="form-control bg-white"
                             onChange={handleChange}
@@ -239,10 +266,10 @@ export default function ProfileUser() {
                           </select>
                         </div>
 
-                        <div className="col-md-12">
+                        <div className="col-md-12 mt-3">
                           <label className="labels">Subject</label>
                           <select
-                            value={user.subject}
+                            value={user?.subject}
                             name="subject"
                             className="form-control bg-white"
                             onChange={handleChange}
@@ -261,27 +288,27 @@ export default function ProfileUser() {
                           </select>
                         </div>
 
-                        <div className="col-md-12">
+                        <div className="col-md-12 mt-3">
                           <label className="labels">Description</label>
                           <input
                             type="text"
                             className="form-control"
                             placeholder="description"
-                            value={user.description}
+                            value={user?.description}
                             name="description"
                             onChange={handleChange}
                           />
                         </div>
                       </div>
                     ) : (
-                      <div className="row mt-2">
-                        <div className="col-md-12">
+                      <div>
+                        <div className="col-md-12 mt-2">
                           <label className="labels">
                             Education Stage Level
                           </label>
                           <select
                             name="educationstage"
-                            value={user.educationstage}
+                            value={user?.educationstage}
                             className="form-control bg-white"
                             onChange={handleChange}
                           >
@@ -291,12 +318,12 @@ export default function ProfileUser() {
                             <option value="Secondary">Secondary</option>
                           </select>
                         </div>
-                        <div className="col-md-12">
+                        <div className="col-md-12 mt-3">
                           <label className="labels">Classroom</label>
                           <select
                             className="form-control bg-white"
                             name="classroom"
-                            value={user.classroom}
+                            value={user?.classroom}
                             onChange={handleChange}
                           >
                             <option value=""> Choose ClassRoom</option>
@@ -337,14 +364,10 @@ export default function ProfileUser() {
                   <div>
                     <ListCourses />
                     <br />
-                    <br />
-                    <br />
                   </div>
                 ) : (
                   <div>
                     <ListStudentCourses />
-                    <br />
-                    <br />
                     <br />
                   </div>
                 )}
@@ -358,6 +381,17 @@ export default function ProfileUser() {
           </div>
         </div>
       </div>
+
+      <Snackbar open={open} autoHideDuration={2000} onClose={handleClose}>
+        <Alert
+          onClose={handleClose}
+          severity={status ? "success" : "error"}
+          variant="filled"
+          sx={{ width: "100%" }}
+        >
+          {message}
+        </Alert>
+      </Snackbar>
 
       <Footer />
     </>

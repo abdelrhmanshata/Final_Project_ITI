@@ -7,6 +7,7 @@
   justify-content: center;
   align-items: center;
   background-size: cover;
+  overflow-x: hidden;
 }
 .profile-button {
   background: #06bbcc;
@@ -84,7 +85,6 @@
   background-color: #06bbcc;
   padding-bottom: 5px;
   padding-top: 5px;
-  color: white;
 }
 .my-swal-confirm-button-class {
   padding: 10px ; 

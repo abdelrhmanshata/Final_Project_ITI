@@ -10,8 +10,13 @@ import React, { useCallback, useEffect, useState } from "react";
 import { BiVideo } from "react-icons/bi";
 import { MdEdit, MdOutlineDeleteForever } from "react-icons/md";
 import EditVideo from "./EditVideo";
+import { useDispatch, useSelector } from "react-redux";
+import { updateState } from "store/slices/update";
 
-export default function ListVideo({ sectionID, isUpdate, setIsUpdate }) {
+export default function ListVideo({ sectionID }) {
+  const dispatch = useDispatch();
+  const isUpdate = useSelector((state) => state.update.isUpdate);
+  // dispatch(updateState(isUpdate + 1));
   const [videos, setVideos] = useState([]);
   const [message, setMessage] = useState("");
   const [open, setOpen] = useState(false);
@@ -36,10 +41,6 @@ export default function ListVideo({ sectionID, isUpdate, setIsUpdate }) {
     getData();
   }, [isUpdate]);
 
-  const editVideo = (id) => {
-    console.log(id);
-  };
-
   const deleteVideo = async (id) => {
     console.log(id);
     try {
@@ -48,7 +49,7 @@ export default function ListVideo({ sectionID, isUpdate, setIsUpdate }) {
         .then((res) => {
           setMessage(res.data.message);
           setOpen(true);
-          setIsUpdate(isUpdate + 1);
+          dispatch(updateState(isUpdate + 1));
         })
         .catch((err) => console.log(err));
     } catch (error) {
@@ -70,11 +71,7 @@ export default function ListVideo({ sectionID, isUpdate, setIsUpdate }) {
           key={index}
           secondaryAction={
             <>
-              <EditVideo
-                video={video}
-                isUpdate={isUpdate}
-                setIsUpdate={setIsUpdate}
-              />
+              <EditVideo video={video} />
               <IconButton edge="end" aria-label="delete">
                 <MdOutlineDeleteForever
                   color="red"

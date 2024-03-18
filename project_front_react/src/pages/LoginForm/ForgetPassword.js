@@ -8,19 +8,25 @@ import DialogContentText from "@mui/material/DialogContentText";
 import DialogTitle from "@mui/material/DialogTitle";
 import { axiosInstance } from "api/config";
 
-const ForgetPassword = ({ open, handleClose }) => {
+const ForgetPassword = ({ open, handleClose, notify }) => {
   const [email, setEmail] = useState("");
   const data = {
     email: email,
   };
   const sendEmail = async () => {
+    if (!email) {
+      notify("Enter Your Email");
+      return;
+    }
     try {
       const response = await axiosInstance.post("user/forgot", data);
       if (response.status === 200) {
-        console.log("Done");
+        notify(response.data.message);
+        handleClose();
       }
     } catch (error) {
       console.log(error);
+      notify(error);
     }
   };
 

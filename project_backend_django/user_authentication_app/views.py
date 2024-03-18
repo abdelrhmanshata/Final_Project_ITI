@@ -16,8 +16,9 @@ from django.shortcuts import get_object_or_404
 from user_authentication_app import serializers
 from django.views.static import serve
 from django.conf import settings
-from django.template.loader import render_to_string
-
+from django.template.loader import render_to_string  
+# ------------
+from django.core.mail import EmailMessage
 
 def apiConnection(request):
     response_data = {"message": "Welcome to API!"}
@@ -143,7 +144,7 @@ class ForgetPasswordView(APIView):
                 message='Click "http://localhost:3000/reset/'
                 + token
                 + '"to reset your password',
-                from_email="admin@example.com",
+                from_email=settings.EMAIL_HOST_USER,
                 recipient_list=[email],
             )
         except Exception as e:
@@ -168,7 +169,7 @@ class ResetPasswordView(APIView):
         user.set_password(data["password"])
         user.save()
 
-        return Response({"message": "success"})
+        return Response({"message": "Success"})
 
 
 # getting all teachers
