@@ -10,6 +10,8 @@ import ListCourses from "components/Profile/Teacher/ListCourses";
 import StudentEnrolls from "components/Profile/Enrolls/StudentEnrolls";
 import "../../styles/teacherList.css";
 import ListStudentCourses from "components/Profile/Student/ListStudentCourses";
+import FormDialog from "./UpdateProfile";
+import ConfirmDialog from "./Alert";
 export default function ProfileUser() {
   const [open, setOpen] = useState(false);
   const [status, setStatus] = useState(true);
@@ -94,6 +96,15 @@ export default function ProfileUser() {
       console.log("Error : " + error);
     }
   };
+  const handleConfirm = () => {
+    console.log('Confirmed');
+  
+  };
+
+  const handleCancel = () => {
+    console.log('Cancelled');
+   
+  };
 
   const handleClose = (event, reason) => {
     if (reason === "clickaway") {
@@ -120,53 +131,59 @@ export default function ProfileUser() {
           </Tabs>
           <div className="row justify-content-center">
             {user.usertype === "teacher" ? (
-              <div className="col-md-2">
-                <div className="d-flex flex-column my-5 align-items-center">
-                  <div style={{ position: "relative" }}>
-                    <img
-                      className="rounded-circle"
-                      width="150px"
-                      src={avatar}
-                      alt="User Avatar"
-                    />
-                    <FaEdit
-                      style={{
-                        position: "absolute",
-                        bottom: "0",
-                        right: "0",
-                        cursor: "pointer",
-                        backgroundColor: "LightGray",
-                        borderRadius: "50%",
-                        padding: "6px",
-                        width: "30px",
-                        height: "30px",
-                      }}
-                      onClick={handleEditIconClick}
-                    />
-                    <input
-                      type="file"
-                      id="avatarInput"
-                      name="image"
-                      style={{ display: "none" }}
-                      onChange={handleImageChange}
-                      accept="image/*"
-                    />
+              <>
+                <div className="col-md-2 border-right">
+                  <div className="d-flex flex-column align-items-center text-center py-5">
+                    <div style={{ position: "relative" }}>
+                      <img
+                        className="rounded-circle"
+                        width="150px"
+                        src={avatar}
+                        alt="User Avatar"
+                      />
+                      <FaEdit
+                        style={{
+                          position: "absolute",
+                          bottom: "0",
+                          right: "0",
+                          cursor: "pointer",
+                          backgroundColor: "LightGray",
+                          borderRadius: "50%",
+                          padding: "5px",
+                          width: "30px",
+                          height: "30px",
+                        }}
+                        onClick={handleEditIconClick}
+                      />
+                      <input
+                        type="file"
+                        id="avatarInput"
+                        name="image"
+                        style={{ display: "none" }}
+                        onChange={handleImageChange}
+                        accept="image/*"
+                      />
+                    </div>
+                  
+
+                    <span className="fw-bold fs-3">
+                      <span>{user.name}</span>
+                    </span>
+                    <span className="text-black-50">
+                      <span>{user.email}</span>
+                    </span>
+
+                    <Rating name="read-only" value={4} readOnly />
+                    <FormDialog />
+               
+                    <ConfirmDialog onConfirm={handleConfirm} onCancel={handleCancel} />
+
                   </div>
-
-                  <span className="fw-bold fs-3">
-                    <span>{user.name}</span>
-                  </span>
-                  <span className="text-black-50">
-                    <span>{user.email}</span>
-                  </span>
-
-                  <Rating
-                    name="read-only"
-                    value={user.teacher_avg_score}
-                    readOnly
-                  />
+                  
                 </div>
-              </div>
+               
+              </>
+          
             ) : null}
             {selectedTab === 0 && (
               <div className="col-md-10 border-right">
