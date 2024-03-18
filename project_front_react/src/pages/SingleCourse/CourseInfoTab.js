@@ -55,6 +55,7 @@ export default function CourseInfoTab({ data }) {
             value={value}
             onChange={handleChange}
             aria-label="basic tabs example"
+            variant="fullWidth"
           >
             <Tab label="Overview" {...a11yProps(0)} />
             <Tab label="Curriculum" {...a11yProps(1)} />

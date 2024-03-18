@@ -10,6 +10,8 @@ import ListCourses from "components/Profile/Teacher/ListCourses";
 import StudentEnrolls from "components/Profile/Enrolls/StudentEnrolls";
 import "../../styles/teacherList.css";
 import ListStudentCourses from "components/Profile/Student/ListStudentCourses";
+import FormDialog from "./UpdateProfile";
+import ConfirmDialog from "./Alert";
 export default function ProfileUser() {
   const [user, setUser] = useState({});
   const [avatar, setAvatar] = useState("");
@@ -73,6 +75,15 @@ export default function ProfileUser() {
       console.log("Error : " + error);
     }
   };
+  const handleConfirm = () => {
+    console.log('Confirmed');
+  
+  };
+
+  const handleCancel = () => {
+    console.log('Cancelled');
+   
+  };
 
   return (
     <>
@@ -127,6 +138,7 @@ export default function ProfileUser() {
                         accept="image/*"
                       />
                     </div>
+                  
 
                     <span className="fw-bold fs-3">
                       <span>{user.name}</span>
@@ -136,8 +148,14 @@ export default function ProfileUser() {
                     </span>
 
                     <Rating name="read-only" value={4} readOnly />
+                    <FormDialog />
+               
+                    <ConfirmDialog onConfirm={handleConfirm} onCancel={handleCancel} />
+
                   </div>
+                  
                 </div>
+               
               </>
             ) : null}
             {selectedTab === 0 && (
