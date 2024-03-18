@@ -29,34 +29,32 @@ export default function TeacherList() {
 
   const teacherItem = (teacher, index) => {
     return (
-      <>
-        <div
-          key={index}
-          className="item-list-detail"
-          onClick={() => setTeacher(teacher)}
-        >
-          <div className="teacher--detail">
-            <img
-              src={`http://127.0.0.1:9000/${teacher.image}`}
-              alt={teacher.name}
-            />
-            <span>{teacher.name}</span>
-          </div>
-          <div className="text-center">
-            <span>{teacher.email}</span>
-          </div>
-          <div className="text-end">
-            <span style={{ color: teacher.isApprove ? "green" : "red" }}>
-              {teacher.isApprove ? (
-                <BiCheckCircle fontSize={"20"} />
-              ) : (
-                <BiXCircle fontSize={"20"} />
-              )}
-              Active
-            </span>
-          </div>
+      <div
+        key={index}
+        className="item-list-detail"
+        onClick={() => setTeacher(teacher)}
+      >
+        <div className="teacher--detail">
+          <img
+            src={`http://127.0.0.1:9000/${teacher.image}`}
+            alt={teacher.name}
+          />
+          <span>{teacher.name}</span>
         </div>
-      </>
+        <div className="text-center">
+          <span>{teacher.email}</span>
+        </div>
+        <div className="text-end">
+          <span style={{ color: teacher.isApprove ? "green" : "red" }}>
+            {teacher.isApprove ? (
+              <BiCheckCircle fontSize={"20"} />
+            ) : (
+              <BiXCircle fontSize={"20"} />
+            )}
+            Active
+          </span>
+        </div>
+      </div>
     );
   };
 
