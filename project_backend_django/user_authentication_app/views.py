@@ -169,7 +169,7 @@ class ResetPasswordView(APIView):
         user.set_password(data["password"])
         user.save()
 
-        return Response({"message": "success"})
+        return Response({"message": "Success"})
 
 
 # getting all teachers

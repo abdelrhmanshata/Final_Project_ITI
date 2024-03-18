@@ -11,6 +11,7 @@ const SingleInstructor = React.lazy(() =>
 const Aboutus = React.lazy(() => import("../pages/Aboutus/index"));
 const LoginForm = React.lazy(() => import("../pages/LoginForm/index"));
 const RegisterForm = React.lazy(() => import("../pages/RegisterForm/index"));
+const ForgetPassword = React.lazy(() => import("../pages/ForgetPassword/index"));
 const Home = React.lazy(() => import("../pages/Home"));
 const Admin = React.lazy(() => import("../pages/Admin"));
 const UserProfile = React.lazy(() => import("../pages/UserProfile/index"));
@@ -75,6 +76,10 @@ export default function Router() {
         {/* Auth */}
         <Route path="/login" element={<LoginForm />} />
         <Route path="/register" element={<RegisterForm />} />
+        <Route path="/reset/:token" element={<ForgetPassword />} />
+
+
+       
 
         {/*  Course */}
         <Route path="/courses" element={<Courses />} />
