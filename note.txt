@@ -49,4 +49,5 @@ python manage.py migrate realtime_chat
 
 
 
-
+pip install https://github.com/darklow/django-suit/tarball/v2
+pip install -U django-jazzmin
