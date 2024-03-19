@@ -6,11 +6,14 @@ import DialogActions from "@mui/material/DialogActions";
 import DialogContent from "@mui/material/DialogContent";
 import DialogContentText from "@mui/material/DialogContentText";
 import DialogTitle from "@mui/material/DialogTitle";
+import { axiosInstance } from "api/config";
+import { Snackbar } from "@mui/material";
+import { useState } from "react";
 
-export default function FormDialog() {
+export default function FormDialog({ email }) {
   const [open, setOpen] = React.useState(false);
   const [currentPassword, setCurrentPassword] = React.useState("");
-  const [oldPassword, setOldPassword] = React.useState("");
+  const [newPassword, setNewPassword] = React.useState("");
   const [error, setError] = React.useState(null);
 
   const handleClickOpen = () => {
@@ -25,29 +28,52 @@ export default function FormDialog() {
   const handleFormSubmit = async (event) => {
     event.preventDefault();
 
+    const obj = {
+      email: email,
+      old_password: currentPassword,
+      new_password: newPassword,
+      confirm_password: newPassword,
+    };
+
     try {
-      const response = await fetch("http://127.0.0.1:9000/user/reset", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ currentPassword, newPassword: oldPassword }),
-      });
-
-      if (!response.ok) {
-        throw new Error("Failed to change password");
+      const response = await axiosInstance.post("user/change-password/", obj);
+      // Handle success (e.g., show success message to the user)
+      if (response.status === 200) {
+        console.log(response.data.message);
+        handleClickSnackbar();
+        setMessageSnackbar(response.data.message);
       }
-
-      const data = await response.json();
-      console.log("Password changed successfully:", data);
-      handleClose();
+      console.log(response.message);
     } catch (error) {
-      setError("Failed to change password");
+      console.error("Error resetting password:", error);
+      setError(error);
+      setMessageSnackbar(error);
     }
+    handleClose();
+    setCurrentPassword("");
+    setNewPassword("");
+  };
+
+  const [openSnackbar, setOpenSnackbar] = useState(false);
+  const [messageSnackbar, setMessageSnackbar] = useState("");
+  const handleClickSnackbar = () => {
+    setOpenSnackbar(true);
+  };
+  const handleCloseSnackbar = (event, reason) => {
+    if (reason === "clickaway") {
+      return;
+    }
+    setOpenSnackbar(false);
   };
 
   return (
     <React.Fragment>
+      <Snackbar
+        open={openSnackbar}
+        autoHideDuration={2000}
+        onClose={handleCloseSnackbar}
+        message={messageSnackbar}
+      />
       <Button
         variant="contained"
         onClick={handleClickOpen}
@@ -82,13 +108,13 @@ export default function FormDialog() {
           <TextField
             required
             margin="dense"
-            id="oldPassword"
+            id="newPassword"
             label="New Password"
             type="password"
             fullWidth
             variant="standard"
-            value={oldPassword}
-            onChange={(e) => setOldPassword(e.target.value)}
+            value={newPassword}
+            onChange={(e) => setNewPassword(e.target.value)}
           />
           {error && <p style={{ color: "red" }}>{error}</p>}
         </DialogContent>
