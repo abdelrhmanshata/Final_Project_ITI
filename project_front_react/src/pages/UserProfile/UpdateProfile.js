@@ -1,16 +1,16 @@
-import * as React from 'react';
-import Button from '@mui/material/Button';
-import TextField from '@mui/material/TextField';
-import Dialog from '@mui/material/Dialog';
-import DialogActions from '@mui/material/DialogActions';
-import DialogContent from '@mui/material/DialogContent';
-import DialogContentText from '@mui/material/DialogContentText';
-import DialogTitle from '@mui/material/DialogTitle';
+import * as React from "react";
+import Button from "@mui/material/Button";
+import TextField from "@mui/material/TextField";
+import Dialog from "@mui/material/Dialog";
+import DialogActions from "@mui/material/DialogActions";
+import DialogContent from "@mui/material/DialogContent";
+import DialogContentText from "@mui/material/DialogContentText";
+import DialogTitle from "@mui/material/DialogTitle";
 
 export default function FormDialog() {
   const [open, setOpen] = React.useState(false);
-  const [currentPassword, setCurrentPassword] = React.useState('');
-  const [oldPassword, setOldPassword] = React.useState('');
+  const [currentPassword, setCurrentPassword] = React.useState("");
+  const [oldPassword, setOldPassword] = React.useState("");
   const [error, setError] = React.useState(null);
 
   const handleClickOpen = () => {
@@ -26,35 +26,41 @@ export default function FormDialog() {
     event.preventDefault();
 
     try {
-      const response = await fetch('http://127.0.0.1:9000/user/reset', {
-        method: 'POST',
+      const response = await fetch("http://127.0.0.1:9000/user/reset", {
+        method: "POST",
         headers: {
-          'Content-Type': 'application/json',
+          "Content-Type": "application/json",
         },
         body: JSON.stringify({ currentPassword, newPassword: oldPassword }),
       });
 
       if (!response.ok) {
-        throw new Error('Failed to change password');
+        throw new Error("Failed to change password");
       }
 
       const data = await response.json();
-      console.log('Password changed successfully:', data);
+      console.log("Password changed successfully:", data);
       handleClose();
     } catch (error) {
-      setError('Failed to change password');
+      setError("Failed to change password");
     }
   };
 
   return (
     <React.Fragment>
-              <Button
-          variant="contained"
-          onClick={handleClickOpen}
-          style={{ backgroundColor: ' #06bbcc', color: 'white',fontSize:'7',padding:'5px',marginTop:'6px'}}
-        >
-          Update Password
-        </Button>
+      <Button
+        variant="contained"
+        onClick={handleClickOpen}
+        style={{
+          backgroundColor: " #06bbcc",
+          color: "white",
+          fontSize: "6",
+          padding: "5px",
+          marginTop: "6px",
+        }}
+      >
+        Update Password
+      </Button>
       <Dialog open={open} onClose={handleClose}>
         <DialogTitle>Change Password</DialogTitle>
         <DialogContent>
@@ -84,7 +90,7 @@ export default function FormDialog() {
             value={oldPassword}
             onChange={(e) => setOldPassword(e.target.value)}
           />
-          {error && <p style={{ color: 'red' }}>{error}</p>}
+          {error && <p style={{ color: "red" }}>{error}</p>}
         </DialogContent>
         <DialogActions>
           <Button onClick={handleClose}>Cancel</Button>
