@@ -56,40 +56,33 @@ export default function Socialprofile({ avatar, teacher }) {
 
   return (
     <div className="d-flex flex-wrap align-items-center justify-content-center mb-5 mt-5 mb-md-3">
-      <ul className="list-unstyled list-inline list-social mb-4 mb-md-0 mx-lg-3 order-1 order-md-0 font-size-sm">
-        <li className="list-inline-item list-social-item px-2">
-          <Link
-            to="#"
-            className="text-secondary w-36 h-36 shadow-dark-hover d-flex align-items-center justify-content-center rounded-circle border-hover"
-          >
-            <i className="fab fa-facebook-f"></i>
-          </Link>
-        </li>
-        <li className="list-inline-item list-social-item px-2">
-          <Link
-            to="#"
-            className="text-secondary w-36 h-36 shadow-dark-hover d-flex align-items-center justify-content-center rounded-circle border-hover"
-          >
-            <i className="fab fa-twitter"></i>
-          </Link>
-        </li>
-        <li className="list-inline-item list-social-item px-2">
-          <Link
-            to="#"
-            className="text-secondary w-36 h-36 shadow-dark-hover d-flex align-items-center justify-content-center rounded-circle border-hover"
-          >
-            <i className="fab fa-instagram"></i>
-          </Link>
-        </li>
-        <li className="list-inline-item list-social-item px-2">
-          <Link
-            to="#"
-            className="text-secondary w-36 h-36 shadow-dark-hover d-flex align-items-center justify-content-center rounded-circle border-hover"
-          >
-            <i className="fab fa-linkedin-in"></i>
-          </Link>
-        </li>
-      </ul>
+      <div class="row">
+  <div class="col-12">
+    <ul class="list-unstyled list-inline list-social mb-4 mb-md-0 mx-lg-3 order-1 order-md-0 font-size-sm d-flex justify-content-center">
+      <li class="list-inline-item list-social-item px-2">
+        <Link to="/" class="text-secondary w-36 h-36 shadow-dark-hover d-flex align-items-center justify-content-center rounded-circle border-hover">
+          <i class="fab fa-facebook-f"></i>
+        </Link>
+      </li>
+      <li class="list-inline-item list-social-item px-2">
+        <Link to="/" class="text-secondary w-36 h-36 shadow-dark-hover d-flex align-items-center justify-content-center rounded-circle border-hover">
+          <i class="fab fa-twitter"></i>
+        </Link>
+      </li>
+      <li class="list-inline-item list-social-item px-2">
+        <Link to="#" class="text-secondary w-36 h-36 shadow-dark-hover d-flex align-items-center justify-content-center rounded-circle border-hover">
+          <i class="fab fa-instagram"></i>
+        </Link>
+      </li>
+      <li class="list-inline-item list-social-item px-2">
+        <Link to="#" class="text-secondary w-36 h-36 shadow-dark-hover d-flex align-items-center justify-content-center rounded-circle border-hover">
+          <i class="fab fa-linkedin-in"></i>
+        </Link>
+      </li>
+    </ul>
+  </div>
+</div>
+  
       <div className="border rounded-circle d-inline-block mb-4 mb-md-0 mx-lg-4 order-0">
         <div className="p-4">
           <img

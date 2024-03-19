@@ -95,7 +95,7 @@ export default function LoginForm() {
               Remember Me
             </label>
             <p onClick={handleClickOpen}>Forget password</p>
-            <ForgetPassword open={open} handleClose={handleClose} />
+            <ForgetPassword open={open} handleClose={handleClose} notify={notify} />
           </div>
           {loading ? (
             <div className="d-flex m-2 justify-content-center">

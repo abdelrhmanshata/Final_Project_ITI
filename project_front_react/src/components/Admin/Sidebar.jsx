@@ -10,6 +10,7 @@ import {
 import "../../styles/sidebar.css";
 import { Link } from "react-router-dom";
 import AdminContext from "../../context/AdminContext";
+import { MdSettings } from "react-icons/md";
 export default function Sidebar() {
   const { adminPanel, setAdminPanel } = useContext(AdminContext);
   const [isActive, setActive] = useState(adminPanel.activeItem);
@@ -19,6 +20,11 @@ export default function Sidebar() {
       activeItem: item,
     });
   };
+
+  const openLinkInNewWindow = (url) => {
+    window.open(url, "_blank");
+  };
+
   return (
     <>
       <div className="menu">
@@ -36,10 +42,7 @@ export default function Sidebar() {
             <BiSolidGrid className="icon" />
             Dashboard
           </Link>
-          <Link
-            to="/"
-            className="item"
-          >
+          <Link to="/" className="item">
             <BiHome className="icon" />
             Home
           </Link>
@@ -67,14 +70,14 @@ export default function Sidebar() {
             <BiChalkboard className="icon" />
             Courses
           </Link>
-          {/* <Link
+          <Link
             to=""
             className={isActive === 4 ? "item active--item" : "item"}
-            onClick={() => setItemActive(4)}
+            onClick={() => openLinkInNewWindow("http://127.0.0.1:9000/admin/")}
           >
-            <BiCreditCard className="icon" />
-            Payment
-          </Link> */}
+            <MdSettings className="icon" />
+            More Operation ...
+          </Link>
         </div>
       </div>
     </>

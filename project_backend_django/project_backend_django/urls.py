@@ -22,6 +22,7 @@ from django.conf import settings
 from .settings import *
 from django.conf.urls.static import static
 
+from user_authentication_app.views import LogoutView
 
 urlpatterns = [
     path("", views.apiConnection, name="get_category"),
@@ -29,6 +30,7 @@ urlpatterns = [
     path("user/", include("user_authentication_app.urls")),
     path("course/", include("courseListAPI.urls")),
     path("api/",include('payment_app.urls')),
+    path("chatapi/",include('realtime_chat.urls')),
     path('review/', include('reviews.urls')),
 
 ]

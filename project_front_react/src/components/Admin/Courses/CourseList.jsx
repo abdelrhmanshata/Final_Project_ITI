@@ -14,7 +14,7 @@ export default function CourseList() {
         .then((res) => {
           if (typeof res.data.message != "string") {
             setCourses(res.data.message);
-            setCourse(res.data.message[0]);
+            if (res.data.message.length > 0) setCourse(res.data.message[0]);
           } else {
             setCourse([]);
           }
@@ -43,9 +43,10 @@ export default function CourseList() {
             // overflowY: "scroll",
           }}
         >
-          {courses.map((item, index) => (
-            <CourseCard key={item.id} data={item} onSelect={selectCourse} />
-          ))}
+          {courses &&
+            courses.map((item, index) => (
+              <CourseCard key={index} data={item} onSelect={selectCourse} />
+            ))}
         </div>
 
         {course.id && (

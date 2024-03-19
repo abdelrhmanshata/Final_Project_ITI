@@ -11,6 +11,9 @@ const SingleInstructor = React.lazy(() =>
 const Aboutus = React.lazy(() => import("../pages/Aboutus/index"));
 const LoginForm = React.lazy(() => import("../pages/LoginForm/index"));
 const RegisterForm = React.lazy(() => import("../pages/RegisterForm/index"));
+const ForgetPassword = React.lazy(() =>
+  import("../pages/ForgetPassword/index")
+);
 const Home = React.lazy(() => import("../pages/Home"));
 const Admin = React.lazy(() => import("../pages/Admin"));
 const UserProfile = React.lazy(() => import("../pages/UserProfile/index"));
@@ -25,6 +28,9 @@ const Teachers = React.lazy(() => import("../pages/Teachers/index"));
 const NotFound = React.lazy(() => import("../pages/NotFound"));
 const Stripe = React.lazy(() => import("../pages/payment/PaymentStripe"));
 const ShopComplete = React.lazy(() => import("../pages/payment/ShopComplete"));
+const ChattingMessage = React.lazy(() =>
+  import("../pages/Chatting/ChattingMessage")
+);
 
 export default function Router() {
   const navigate = useNavigate();
@@ -75,9 +81,11 @@ export default function Router() {
         {/* Auth */}
         <Route path="/login" element={<LoginForm />} />
         <Route path="/register" element={<RegisterForm />} />
+        <Route path="/reset/:token" element={<ForgetPassword />} />
 
         {/*  Course */}
         <Route path="/courses" element={<Courses />} />
+        <Route path="/Chatting" element={<ChattingMessage />} />
         <Route path="/course/:courseID" element={<SingleCourse />} />
         <Route path="/lesson/:courseID" element={<LessonSingle />} />
         <Route path="/single/:teacherID" element={<SingleInstructor />} />
