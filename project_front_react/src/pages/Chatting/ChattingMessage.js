@@ -1,3 +1,4 @@
+import Pusher from "pusher-js";
 import {
   Avatar,
   Button,
@@ -60,12 +61,16 @@ const UserItem = ({ item }) => {
 };
 
 export default function ChattingMessage() {
-  const navigate = useNavigate();
-
   const [user, setUser] = useState({});
-  const [teacher, setTeacher] = useState({});
-  const [allTeachers, setAllTeachers] = useState([]);
+  const [userSelect, setUserSelect] = useState({});
   const [teachers, setTeachers] = useState([]);
+  const [students, setStudents] = useState([]);
+  const pusher = new Pusher("6ce880651d2a4a0c94b1", {
+    cluster: "eu",
+  });
+  const [messages, setMessages] = useState([]);
+  const [message, setMessage] = useState("");
+  let allMessages = [];
 
   const getUserData = useCallback(async () => {
     try {
@@ -85,7 +90,6 @@ export default function ChattingMessage() {
       await axiosInstance
         .get(`user/Print_All_Teachers`)
         .then((res) => {
-          setAllTeachers(res.data.data);
           setTeachers(res.data.data);
         })
         .catch((err) => console.log(err));
@@ -94,32 +98,99 @@ export default function ChattingMessage() {
     }
   }, []);
 
+  const getStudents = useCallback(async () => {
+    try {
+      await axiosInstance
+        .get(`user/Print_All_Students`)
+        .then((res) => {
+          setStudents(res.data.data);
+        })
+        .catch((err) => console.log(err));
+    } catch (error) {
+      console.log(error);
+    }
+  }, []);
+
+  const getMessages = async () => {
+    Pusher.logToConsole = true;
+    pusher.connect();
+    pusher.connection.bind("connected", () => {
+      const channel = pusher.subscribe("chat");
+      channel.bind("message", function (data) {
+        allMessages.push(data);
+        setMessages(allMessages);
+      });
+    });
+  };
+
   useEffect(() => {
     getUserData();
     getTeachers();
+    getStudents();
+    getMessages();
   }, []);
 
   const onClickTeacher = (item) => {
-    setTeacher(item);
-    console.log(item.name);
+    setUserSelect(item);
+    setMessages([]);
+    allMessages = [];
+    pusher.disconnect();
+  };
+
+  const onSendMessage = async (e) => {
+    e.preventDefault();
+    if (message.length > 0) {
+      const sendMessage = {
+        username: user.name,
+        message: message,
+      };
+
+      try {
+        const response = await axiosInstance.post(
+          "chatapi/messages",
+          sendMessage,
+          {
+            headers: { "Content-type": "application/json" },
+          }
+        );
+        if (response.status == 200) {
+          setMessage("");
+        }
+      } catch (error) {
+        console.log(error);
+      }
+    }
+  };
+
+  const submit = async (e) => {
+    e.preventDefault();
+    const sendMessage = {
+      username: user.name,
+      message: message,
+    };
+
+    try {
+      const response = await axiosInstance.post(
+        "chatapi/messages",
+        sendMessage,
+        {
+          headers: { "Content-type": "application/json" },
+        }
+      );
+      if (response.status == 200) {
+        setMessage("");
+      }
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   return (
     <>
       <Navbar active={"Chatting"} />
 
-      {/* <Container fixed className="bg-light"> */}
       <Grid container height={"90vh"} style={{ overflow: "hidden" }}>
         <Grid md={3} height={"90vh"} className="p-2 d-flex flex-column ">
-          {/* <Button
-            variant="contained"
-            className="mb-3"
-            onClick={() => {
-              navigate("/");
-            }}
-          >
-            Back To Home
-          </Button> */}
           {/* User Info */}
           <Paper
             className="d-flex flex-row gap-2 p-1 mb-2"
@@ -135,29 +206,60 @@ export default function ChattingMessage() {
             </Typography>
           </Paper>
 
-          <Typography variant="h6" className="mt-3">
-            Teachers
-          </Typography>
-          {/* Users */}
-          <div
-            className="d-flex flex-column gap-2"
-            style={{ overflowY: "scroll" }}
-          >
-            {teachers &&
-              teachers.map((item, index) => (
-                <div
-                  key={index}
-                  onClick={() => {
-                    onClickTeacher(item);
-                  }}
-                >
-                  <UserItem item={item} />
-                </div>
-              ))}
-          </div>
+          {user.usertype === "teacher" || user.usertype !== "student" ? (
+            <>
+              {students.length > 0 && (
+                <Typography variant="h6" className="mt-3">
+                  Students
+                </Typography>
+              )}
+              <div
+                className="d-flex flex-column gap-2"
+                style={{ overflowY: "scroll" }}
+              >
+                {students &&
+                  students.map((item, index) => (
+                    <div
+                      key={index}
+                      onClick={() => {
+                        onClickTeacher(item);
+                      }}
+                    >
+                      <UserItem item={item} />
+                    </div>
+                  ))}
+              </div>
+            </>
+          ) : null}
+
+          {user.usertype === "student" || user.usertype !== "teacher" ? (
+            <>
+              {teachers.length > 0 && (
+                <Typography variant="h6" className="mt-3">
+                  Teachers
+                </Typography>
+              )}
+              <div
+                className="d-flex flex-column gap-2"
+                style={{ overflowY: "scroll" }}
+              >
+                {teachers &&
+                  teachers.map((item, index) => (
+                    <div
+                      key={index}
+                      onClick={() => {
+                        onClickTeacher(item);
+                      }}
+                    >
+                      <UserItem item={item} />
+                    </div>
+                  ))}
+              </div>
+            </>
+          ) : null}
         </Grid>
 
-        {teacher.id && (
+        {userSelect.id && (
           <Grid md={9} className="d-flex flex-column bg-primary h-100 p-2">
             <Paper
               className="d-flex flex-row gap-2 p-1 mb-2"
@@ -169,11 +271,11 @@ export default function ChattingMessage() {
                 variant="dot"
               >
                 <Avatar
-                  alt={teacher.name}
-                  src={`http://127.0.0.1:9000/${teacher.image}`}
+                  alt={userSelect.name}
+                  src={`http://127.0.0.1:9000/${userSelect.image}`}
                 />
               </StyledBadge>
-              <Typography variant="h5">{teacher.name}</Typography>
+              <Typography variant="h5">{userSelect.name}</Typography>
             </Paper>
             <Paper
               className="flex-grow-1 gap-2 p-1 mb-2 "
@@ -181,32 +283,51 @@ export default function ChattingMessage() {
                 alignItems: "center",
                 overflowY: "scroll",
               }}
-            ></Paper>
+            >
+              {messages.map((item) => {
+                return (
+                  <div className="list-group-item list-group-item-action py-3 lh-sm">
+                    <div className="d-flex w-100 align-items-center justify-content-between">
+                      <strong className="mb-1">{item.username}</strong>
+                    </div>
+                    <div className="col-10 mb-1 small">{item.message}</div>
+                  </div>
+                );
+              })}
+            </Paper>
 
             {/* Input */}
             <Paper
               className="d-flex flex-row gap-2 p-1 mb-2 "
               style={{
                 alignItems: "center",
-
                 bottom: "0px",
               }}
             >
-              <TextField
-                fullWidth
-                multiline
-                maxRows={5}
-                size="small"
-                placeholder="Type of message ..."
-              />
-              <Button variant="contained" endIcon={<SendIcon />}>
-                Send
-              </Button>
+              <form onSubmit={(e) => submit(e)} className="flex-grow-1">
+                <TextField
+                  fullWidth
+                  multiline
+                  maxRows={5}
+                  size="small"
+                  value={message}
+                  placeholder="Type of message ..."
+                  onChange={(e) => setMessage(e.target.value)}
+                />
+              </form>
+              {message.length > 0 && (
+                <Button
+                  variant="contained"
+                  endIcon={<SendIcon />}
+                  onClick={onSendMessage}
+                >
+                  Send
+                </Button>
+              )}
             </Paper>
           </Grid>
         )}
       </Grid>
-      {/* </Container> */}
     </>
   );
 }
