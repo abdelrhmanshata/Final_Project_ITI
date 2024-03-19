@@ -58,17 +58,25 @@ export default function RegisterForm() {
             "Content-Type": "multipart/form-data",
           },
         });
-        // Handle success (e.g., show success message to the user)
+
         if (response.status === 201) {
           notify("User registered successfully");
           setLoading(false);
           navigate(`/login`);
         }
       } catch (error) {
-        // Handle error (e.g., display error message to the user)
-        error.response.data.email.forEach((error) => {
-          notify(error);
-        });
+        if (
+          error.response &&
+          error.response.data &&
+          error.response.data.email &&
+          Array.isArray(error.response.data.email)
+        ) {
+          error.response.data.email.forEach((error) => {
+            notify(error);
+          });
+        } else {
+          notify("An error occurred. Please try again later.");
+        }
         setLoading(false);
       }
     } else {
