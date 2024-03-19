@@ -54,33 +54,31 @@ export default function StudentList() {
 
   const studentItem = (student) => {
     return (
-      <>
-        <div
-          key={student.id}
-          className="item-list-detail"
-          onClick={() => setStudent(student)}
-        >
-          <div className="student--detail">
-            <img
-              src={`http://127.0.0.1:9000/${student.image}`}
-              alt={student.name}
-            />
-            <span>{student.name}</span>
-          </div>
-          <div className="text-center">
-            <span>{student.email}</span>
-          </div>
-          <div className="text-end">
-            <Button
-              variant="danger"
-              size="sm"
-              onClick={() => deleteStudent(student)}
-            >
-              Delete
-            </Button>
-          </div>
+      <div
+        key={student.id}
+        className="item-list-detail"
+        onClick={() => setStudent(student)}
+      >
+        <div className="student--detail">
+          <img
+            src={`http://127.0.0.1:9000/${student.image}`}
+            alt={student.name}
+          />
+          <span>{student.name}</span>
         </div>
-      </>
+        <div className="text-center">
+          <span>{student.email}</span>
+        </div>
+        <div className="text-end">
+          <Button
+            variant="danger"
+            size="sm"
+            onClick={() => deleteStudent(student)}
+          >
+            Delete
+          </Button>
+        </div>
+      </div>
     );
   };
   return (

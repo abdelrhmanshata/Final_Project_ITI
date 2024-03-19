@@ -23,9 +23,11 @@ from rest_framework.exceptions import APIException
 from rest_framework.response import Response
 from rest_framework.views import APIView
 from django.contrib.auth.forms import SetPasswordForm
+from django.template.loader import render_to_string
 
 # ------------
 from django.core.mail import EmailMessage
+
 
 def apiConnection(request):
     response_data = {"message": "Welcome to API!"}
@@ -206,8 +208,6 @@ class ChangePasswordView(APIView):
         else:
             errors = [str(error) for error in form.errors.values()]
             raise APIException(errors)
-
-
 
 
 # getting all teachers

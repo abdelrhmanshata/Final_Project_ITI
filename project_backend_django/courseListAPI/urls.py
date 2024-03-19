@@ -107,7 +107,7 @@ urlpatterns = [
         name="getAllRequirements",
     ),
     path(
-        "course/<int:courseID>/updateARequirement/",
+        "<int:courseID>/updateARequirement/",
         views.updateARequirement,
         name="updateARequirement",
     ),

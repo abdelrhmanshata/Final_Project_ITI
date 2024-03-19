@@ -56,6 +56,8 @@ export default function CourseInfoTab({ data }) {
           <Tabs
             value={value}
             onChange={handleChange}
+          
+            
             variant="scrollable"
             scrollButtons="auto"
             aria-label="scrollable auto tabs example"
