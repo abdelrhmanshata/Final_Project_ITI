@@ -59,7 +59,8 @@ export default function CourseDetails({ data, ratingValue }) {
   const [isOwner, setIsOwner] = useState(false);
   const [isPay, setIsPay] = useState(false);
   const [isEnroll, setIsEnroll] = useState(false);
-
+  const [showPay, setShowPay] = useState(false);
+  const [showEnroll, setShowEnroll] = useState(false);
   const [isAuth, setIsAuth] = useState(false);
 
   const checkIsPayCourse = async () => {
@@ -92,24 +93,43 @@ export default function CourseDetails({ data, ratingValue }) {
     }
   };
 
-  const checkIsOwner = async () => {
+  const checkIsOwner = () => {
     setIsOwner(localStorage.getItem("User_ID") == data.userID);
   };
 
-  const checkIsAdmin = async () => {
+  const checkIsAdmin = () => {
     setIsAdmin(localStorage.getItem("User_Type") === "admin");
   };
 
-  const checkIsUserAuth = async () => {
-    setIsAuth(localStorage.getItem("User_ID") === "null");
+  const checkIsUserAuth = () => {
+    setIsAuth(localStorage.getItem("User_ID").length > 0);
+  };
+
+  const check = () => {
+    if (localStorage.getItem("User_Type") === "admin") setIsAdmin(true);
+    else setIsAdmin(false);
+
+    if (localStorage.getItem("User_ID") == data.userID) setIsOwner(true);
+    else setIsOwner(false);
+
+    if (localStorage.getItem("User_ID").length > 0) setIsAuth(true);
+    else setIsAuth(false);
+
+    setShowPay(!(isAdmin || isOwner || isPay));
+    setShowEnroll(!(isAdmin || isOwner || isEnroll));
   };
 
   useEffect(() => {
     checkIsPayCourse();
     checkIsEnrollCourse();
-    checkIsOwner();
-    checkIsAdmin();
-    checkIsUserAuth();
+    check();
+    console.log(localStorage.getItem("User_ID")== data.userID);
+    console.log("isAdmin", isAdmin);
+    console.log("isOwner", isOwner);
+    console.log("isPay", isPay);
+    console.log("isEnroll", isEnroll);
+    console.log("showPay", showPay);
+    console.log("showEnroll", showEnroll);
   }, [data]);
 
   return (
@@ -148,16 +168,19 @@ export default function CourseDetails({ data, ratingValue }) {
         <div className="d-flex flex-column p-4 gap-3">
           {isAuth && (
             <>
-              {!(isAdmin || isOwner || isPay) && (
-                <Button
-                  className="bg-primary"
-                  variant="contained"
-                  onClick={checkIsUserPayCourse}
-                >
-                  Buy Now
-                </Button>
-              )}
-              {!(isAdmin || isOwner || isEnroll) && (
+              {showPay ? (
+                <>
+                  <Button
+                    className="bg-primary"
+                    variant="contained"
+                    onClick={checkIsUserPayCourse}
+                  >
+                    Buy Now
+                  </Button>
+                </>
+              ) : null}
+
+              {showEnroll && (
                 <Button
                   variant="contained"
                   color="warning"
