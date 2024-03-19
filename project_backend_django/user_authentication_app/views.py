@@ -76,7 +76,7 @@ class RegisterView(APIView):
                 )
             serializer.save()
             data = {
-                "message": "added successfully",
+                "message": "Added successfully",
                 "id": serializer.data["id"],
                 "status": status.HTTP_201_CREATED,
             }
