@@ -14,6 +14,7 @@ from .views import (
     Update_User,
     Delete_User,
     Get_Approved_User,
+    ChangePasswordView,
 )
 
 
@@ -24,6 +25,7 @@ urlpatterns = [
     path("logout", LogoutView.as_view()),
     path("forgot", ForgetPasswordView.as_view()),
     path("reset", ResetPasswordView.as_view()),
+    # path("Update_password/", Update_password, name="Update_password"),
     path("Print_All_Teachers/", Print_All_Teachers, name="Print_All_Teachers"),
     path("Print_All_Students/", Print_All_Students, name="Print_All_Students"),
     path("Print_All_Users/", Print_All_Users, name="Print_All_Users"),
@@ -36,4 +38,6 @@ urlpatterns = [
         name="Get_Approved_User",
     ),
     path("getUserImage/<int:userID>", getUserImage, name="getUserImage"),
+    path('change-password/', ChangePasswordView.as_view(), name='change_password'),
+
 ]

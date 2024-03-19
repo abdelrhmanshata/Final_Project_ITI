@@ -16,7 +16,14 @@ from django.shortcuts import get_object_or_404
 from user_authentication_app import serializers
 from django.views.static import serve
 from django.conf import settings
-from django.template.loader import render_to_string  
+from django.contrib.auth import authenticate
+
+# ------------
+from rest_framework.exceptions import APIException
+from rest_framework.response import Response
+from rest_framework.views import APIView
+from django.contrib.auth.forms import SetPasswordForm
+
 # ------------
 from django.core.mail import EmailMessage
 
@@ -130,6 +137,7 @@ class LogoutView(APIView):
         return response
 
 
+
 class ForgetPasswordView(APIView):
     def post(self, request):
         email = request.data["email"]
@@ -170,6 +178,36 @@ class ResetPasswordView(APIView):
         user.save()
 
         return Response({"message": "success"})
+    
+class ChangePasswordView(APIView):
+    def post(self, request):
+        data = request.data
+        email = data.get("email")
+        old_password = data.get("old_password")
+        new_password = data.get("new_password")
+        confirm_password = data.get("confirm_password")
+
+        if not all([email, old_password, new_password, confirm_password]):
+            raise APIException("Missing required fields")
+
+        user = authenticate(email=email, password=old_password)
+
+        if not user:
+            raise APIException("Invalid credentials")
+
+        if new_password != confirm_password:
+            raise APIException("New passwords do not match")
+
+        form = SetPasswordForm(user, {"new_password1": new_password, "new_password2": confirm_password})
+
+        if form.is_valid():
+            form.save()
+            return Response({"message": "Password changed successfully"})
+        else:
+            errors = [str(error) for error in form.errors.values()]
+            raise APIException(errors)
+
+
 
 
 # getting all teachers

@@ -59,3 +59,4 @@ class UserSerializer(serializers.ModelSerializer):
             )
 
         return data
+
