@@ -19,5 +19,11 @@ urlpatterns = [
         views.checkPayment,
         name="checkPayment",
     ),
+    
+     path(
+        "checkIsPayment/<int:userID>/<int:courseID>",
+        views.checkIsPayment,
+        name="checkIsPayment",
+    ),
    
 ]

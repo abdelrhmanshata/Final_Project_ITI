@@ -16,9 +16,11 @@ from django.shortcuts import get_object_or_404
 from user_authentication_app import serializers
 from django.views.static import serve
 from django.conf import settings
-from django.template.loader import render_to_string  
+from django.template.loader import render_to_string
+
 # ------------
 from django.core.mail import EmailMessage
+
 
 def apiConnection(request):
     response_data = {"message": "Welcome to API!"}

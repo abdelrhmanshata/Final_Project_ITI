@@ -48,3 +48,16 @@ python manage.py migrate realtime_chat
 //
 pip install https://github.com/darklow/django-suit/tarball/v2
 pip install -U django-jazzmin
+
+
+
+=> jazzmin\templates\admin\base.html    replace 163:165
+
+
+<!-- Django 4.1 only supports POST for logout. -->
+<form action="{% url 'admin:logout' %}" method="post">
+    {% csrf_token %}
+    <button type="submit" class="dropdown-item">
+        <i class="fas fa-users mr-2"></i> {% trans 'Log out' %}
+    </button>
+</form>
