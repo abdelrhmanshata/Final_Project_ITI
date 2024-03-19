@@ -3,7 +3,6 @@ import React from "react";
 import Navbar from "components/Navbar";
 import Service from "components/Service";
 
-import TestimonialsSection from "./OurStudent";
 import About from "components/About";
 
 import Footer from "components/Footer";
@@ -12,7 +11,7 @@ import { Link } from "react-router-dom";
 export default function Aboutus() {
   return (
     <>
-      <Navbar />
+      <Navbar active={"About"} />
       <div className="container-fluid bg-primary py-5 mb-5 page-header">
         <div className="container py-5">
           <div className="row justify-content-center">
@@ -26,11 +25,6 @@ export default function Aboutus() {
                     <li className="breadcrumb-item">
                       <Link to="/" className="text-white">
                         Home
-                      </Link>
-                    </li>
-                    <li className="breadcrumb-item">
-                      <Link to="/pages" className="text-white">
-                        Pages
                       </Link>
                     </li>
                     <li
@@ -49,7 +43,6 @@ export default function Aboutus() {
 
       <Service />
       <About />
-      {/* <TestimonialsSection /> */}
       <Footer />
     </>
   );

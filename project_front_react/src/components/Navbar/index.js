@@ -53,7 +53,7 @@ export default function Navbar({ active, data }) {
           className="navbar-brand d-flex align-items-center px-4 px-lg-5"
         >
           <h2 className="m-0 text-primary">
-            <i className="fa fa-book me-3"></i>E-LEARNING
+            <i className="fa fa-book me-3"></i>EduNexus
           </h2>
         </Link>
         <button
@@ -96,6 +96,18 @@ export default function Navbar({ active, data }) {
             >
               Teachers
             </Link>
+            {isUserAuth && (
+              <Link
+                to="/Chatting"
+                className={
+                  active === "Chatting"
+                    ? "nav-item nav-link active"
+                    : "nav-item nav-link"
+                }
+              >
+                Chatting
+              </Link>
+            )}
             <Link
               to="/Aboutus"
               className={
@@ -106,6 +118,7 @@ export default function Navbar({ active, data }) {
             >
               About
             </Link>
+
             {active === "Back" && (
               <Link
                 to={`/course/${data.id}`}

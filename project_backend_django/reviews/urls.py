@@ -74,4 +74,9 @@ urlpatterns = [
         views.getEnrollCourse,
         name="getEnrollCourses",
     ),
+    path(
+        "checkIsEnroll/students/<int:student_id>/enroll/<int:course_id>/",
+        views.checkIsEnroll,
+        name="checkIsEnroll",
+    ),
 ]

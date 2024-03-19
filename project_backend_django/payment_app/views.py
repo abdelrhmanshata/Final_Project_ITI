@@ -121,3 +121,13 @@ def checkPayment(request, userID, courseID):
             }
         )
     return Response({"message": "Course Not Found.", "status": False})
+
+
+@api_view(["GET"])
+def checkIsPayment(request, userID, courseID):
+    paymentCourses = Payment_Course.objects.filter(
+        user_model=userID, course_model=courseID
+    )
+    if paymentCourses:
+        return Response({"message": "You Pay ThisCourse.", "status": True})
+    return Response({"message": "Course Not Found.", "status": False})

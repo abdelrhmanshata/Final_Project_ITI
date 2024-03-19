@@ -198,6 +198,25 @@ def enroll_student(request, student_id, course_id):
     )
 
 
+@api_view(["GET"])
+def checkIsEnroll(request, student_id, course_id):
+    isStudentEnroll = StudentEnrollsInCourse.objects.filter(
+        studentID=student_id, courseID=course_id
+    )
+    if isStudentEnroll:
+        if isStudentEnroll[0].is_approved:
+            return Response(
+                {
+                    "status": True,
+                }
+            )
+    return Response(
+        {
+            "status": False,
+        }
+    )
+
+
 @api_view(["POST"])
 def approve_enrollment(request, enrollment_id, teacher_id):
     enrollment = get_object_or_404(StudentEnrollsInCourse, id=enrollment_id)

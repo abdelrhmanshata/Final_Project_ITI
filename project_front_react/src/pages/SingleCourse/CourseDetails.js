@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Alert, Button, Fab, Paper, Rating, Snackbar } from "@mui/material";
 import { Image } from "react-bootstrap";
 import { BiSolidRightArrow, BiStar } from "react-icons/bi";
@@ -54,6 +54,64 @@ export default function CourseDetails({ data, ratingValue }) {
     }
   };
 
+  //
+  const [isAdmin, setIsAdmin] = useState(false);
+  const [isOwner, setIsOwner] = useState(false);
+  const [isPay, setIsPay] = useState(false);
+  const [isEnroll, setIsEnroll] = useState(false);
+
+  const [isAuth, setIsAuth] = useState(false);
+
+  const checkIsPayCourse = async () => {
+    try {
+      await axiosInstance
+        .get(`api/checkIsPayment/${localStorage.getItem("User_ID")}/${data.id}`)
+        .then((res) => {
+          setIsPay(res.data.status);
+        })
+        .catch((err) => console.log(err));
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const checkIsEnrollCourse = async () => {
+    try {
+      await axiosInstance
+        .get(
+          `review/checkIsEnroll/students/${localStorage.getItem(
+            "User_ID"
+          )}/enroll/${data.id}/`
+        )
+        .then((res) => {
+          setIsEnroll(res.data.status);
+        })
+        .catch((err) => console.log(err));
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const checkIsOwner = async () => {
+    setIsOwner(localStorage.getItem("User_ID") == data.userID);
+  };
+
+  const checkIsAdmin = async () => {
+    setIsAdmin(localStorage.getItem("User_Type") === "admin");
+  };
+
+  const checkIsUserAuth = async () => {
+    setIsAuth(localStorage.getItem("User_ID") === "null");
+  };
+
+  useEffect(() => {
+    checkIsPayCourse();
+    checkIsEnrollCourse();
+    checkIsOwner();
+    checkIsAdmin();
+    checkIsUserAuth();
+  }, [data]);
+
   return (
     <>
       <Snackbar open={open} autoHideDuration={2000} onClose={handleClose}>
@@ -75,23 +133,41 @@ export default function CourseDetails({ data, ratingValue }) {
             rounded
             className="border border-2 border-primary"
           />
-          <div className="position-absolute top-50 start-50 translate-middle">
-            <Fab color="primary" onClick={() => navigate(`/lesson/${data.id}`)}>
-              <BiSolidRightArrow size={24} />
-            </Fab>
-          </div>
+
+          {(isAdmin || isOwner || isPay || isEnroll) && (
+            <div className="position-absolute top-50 start-50 translate-middle">
+              <Fab
+                color="primary"
+                onClick={() => navigate(`/lesson/${data.id}`)}
+              >
+                <BiSolidRightArrow size={24} />
+              </Fab>
+            </div>
+          )}
         </div>
         <div className="d-flex flex-column p-4 gap-3">
-          <Button
-            className="bg-primary"
-            variant="contained"
-            onClick={checkIsUserPayCourse}
-          >
-            Buy Now
-          </Button>
-          <Button variant="contained" color="warning" onClick={enrollCourse}>
-            Enroll
-          </Button>
+          {isAuth && (
+            <>
+              {!(isAdmin || isOwner || isPay) && (
+                <Button
+                  className="bg-primary"
+                  variant="contained"
+                  onClick={checkIsUserPayCourse}
+                >
+                  Buy Now
+                </Button>
+              )}
+              {!(isAdmin || isOwner || isEnroll) && (
+                <Button
+                  variant="contained"
+                  color="warning"
+                  onClick={enrollCourse}
+                >
+                  Enroll
+                </Button>
+              )}
+            </>
+          )}
         </div>
 
         <div className="d-flex flex-column p-4 gap-3">
