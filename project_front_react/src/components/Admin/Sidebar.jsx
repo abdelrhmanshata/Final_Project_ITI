@@ -2,7 +2,6 @@ import React, { useContext, useState } from "react";
 import {
   BiBookAlt,
   BiChalkboard,
-  BiCreditCard,
   BiGroup,
   BiHome,
   BiSolidGrid,
@@ -30,7 +29,7 @@ export default function Sidebar() {
       <div className="menu">
         <div className="logo">
           <BiBookAlt className="logo-icon" />
-          <h2>E-Learning</h2>
+          <h2>EduNexus</h2>
         </div>
         <div className="menu--list"></div>
         <div className="menu--list">

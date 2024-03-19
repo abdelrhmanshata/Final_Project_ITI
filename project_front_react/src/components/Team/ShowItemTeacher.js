@@ -32,7 +32,7 @@ export default function ShowItemTeacher({ item }) {
           </div>
         </div>
         <div className="text-center p-4">
-          <h5 className="mb-0" style={{ height: "30px", overflow: "hidden" }}>
+          <h5 className="mb-0" style={{ height: "25px", overflow: "hidden" }}>
             {item.name}
           </h5>
           <div>

@@ -25,15 +25,15 @@ export default function About() {
               <h6 className="section-title bg-white text-start text-primary pe-3">
                 About Us
               </h6>
-              <h1 className="mb-4">Welcome to eLEARNING</h1>
+              <h1 className="mb-4">Welcome to EduNexus</h1>
               <p className="mb-4">
-                Welcome to E-Learning Platform, where learning knows no bounds.
+                Welcome to EduNexus Platform, where learning knows no bounds.
                 Our mission is to provide accessible, high-quality education to
                 learners worldwide, empowering them to pursue their passions and
                 achieve their goals.
               </p>
               <p className="mb-4">
-                At Your E-Learning Platform , we believe that education should
+                At Your EduNexus Platform , we believe that education should
                 be inclusive, flexible, and engaging. That's why we offer a
                 diverse range of courses taught by industry experts, covering
                 topics spanning from technology and business to arts and
@@ -51,7 +51,7 @@ export default function About() {
                 <div className="col-sm-6">
                   <p className="mb-0">
                     <i className="fa fa-arrow-right text-primary me-2"></i>
-                    Online classNamees
+                    Online Lecture
                   </p>
                 </div>
                 <div className="col-sm-6">
