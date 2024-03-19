@@ -14,9 +14,25 @@ Including another URLconf
     1. Import the include() function: from django.urls import include, path
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
+
 from django.contrib import admin
-from django.urls import path
+from django.urls import path, include
+import user_authentication_app.views as views
+from django.conf import settings
+from .settings import *
+from django.conf.urls.static import static
+
+from user_authentication_app.views import LogoutView
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
+    path("", views.apiConnection, name="get_category"),
+    path("admin/", admin.site.urls),
+    path("user/", include("user_authentication_app.urls")),
+    path("course/", include("courseListAPI.urls")),
+    path("api/",include('payment_app.urls')),
+    path("chatapi/",include('realtime_chat.urls')),
+    path('review/', include('reviews.urls')),
+
 ]
+if settings.DEBUG:
+    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

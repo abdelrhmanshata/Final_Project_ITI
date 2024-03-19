@@ -1,0 +1,103 @@
+.form-control:focus {
+  box-shadow: none;
+  border-color: #ba68c8;
+}
+.BBody {
+  font-family: "Poppins", sans-serif;
+  justify-content: center;
+  align-items: center;
+  background-size: cover;
+  overflow-x: hidden;
+}
+.profile-button {
+  background: #06bbcc;
+  box-shadow: none;
+  border: none;
+}
+
+.profile-button:hover {
+  background: rgb(24, 90, 116);
+}
+
+/* .profile-button:focus {
+    background: rgb(24, 90, 116);
+    box-shadow: none
+} */
+.profile-button:active {
+  background: rgb(109, 112, 114);
+  box-shadow: none;
+}
+.home-page-container {
+  position: relative;
+  min-height: 50vh;
+}
+
+.add-course-button {
+  position: absolute;
+  bottom: 20px;
+  right: 20px;
+}
+
+.back:hover {
+  color: skyblue;
+  cursor: pointer;
+}
+
+.profile-settings {
+  background-color: #f9f9f9;
+  border-radius: 10px;
+  box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.1);
+}
+.labels {
+  margin-bottom: 10px;
+  font-size: medium;
+  font-weight: bold;
+}
+
+.form-control {
+  padding: 10px;
+  margin-bottom: 5px;
+  border: 1px solid grey;
+  border-radius: 5px;
+  font-size: 16px;
+  font-weight: bold;
+  transition: border-color 0.3s ease;
+}
+
+.form-control:focus {
+  outline: none;
+  border-color: skyblue;
+}
+.det {
+  width: 100%;
+  padding: 4px;
+  margin: 3px 0;
+  border: 1px solid #ced4da;
+  border-radius: 5px;
+  font-size: 16px;
+}
+
+.det:focus {
+  outline: none;
+  border-color: skyblue; /* Change the border color when focused */
+}
+.tabs {
+  background-color: #06bbcc;
+  padding-bottom: 5px;
+  padding-top: 5px;
+}
+.my-swal-confirm-button-class {
+  padding: 10px ; 
+  background-color:#d33; 
+  color: #fff;
+  margin-left: 10px; 
+}
+
+.my-swal-cancel-button-class {
+  padding: 10px ; 
+  background-color: #198754; 
+  color: #fff;
+  margin-right: 10px;
+  
+}
+
