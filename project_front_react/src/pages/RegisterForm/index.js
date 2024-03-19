@@ -116,9 +116,8 @@ export default function RegisterForm() {
                 setFormData({ ...formData, usertype: "student" });
               }}
             >
-              {" "}
               <PiStudent />
-              Student{" "}
+              Student
             </div>
           </div>
           <div className="input-box">
@@ -278,7 +277,7 @@ export default function RegisterForm() {
                 >
                   <option value=""> Choose ClassRoom</option>
                   <option value="First">First</option>
-                  <option value="Secound">Secound</option>
+                  <option value="Second">Second</option>
                   <option value="Third">Third</option>
                 </select>
                 <div className="select-arrow">
