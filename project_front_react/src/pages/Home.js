@@ -8,7 +8,7 @@ import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import Chat from "./Chating/Chat";
+// import Chat from "./Chating/Chat";
 
 export default function Home() {
   // const dispatch = useDispatch();

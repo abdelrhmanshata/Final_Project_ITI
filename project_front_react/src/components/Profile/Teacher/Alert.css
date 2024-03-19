@@ -1,0 +1,15 @@
+.my-swal-confirm {
+    padding: 10px ; 
+    background-color:#198754; 
+    color: #fff;
+    margin-left: 10px;
+  }
+  
+  .my-swal-cancel{
+    padding: 10px ; 
+    background-color: #d33; 
+    color: #fff;
+    margin-left: 10px;
+    
+  }
+  
