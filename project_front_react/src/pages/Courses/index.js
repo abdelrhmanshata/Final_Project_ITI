@@ -9,7 +9,7 @@ import { axiosInstance } from "api/config";
 
 export default function CoursesPage() {
   const [numPage, setNumPage] = useState(0);
-  const [limit] = useState(10);
+  const [limit] = useState(9);
   const [allCourses, setAllCourses] = useState([]);
   const [courses, setCourses] = useState([]);
   const [category, setCategory] = useState("");

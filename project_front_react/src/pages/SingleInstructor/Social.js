@@ -13,9 +13,15 @@ import HoverRating from "components/SingleCourse/Lesson/HoverRating";
 import React from "react";
 import { useState } from "react";
 import { BiStar } from "react-icons/bi";
+import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
+import { updateState } from "store/slices/update";
 
 export default function Socialprofile({ avatar, teacher }) {
+  const dispatch = useDispatch();
+  const isUpdate = useSelector((state) => state.update.isUpdate);
+  // 
+ 
   const [value, setValue] = useState(0);
   const [reviewText, setReviewText] = useState("");
   const [open, setOpen] = useState(false);
@@ -48,6 +54,8 @@ export default function Socialprofile({ avatar, teacher }) {
         setReviewText("");
         setValue(0);
         setOpen(false);
+        dispatch(updateState(isUpdate+1));
+
       }
     } catch (error) {
       console.log(error);
