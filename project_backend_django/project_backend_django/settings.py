@@ -84,7 +84,7 @@ WSGI_APPLICATION = "project_backend_django.wsgi.application"
 DATABASES = {
     "default": {
         "ENGINE": "django.db.backends.postgresql",
-        "NAME": "e-learningtest",
+        "NAME": "e-learning",
         "USER": "postgres",
         "PASSWORD": "19991999",
         "HOST": "localhost",
@@ -162,11 +162,11 @@ EMAIL_HOST_PASSWORD = os.environ.get("EMAIL_PASS", "vkrdrgrbegzmkfds")
 
 JAZZMIN_SETTINGS = {
     # title of the window (Will default to current_admin_site.site_title if absent or None)
-    "site_title": "EduNesxus E-Learning",
+    "site_title": "EduNexus",
     # Title on the login screen (19 chars max) (defaults to current_admin_site.site_header if absent or None)
-    "site_header": "EduNesxus E-Learning",
+    "site_header": "EduNexus",
     # Title on the brand (19 chars max) (defaults to current_admin_site.site_header if absent or None)
-    "site_brand": "EduNesxus E-Learning",
+    "site_brand": "EduNexus",
     # Logo to use for your site, must be present in static files, used for brand on top left
     "site_logo": None,
     # Logo to use for your site, must be present in static files, used for login form logo (defaults to site_logo)
@@ -178,9 +178,9 @@ JAZZMIN_SETTINGS = {
     # Relative path to a favicon for your site, will default to site_logo if absent (ideally 32x32 px)
     "site_icon": None,
     # Welcome text on the login screen
-    "welcome_sign": "EduNesxus E-Learning",
+    "welcome_sign": "EduNexus E-Learning",
     # Copyright on the footer
-    "copyright": "EduNesxus E-Learning",
+    "copyright": "EduNexus E-Learning",
     # List of model admins to search from the search bar, search bar omitted if excluded
     # If you want to use a single search field you dont need to use a list, you can use a simple string
     "search_model": ["user_authentication_app.User"],

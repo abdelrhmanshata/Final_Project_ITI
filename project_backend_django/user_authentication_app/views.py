@@ -17,15 +17,11 @@ from user_authentication_app import serializers
 from django.views.static import serve
 from django.conf import settings
 from django.contrib.auth import authenticate
-
-# ------------
 from rest_framework.exceptions import APIException
 from rest_framework.response import Response
 from rest_framework.views import APIView
 from django.contrib.auth.forms import SetPasswordForm
 from django.template.loader import render_to_string
-
-# ------------
 from django.core.mail import EmailMessage
 
 
