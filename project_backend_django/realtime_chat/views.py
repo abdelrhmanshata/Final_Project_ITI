@@ -11,5 +11,4 @@ class messageAPIView(APIView):
             'username':request.data['username'],
             'message':request.data['message'],
         })
-
         return Response([])

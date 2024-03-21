@@ -1,7 +1,12 @@
 import { axiosInstance } from "api/config";
 import React, { useCallback, useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 
 export default function ReviewsComponent({ teacher }) {
+  const dispatch = useDispatch();
+  const isUpdate = useSelector((state) => state.update.isUpdate);
+  // dispatch(updateState(isUpdate+1));
+
   const [numCourses, setNumCourses] = useState(0);
   const [reviewCount, setReviewCount] = useState(0);
 
@@ -34,7 +39,7 @@ export default function ReviewsComponent({ teacher }) {
   useEffect(() => {
     getNumCourses();
     getReviewCount();
-  }, [teacher]);
+  }, [teacher,isUpdate]);
 
   return (
     <div className="row mb-7  justify-content-center align-items-center">

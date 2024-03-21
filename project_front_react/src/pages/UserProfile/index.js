@@ -97,13 +97,11 @@ export default function ProfileUser() {
     }
   };
   const handleConfirm = () => {
-    console.log('Confirmed');
-  
+    console.log("Confirmed");
   };
 
   const handleCancel = () => {
-    console.log('Cancelled');
-   
+    console.log("Cancelled");
   };
 
   const handleClose = (event, reason) => {
@@ -164,7 +162,6 @@ export default function ProfileUser() {
                         accept="image/*"
                       />
                     </div>
-                  
 
                     <span className="fw-bold fs-3">
                       <span>{user.name}</span>
@@ -174,16 +171,15 @@ export default function ProfileUser() {
                     </span>
 
                     <Rating name="read-only" value={4} readOnly />
-                    <FormDialog />
-               
-                    <ConfirmDialog onConfirm={handleConfirm} onCancel={handleCancel} />
+                    <FormDialog email={user.email} />
 
+                    <ConfirmDialog
+                      onConfirm={handleConfirm}
+                      onCancel={handleCancel}
+                    />
                   </div>
-                  
                 </div>
-               
               </>
-          
             ) : null}
             {selectedTab === 0 && (
               <div className="col-md-10 border-right">

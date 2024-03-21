@@ -48,11 +48,15 @@ export default function Router() {
         setIsAdmin(localStorage.getItem("isAdmin") === "true");
       }
       setUserType(localStorage.getItem("User_Type"));
-
+      console.log(typeof localStorage.getItem("isAdmin"));
       const isAuth = localStorage.getItem("User_ID").length > 0;
+
       if ((currentUrl === "/login" || currentUrl === "/register") && isAuth) {
-        if (isAdmin) navigate("/admin");
-        else navigate("/profile");
+        if (localStorage.getItem("User_Type") === null) {
+          navigate("/admin");
+        } else {
+          navigate("/profile");
+        }
       }
     }
   }, [isUpdate]);

@@ -86,7 +86,7 @@ DATABASES = {
         "ENGINE": "django.db.backends.postgresql",
         "NAME": "e-learning",
         "USER": "postgres",
-        "PASSWORD": "19991999",
+        "PASSWORD": "120699",  
         "HOST": "localhost",
         "PORT": "5432",
     }
@@ -126,6 +126,9 @@ USE_TZ = True
 
 
 STATIC_URL = "/static/"
+STATICFILES_DIRS = [
+    os.path.join(BASE_DIR, "static"),
+]
 # STATICFILES_DIRS =[BASE_DIR/"static"]
 # MEDIA_ROOT=BASE_DIR / 'course'
 STATIC_ROOT = os.path.join(BASE_DIR, STATIC_URL)
@@ -168,24 +171,24 @@ JAZZMIN_SETTINGS = {
     # Title on the brand (19 chars max) (defaults to current_admin_site.site_header if absent or None)
     "site_brand": "EduNexus",
     # Logo to use for your site, must be present in static files, used for brand on top left
-    "site_logo": None,
+    "site_logo": "img/logo.png",
     # Logo to use for your site, must be present in static files, used for login form logo (defaults to site_logo)
-    "login_logo": None,
+    "login_logo": "img/logo.png",
     # Logo to use for login form in dark themes (defaults to login_logo)
-    "login_logo_dark": None,
+    "login_logo_dark": "img/logo.png",
     # CSS classes that are applied to the logo above
     "site_logo_classes": "img-circle",
     # Relative path to a favicon for your site, will default to site_logo if absent (ideally 32x32 px)
-    "site_icon": None,
+    "site_icon": "img/logo.png",
     # Welcome text on the login screen
-    "welcome_sign": "EduNexus E-Learning",
+    "welcome_sign": "EduNexus",
     # Copyright on the footer
-    "copyright": "EduNexus E-Learning",
+    "copyright": "EduNexus",
     # List of model admins to search from the search bar, search bar omitted if excluded
     # If you want to use a single search field you dont need to use a list, you can use a simple string
     "search_model": ["user_authentication_app.User"],
     # Field name on user model that contains avatar ImageField/URLField/Charfield or a callable that receives the user
-    "user_avatar": None,
+    "user_avatar": "None",
     ############
     # Top Menu #
     ############

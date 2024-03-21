@@ -2,9 +2,11 @@ import * as React from "react";
 import Card from "@mui/material/Card";
 import CardActions from "@mui/material/CardActions";
 import CardContent from "@mui/material/CardContent";
+
 import CardMedia from "@mui/material/CardMedia";
 import Typography from "@mui/material/Typography";
 import ExpandIcon from "./ExpandIcon";
+import './Alert.css';
 import { MdEdit, MdOutlineDeleteForever, MdRemoveRedEye } from "react-icons/md";
 import {
   Accordion,
@@ -17,13 +19,14 @@ import { axiosInstance } from "api/config";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import AddRequirement from "./Other/AddRequirement";
+
 import YouLearn from "./Other/YouLearn";
 import ListRequirement from "./Other/ListRequirement";
 import ListSkillsWillLearn from "./Other/ListSkillsWillLearn";
 import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
 import { useDispatch, useSelector } from "react-redux";
 import { updateState } from "store/slices/update";
-
+import Swal from "sweetalert2";
 export default function CardCourse({ course }) {
   const dispatch = useDispatch();
   const isUpdate = useSelector((state) => state.update.isUpdate);
@@ -40,21 +43,37 @@ export default function CardCourse({ course }) {
   const handleUpdate = async () => {};
 
   const handleDelete = async () => {
-    try {
-      await axiosInstance
-        .get(`/course/deleteACourse/${course.id}`)
-        .then((res) => {
-          setMessage(res.data.message);
+    Swal.fire({
+      title: "Are you sure?",
+      text: "You won't be able to revert this!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonText: "Yes, delete it!",
+      confirmButtonColor: '#d33',
+      cancelButtonText: "No, cancel!",
+      cancelButtonColor: '#198754',
+
+      reverseButtons: true,
+
+     
+
+    }).then(async (result) => {
+      if (result.isConfirmed) {
+        try {
+          await axiosInstance.get(`/course/deleteACourse/${course.id}`);
+          setMessage("Your file has been deleted.");
           setOpen(true);
           dispatch(updateState(isUpdate + 1));
-        })
-        .catch((err) => console.log(err));
-    } catch (error) {
-      console.log(error);
-    }
+        } catch (error) {
+          console.log(error);
+        }
+      } else if (result.dismiss === Swal.DismissReason.cancel) {
+        setMessage("Your imaginary file is safe :)");
+        setOpen(true);
+      }
+    });
   };
 
-  // Snackbar
   const handleClose = (event, reason) => {
     if (reason === "clickaway") {
       return;

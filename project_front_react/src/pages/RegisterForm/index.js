@@ -58,7 +58,7 @@ export default function RegisterForm() {
             "Content-Type": "multipart/form-data",
           },
         });
-        // Handle success (e.g., show success message to the user)
+
         if (response.status === 201) {
           notify("User registered successfully");
           setLoading(false);
@@ -75,7 +75,6 @@ export default function RegisterForm() {
             notify(error);
           });
         } else {
-          console.log(error.response)
           notify("An error occurred. Please try again later.");
         }
         setLoading(false);
@@ -117,9 +116,8 @@ export default function RegisterForm() {
                 setFormData({ ...formData, usertype: "student" });
               }}
             >
-              {" "}
               <PiStudent />
-              Student{" "}
+              Student
             </div>
           </div>
           <div className="input-box">
@@ -279,7 +277,7 @@ export default function RegisterForm() {
                 >
                   <option value=""> Choose ClassRoom</option>
                   <option value="First">First</option>
-                  <option value="Secound">Secound</option>
+                  <option value="Second">Second</option>
                   <option value="Third">Third</option>
                 </select>
                 <div className="select-arrow">

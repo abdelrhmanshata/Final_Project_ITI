@@ -7,8 +7,15 @@ import Footer from "components/Footer";
 import { useParams } from "react-router-dom";
 import { useCallback, useEffect, useState } from "react";
 import { axiosInstance } from "api/config";
+import { useDispatch, useSelector } from "react-redux";
+import { updateState } from "store/slices/update";
 
 export default function SingleInstructor() {
+   const dispatch = useDispatch();
+  const isUpdate = useSelector((state) => state.update.isUpdate);
+  // dispatch(updateState(isUpdate+1));
+
+  
   const params = useParams();
   const [user, setUser] = useState({});
   const [avatar, setAvatar] = useState("");
@@ -29,7 +36,7 @@ export default function SingleInstructor() {
 
   useEffect(() => {
     getData();
-  }, []);
+  }, [isUpdate]);
 
   return (
     <>

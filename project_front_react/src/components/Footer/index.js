@@ -1,9 +1,11 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import image1 from "../../assets/img/course-1.jpg";
 import image2 from "../../assets/img/course-2.jpg";
 import image3 from "../../assets/img/course-3.jpg";
 
 export default function Footer() {
+  const navigate = useNavigate();
+
   return (
     <>
       {/* <!-- Footer Start --> */}
@@ -38,10 +40,11 @@ export default function Footer() {
                 Egypt
               </p>
               <p className="mb-2">
-                <i className="fa fa-phone-alt me-3"></i>+012 345 67890
+                <i className="fa fa-phone-alt me-3"></i>+20 120 720 2456
               </p>
               <p className="mb-2">
-                <i className="fa fa-envelope me-3"></i>info@example.com
+                <i className="fa fa-envelope me-3"></i>
+                abdelrhmanmohamed@gmail.com
               </p>
               <div className="d-flex pt-2">
                 <Link className="btn btn-outline-light btn-social" to="">
@@ -93,7 +96,9 @@ export default function Footer() {
                   type="text"
                   placeholder="Your email"
                 />
+
                 <button
+                  onClick={() => navigate("/register")}
                   type="button"
                   className="btn btn-primary py-2 position-absolute top-0 end-0 mt-2 me-2"
                 >

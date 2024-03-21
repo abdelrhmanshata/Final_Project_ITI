@@ -72,7 +72,7 @@ class RegisterView(APIView):
                 )
             serializer.save()
             data = {
-                "message": "added successfully",
+                "message": "Added successfully",
                 "id": serializer.data["id"],
                 "status": status.HTTP_201_CREATED,
             }
@@ -135,7 +135,6 @@ class LogoutView(APIView):
         return response
 
 
-
 class ForgetPasswordView(APIView):
     def post(self, request):
         email = request.data["email"]
@@ -176,7 +175,8 @@ class ResetPasswordView(APIView):
         user.save()
 
         return Response({"message": "success"})
-    
+
+
 class ChangePasswordView(APIView):
     def post(self, request):
         data = request.data
@@ -196,7 +196,9 @@ class ChangePasswordView(APIView):
         if new_password != confirm_password:
             raise APIException("New passwords do not match")
 
-        form = SetPasswordForm(user, {"new_password1": new_password, "new_password2": confirm_password})
+        form = SetPasswordForm(
+            user, {"new_password1": new_password, "new_password2": confirm_password}
+        )
 
         if form.is_valid():
             form.save()
@@ -264,7 +266,7 @@ def Update_User(request, id):
 
 
 #  delete specific user
-@api_view(["GET"])
+@api_view(["DELETE"])
 def Delete_User(request, id):
     User_Delete = User.objects.filter(id=id).first()
     if User_Delete:
